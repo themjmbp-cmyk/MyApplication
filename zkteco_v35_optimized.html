@@ -275,7 +275,7 @@ function setR50Custom(side,idx,field,val){
   const list=side==='left'?accLeft:accRight;
   if(!list[idx])return;
   list[idx][field]=val;
-  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();autoSave();
 }
 // R50 total width = glass width + 100mm (50mm post on each side)
 // All other accessories have fixed W from catalog
@@ -328,7 +328,7 @@ es:{tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'
   alertOver:(tw,lim)=>`Ancho total <b>${tw} mm</b> supera el hueco <b>${lim} mm</b> — exceso <b>${tw-lim} mm</b>`,
   alertNear:(tw,lim)=>`Ancho total <b>${tw} mm</b> — quedan <b>${lim-tw} mm</b> disponibles`,
   alertOverBadge:'NO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
-  ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',
+  ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',r50Width:'Ancho',r50Height:'Alto',
 },
 en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
@@ -363,7 +363,7 @@ en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   alertOver:(tw,lim)=>`Total width <b>${tw} mm</b> exceeds opening <b>${lim} mm</b> — overflow <b>${tw-lim} mm</b>`,
   alertNear:(tw,lim)=>`Total width <b>${tw} mm</b> — <b>${lim-tw} mm</b> remaining`,
   alertOverBadge:'DOES NOT FIT',alertNearBadge:'TIGHT FIT',pdfPage:'Page',uiGabinets:'units',
-  ficAcc:'ACCESSORIES',glass:'glass',accLabel:'ACCESSORIES:',lane:'lane',lanes:'lanes',covClient:'Client',covGates:'GATES',
+  ficAcc:'ACCESSORIES',glass:'glass',accLabel:'ACCESSORIES:',lane:'lane',lanes:'lanes',covClient:'Client',covGates:'GATES',r50Width:'Width',r50Height:'Height',
 },
 pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
@@ -398,7 +398,7 @@ pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'
   alertOver:(tw,lim)=>`Largura <b>${tw} mm</b> excede o vão <b>${lim} mm</b> — excesso <b>${tw-lim} mm</b>`,
   alertNear:(tw,lim)=>`Largura <b>${tw} mm</b> — <b>${lim-tw} mm</b> disponíveis`,
   alertOverBadge:'NÃO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
-  ficAcc:'ACESSÓRIOS',glass:'vidro',accLabel:'ACESSÓRIOS:',lane:'corredor',lanes:'corredores',covClient:'Cliente',covGates:'PORTÕES',
+  ficAcc:'ACESSÓRIOS',glass:'vidro',accLabel:'ACESSÓRIOS:',lane:'corredor',lanes:'corredores',covClient:'Cliente',covGates:'PORTÕES',r50Width:'Largura',r50Height:'Altura',
 }};
 let LANG='es';
 const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
@@ -456,13 +456,13 @@ function renderAccSide(side,list,itemsId,addId){
         // R50: show custom numeric inputs for glass width and height
         const gW=+(item.r50gW)||920, gH=+(item.r50gH)||600;
         extraHtml=`<div class="ac-r50-row">
-          <span class="ac-r50-lbl">Vidrio:</span>
-          <span class="ac-r50-lbl">Ancho</span>
+          <span class="ac-r50-lbl">${T('glass')}:</span>
+          <span class="ac-r50-lbl">${T('r50Width')}</span>
           <input class="ac-r50-inp" type="number" min="${a.gWmin}" max="${a.gWmax}" step="10" value="${gW}"
             onchange="setR50Custom('${side}',${idx},'r50gW',Math.max(${a.gWmin},Math.min(${a.gWmax},+this.value)))">
           <span class="ac-r50-unit">mm</span>
           <span class="ac-r50-range">(${a.gWmin}–${a.gWmax})</span>
-          <span class="ac-r50-lbl" style="margin-left:4px">Alto</span>
+          <span class="ac-r50-lbl" style="margin-left:4px">${T('r50Height')}</span>
           <input class="ac-r50-inp" type="number" min="${a.gHmin}" max="${a.gHmax}" step="10" value="${gH}"
             onchange="setR50Custom('${side}',${idx},'r50gH',Math.max(${a.gHmin},Math.min(${a.gHmax},+this.value)))">
           <span class="ac-r50-unit">mm</span>
@@ -488,12 +488,12 @@ function addAcc(side,code){
   const list=side==='left'?accLeft:accRight;
   if(list.length>=MAX_ACC_PER_SIDE)return;
   list.push({code,r50gi:0,r50gW:920,r50gH:600});
-  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();autoSave();
 }
 function removeAcc(side,idx){
   const list=side==='left'?accLeft:accRight;
   list.splice(idx,1);
-  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();autoSave();
 }
 function setAccGlass(side,idx,gi){
   const list=side==='left'?accLeft:accRight;
@@ -511,8 +511,31 @@ function updateAlerts(){
   else if(state==='near'){document.getElementById('alert-body').innerHTML=T('alertNear')(tw,siteLimit);document.getElementById('alert-badge').textContent=T('alertNearBadge');}
   const inp=document.getElementById('limit-input');inp.className='lf'+(state?' '+state:'');
 }
-function onLimitChange(){siteLimit=parseInt(document.getElementById('limit-input').value)||0;updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}
+function onLimitChange(){siteLimit=parseInt(document.getElementById('limit-input').value)||0;updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();autoSave();}
 function setPage(p){PAGE=p;['cad','wiring','ficha','cover'].forEach(id=>{document.getElementById('page-'+id).style.display=id===p?'':'none';document.getElementById('tab-'+id).classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();}
+
+// ══ AUTO-SAVE (LocalStorage) ══════════════════════════════════
+const LS_KEY='zkteco-cad-v35';
+function autoSave(){
+  try{
+    const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
+    localStorage.setItem(LS_KEY,JSON.stringify({version:'3',model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
+  }catch(e){}
+}
+function autoLoad(){
+  try{
+    const raw=localStorage.getItem(LS_KEY);if(!raw)return false;
+    const d=JSON.parse(raw);
+    if(d.model&&MODELS[d.model])M=d.model;
+    if(Array.isArray(d.lanes))lanes=d.lanes.map(l=>({pgIdx:+(l.pgIdx)||0,lfIdx:+(l.lfIdx)||0}));
+    if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
+    if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
+    accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
+    return true;
+  }catch(e){return false;}
+}
 
 // ══ SAVE / LOAD ═══════════════════════════════════════════════
 function saveProject(){
@@ -533,7 +556,7 @@ function loadProject(e){
       accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
       accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
       if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
-      ui();redrawPage();
+      ui();redrawPage();autoSave();
     }catch(err){alert('Error: '+err.message);}
     e.target.value='';
   };reader.readAsText(file);
@@ -889,7 +912,7 @@ function drawCAD(){
   FE.filter(e=>e.type==='lane').forEach(e=>{const{pg}=getLane(e.li),gap=r((pg.s-pg.c)/2*fsc),clw=r(pg.c*fsc),xi=r(e.x0+gap),xo=r(xi+clw),ew=r(xo-xi),ec=5;h+=`<line x1="${xi}" y1="${r(D_CLR_Y-ec)}" x2="${xi}" y2="${r(D_CLR_Y+ec)}" stroke="#2a7a2a" stroke-width="1"/>`;h+=`<line x1="${xo}" y1="${r(D_CLR_Y-ec)}" x2="${xo}" y2="${r(D_CLR_Y+ec)}" stroke="#2a7a2a" stroke-width="1"/>`;if(ew>6)h+=`<line x1="${r(xi+.5)}" y1="${r(D_CLR_Y)}" x2="${r(xo-.5)}" y2="${r(D_CLR_Y)}" stroke="#2a7a2a" stroke-width=".8" marker-start="url(#da)" marker-end="url(#da)"/>`;if(ew>16){const fs=ew<40?6.5:ew<70?8:9.5;h+=`<text x="${r((xi+xo)/2)}" y="${r(D_CLR_Y-8)}" text-anchor="middle" ${FM} font-size="${fs}" fill="#2a7a2a" font-weight="600">${e.c}</text>`;}});
   [{c:'#c08800',v:'Ancho total'},{c:'#1a5fa0',k:'totalLbl'},{c:'#555',k:'slotDimLbl'},{c:'#2a7a2a',k:'libreLbl'}].forEach(({c,k,v},ki)=>{const yy=D_TOT_Y+(ki-1)*22-2;if(ki===0)return;h+=`<line x1="${r(FXL+4)}" y1="${r(yy+3)}" x2="${r(FXL+14)}" y2="${r(yy+3)}" stroke="${c}" stroke-width="1.8"/>`;h+=`<text x="${r(FXL+17)}" y="${r(yy+6)}" ${FM} font-size="5.5" fill="${c}">${k?T(k):v}</text>`;});
   h+=`<line x1="${r(FXL+4)}" y1="${r(D_TOT_Y-14+3)}" x2="${r(FXL+14)}" y2="${r(D_TOT_Y-14+3)}" stroke="#c08800" stroke-width="2"/>`;
-  h+=`<text x="${r(FXL+17)}" y="${r(D_TOT_Y-14+6)}" ${FM} font-size="5.5" fill="#c08800">Ancho total</text>`;
+  h+=`<text x="${r(FXL+17)}" y="${r(D_TOT_Y-14+6)}" ${FM} font-size="5.5" fill="#c08800">${T('twLabel')}</text>`;
 
   if(siteLimit>0)h+=limitLine(r(fox-fLWpx),fsc,D_TOT_Y-20,fgy+4,r(D_TOT_Y+10));
 
@@ -1175,12 +1198,13 @@ function drawCover(){
     h+=`<text x="40" y="${ry+42}" ${FM} font-size="9.5" font-weight="bold" fill="#c08800">${accSummary}</text>`;
   }
   h+=`<text x="${c2x}" y="168" ${FM} font-size="7" fill="#888" letter-spacing="1">${T('covLeaves')}</text>`;
-  lanes.forEach((_,i)=>{const{pg,lf}=getLane(i),y=182+i*26;h+=`<rect x="${c2x}" y="${r(y-10)}" width="${W-c2x-40}" height="22" fill="#fff" stroke="#e0e0e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${r(c2x+8)}" y="${r(y+1)}" ${FM} font-size="7.5" fill="#14304f" font-weight="bold">C${i+1} · ${pg.l}mm libre</text>`;h+=`<text x="${r(c2x+8)}" y="${r(y+10)}" ${FM} font-size="6.5" fill="#555">${lf.label} · ${lf.gmp}</text>`;});
+  lanes.forEach((_,i)=>{const{pg,lf}=getLane(i),y=182+i*26;h+=`<rect x="${c2x}" y="${r(y-10)}" width="${W-c2x-40}" height="22" fill="#fff" stroke="#e0e0e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${r(c2x+8)}" y="${r(y+1)}" ${FM} font-size="7.5" fill="#14304f" font-weight="bold">C${i+1} · ${pg.l}mm ${T('libreLbl')}</text>`;h+=`<text x="${r(c2x+8)}" y="${r(y+10)}" ${FM} font-size="6.5" fill="#555">${lf.label} · ${lf.gmp}</text>`;});
   h+=`<line x1="40" y1="${H-130}" x2="${W-40}" y2="${H-130}" stroke="#14304f" stroke-width=".5"/>`;
   const fbY=H-118,fbH=80,fcW=r((W-20)/4);h+=`<rect x="10" y="${fbY}" width="${W-20}" height="${fbH+28}" fill="#fff" stroke="#14304f" stroke-width=".5"/>`;
   [[T('covBy'),author],[T('covCheck'),rev==='—'?'—':rev],[T('covDate'),dateStr],[T('covRev'),version]].forEach(([tx,v],k)=>{const fx=10+k*fcW;if(k>0)h+=`<line x1="${fx}" y1="${fbY}" x2="${fx}" y2="${fbY+fbH+28}" stroke="#14304f" stroke-width=".5"/>`;h+=`<text x="${r(fx+8)}" y="${r(fbY+12)}" ${FM} font-size="7" fill="#888" letter-spacing=".8">${tx}</text>`;h+=`<text x="${r(fx+8)}" y="${r(fbY+30)}" ${FM} font-size="11" font-weight="bold" fill="#14304f">${v}</text>`;});
   h+=`<rect x="10" y="${H-30}" width="${W-20}" height="20" fill="#14304f"/>`;h+=`<text x="360" y="${H-16}" text-anchor="middle" ${FM} font-size="7" fill="#7dd87a" letter-spacing="1">ZKTeco Corp. © 2025 — www.zkteco.com</text>`;
   document.getElementById('covsvg').innerHTML=h;
+  autoSave();
 }
 
 // ══ UI ════════════════════════════════════════════════════════
@@ -1192,7 +1216,7 @@ function ui(){
   document.getElementById('ip').disabled=N()>=6;
   document.getElementById('lr').innerHTML=lanes.map((l,i)=>{
     const pgI=Math.min(l.pgIdx,sp.pg.length-1),pg=sp.pg[pgI],lfI=Math.min(l.lfIdx,pg.leaves.length-1);
-    return`<div class="lc"><div class="ln">Pasillo ${i+1}</div>
+    return`<div class="lc"><div class="ln">${T('lane')} ${i+1}</div>
     <div class="lch">${sp.pg.map((p,j)=>`<button class="ch ${j===pgI?'op':''}" onclick="lanes[${i}]={pgIdx:${j},lfIdx:0};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${p.l}mm</button>`).join('')}</div>
     <div class="lch" style="margin-top:2px">${pg.leaves.length>1?pg.leaves.map((lv,j)=>`<button class="ch ${j===lfI?'ol':''}" onclick="lanes[${i}].lfIdx=${j};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${lv.label}</button>`).join(''):`<span style="font-size:8px;font-family:monospace;color:rgba(168,189,212,.4)">${pg.leaves[0].label}</span>`}</div>
     </div>`;
@@ -1201,17 +1225,17 @@ function ui(){
   const tc=st==='over'?'over':st==='near'?'near':'';
   const slack=siteLimit>0?rnd(siteLimit-TWtotal):null;
   document.getElementById('sk').innerHTML=`
-    <div class="sc"><span class="sl">Puertas</span><span class="sv">${rnd(TWg).toLocaleString()} mm</span></div>
+    <div class="sc"><span class="sl">${T('covGates')}</span><span class="sv">${rnd(TWg).toLocaleString()} mm</span></div>
     ${TWtotal!==TWg?`<div class="sc"><span class="sl">${T('twLabel')}</span><span class="sv ${tc}" style="${tc?'':'color:#c08800'}">${rnd(TWtotal).toLocaleString()} mm${st==='over'?' ⚠':''}</span></div>`:''}
     <div class="sc"><span class="sl">${T('nCabs')}</span><span class="sv">${N()+1} ${T('uiGabinets')}</span></div>
     <div class="sc"><span class="sl">PVC</span><span class="sv" style="color:${pvc.color}">${pvc.label}</span></div>
     ${siteLimit>0?`<div class="sc"><span class="sl">${T('maxLbl')}</span><span class="sv ${tc}">${st==='over'?T('alertOverBadge'):st==='near'?T('alertNearBadge'):'✓ '+slack+'mm'}</span></div>`:''}`;
-  updateAlerts();updateI18nDOM();renderAccBar();
+  updateAlerts();updateI18nDOM();renderAccBar();autoSave();
 }
 document.getElementById('dm').onclick=()=>{if(N()>1){lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('ip').onclick=()=>{if(N()<6){lanes.push({pgIdx:0,lfIdx:0});ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
-ui();drawCAD();
+autoLoad();ui();drawCAD();
 </script>
 </body>
 </html>
