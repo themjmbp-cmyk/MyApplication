@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>ZKTeco SpeedGate CAD v35</title>
+<html><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="manifest.json"><title>ZKTeco SpeedGate CAD v35</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#1a2a3a}
@@ -132,6 +132,22 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 .adr{display:flex;justify-content:space-between;padding:3px 0;border-bottom:.5px solid rgba(200,136,0,.1);gap:8px}.adr:last-child{border-bottom:none}
 .adk{font-size:8.5px;color:#666}.adv{font-size:10px;font-weight:700;color:#c08800;font-family:monospace}
 .ac-none-note{font-size:8px;color:#aaa;font-style:italic;padding:4px 0}
+/* ── MODAL MIS PROYECTOS ── */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#1a2a3a;border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:20px;width:100%;max-width:720px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.modal-box h2{font-family:monospace;font-size:13px;color:#7dd87a;margin:0;font-weight:700;letter-spacing:.5px}
+.pj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:8px;margin-top:4px}
+.pj-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px;transition:all .15s}
+.pj-card:hover{background:rgba(125,216,122,.08);border-color:rgba(125,216,122,.35)}
+.pj-name{font-size:11px;font-weight:700;color:#fff;font-family:monospace;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj-meta{font-size:9px;color:#6a8aaa;font-family:monospace;line-height:1.5}
+.pj-actions{display:flex;gap:4px;margin-top:8px}
+.pj-load{flex:1;padding:4px 0;border-radius:5px;border:1px solid rgba(125,216,122,.45);background:rgba(125,216,122,.1);color:#7dd87a;font-size:9px;cursor:pointer;font-family:monospace;font-weight:700;transition:all .12s}
+.pj-load:hover{background:rgba(125,216,122,.28)}
+.pj-del{padding:4px 10px;border-radius:5px;border:1px solid rgba(204,68,68,.4);background:transparent;color:#cc6666;font-size:9px;cursor:pointer;font-family:monospace;transition:all .12s}
+.pj-del:hover{background:rgba(204,68,68,.2)}
+.pj-empty{text-align:center;color:#4a6a8a;font-family:monospace;font-size:11px;padding:32px 0}
+.pj-active-dot{display:inline-block;width:6px;height:6px;background:#7dd87a;border-radius:50%;margin-right:4px;vertical-align:middle}
 @media print{
   body{background:#fff!important;color:#000!important}
   .tb,.pt,.cb,.lr,.acbar,.whb,.xb,.pb,.mb{display:none!important}
@@ -157,6 +173,9 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   <button class="ptb" id="tab-wiring" onclick="setPage('wiring')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="3" cy="8" r="2"/><circle cx="13" cy="8" r="2"/><path d="M5 8h1.5l1-3h1l1 3H11"/></svg> <span data-t="tabWiring">Cableado</span></button>
   <button class="ptb" id="tab-ficha" onclick="setPage('ficha')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/></svg> <span data-t="tabFicha">Ficha técnica</span></button>
   <button class="ptb" id="tab-cover" onclick="setPage('cover')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M3 1h7l3 3v11H3z"/><path d="M10 1v3h3"/></svg> <span data-t="tabCover">Portada</span></button>
+  <button class="ptb" id="tab-iso" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button>
+  <button class="ptb" id="tab-comp" onclick="setPage('comp')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/><line x1="4" y1="6" x2="4" y2="10"/><line x1="12" y1="6" x2="12" y2="10"/></svg> <span data-t="tabComp">Comparar</span></button>
+  <button class="ptb" style="margin-left:auto;border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
 </div>
 <div class="xb">
   <span class="xlbl" data-t="expProject">Proyecto</span>
@@ -236,6 +255,30 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   </div>
   <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabCover">Portada</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('covsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('covsvg','png')">PNG</button></div></div>
   <div class="dw"><svg id="covsvg" viewBox="0 0 720 560" role="img" data-ta="tabCover"></svg></div>
+</div>
+
+<div id="page-iso" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabIso">Vista 3D</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('isosvg','svg')">SVG</button><button class="bpe" onclick="exportPage('isosvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="isosvg" viewBox="0 0 720 480" role="img" data-ta="tabIso"></svg></div>
+</div>
+
+<div id="page-comp" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabComp">Comparar</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('cmpsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('cmpsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="cmpsvg" viewBox="0 0 720 520" role="img" data-ta="tabComp"></svg></div>
+</div>
+
+<!-- Modal Mis Proyectos -->
+<div id="proj-modal" class="modal-ov" style="display:none" onclick="if(event.target===this)closeProjects()">
+  <div class="modal-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2 data-t="projTitle">Mis Proyectos</h2>
+      <button onclick="closeProjects()" style="background:none;border:none;color:var(--t2);font-size:22px;cursor:pointer;line-height:1;padding:0 4px;transition:color .1s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">×</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)">
+      <button class="bf bsv" style="font-size:10px;padding:5px 14px" onclick="saveToProjects()"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="projSave">Guardar proyecto actual</span></button>
+    </div>
+    <div id="proj-list"></div>
+  </div>
 </div>
 </div>
 
@@ -346,6 +389,9 @@ es:{tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'
   errorLoad:'Error al cargar el proyecto',
   planTopView:'VISTA SUPERIOR',ficGapCentral:'GAP central',coverSecurityTag:'SEGURIDAD · CONTROL DE ACCESO',
   fldAuthorLbl:'Elaborado por',fldRevByLbl:'Revisado por',
+  tabIso:'Vista 3D',tabComp:'Comparar',tabProj:'Proyectos',
+  projSave:'Guardar proyecto actual',projLoad:'Cargar',projDel:'Eliminar',projEmpty:'No hay proyectos guardados.',projTitle:'Mis Proyectos',projMax:'Límite de 10 proyectos alcanzado',
+  compW:'Ancho gab.',compD:'Profundidad',compH:'Altura gab.',compCons:'Consumo',compSpeed:'Apertura',compTemp:'Temperatura',compPower:'Alimentación',compBolts:'Pernos/gab.',compLanes:'Pasillos',compActive:'activo',
 },
 en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
@@ -388,6 +434,9 @@ en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   errorLoad:'Error loading project',
   planTopView:'TOP VIEW',ficGapCentral:'Central GAP',coverSecurityTag:'SECURITY · ACCESS CONTROL',
   fldAuthorLbl:'Prepared by',fldRevByLbl:'Checked by',
+  tabIso:'ISO View',tabComp:'Compare',tabProj:'Projects',
+  projSave:'Save current project',projLoad:'Load',projDel:'Delete',projEmpty:'No saved projects.',projTitle:'My Projects',projMax:'10 project limit reached',
+  compW:'Cab. width',compD:'Depth',compH:'Cab. height',compCons:'Power',compSpeed:'Opening',compTemp:'Temperature',compPower:'Supply',compBolts:'Bolts/cab.',compLanes:'Lanes',compActive:'active',
 },
 pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
@@ -430,6 +479,9 @@ pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'
   errorLoad:'Erro ao carregar o projecto',
   planTopView:'VISTA SUPERIOR',ficGapCentral:'GAP central',coverSecurityTag:'SEGURANÇA · CONTROLO DE ACESSO',
   fldAuthorLbl:'Elaborado por',fldRevByLbl:'Revisto por',
+  tabIso:'Vista 3D',tabComp:'Comparar',tabProj:'Projetos',
+  projSave:'Guardar projeto atual',projLoad:'Carregar',projDel:'Eliminar',projEmpty:'Sem projetos guardados.',projTitle:'Os Meus Projetos',projMax:'Limite de 10 projetos atingido',
+  compW:'Larg. gab.',compD:'Profundidade',compH:'Altura gab.',compCons:'Consumo',compSpeed:'Abertura',compTemp:'Temperatura',compPower:'Alimentação',compBolts:'Parafusos/gab.',compLanes:'Corredores',compActive:'ativo',
 }};
 let LANG='es';
 const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
@@ -545,7 +597,7 @@ function updateAlerts(){
   const inp=document.getElementById('limit-input');inp.className='lf'+(state?' '+state:'');
 }
 function onLimitChange(){const val=parseInt(document.getElementById('limit-input').value,10)||0;siteLimit=Math.max(0,val);updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();autoSave();}
-function setPage(p){PAGE=p;['cad','wiring','ficha','cover'].forEach(id=>{document.getElementById('page-'+id).style.display=id===p?'':'none';document.getElementById('tab-'+id).classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();}
+function setPage(p){PAGE=p;['cad','wiring','ficha','cover','iso','comp'].forEach(id=>{const pg=document.getElementById('page-'+id);if(pg)pg.style.display=id===p?'':'none';const tb=document.getElementById('tab-'+id);if(tb)tb.classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();else if(p==='iso')drawISO();else if(p==='comp')drawComparator();}
 
 // ══ AUTO-SAVE (LocalStorage) ══════════════════════════════════
 const LS_KEY='zkteco-cad-v35';
@@ -1273,6 +1325,190 @@ function ui(){
 document.getElementById('dm').onclick=()=>{if(N()>1){lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('ip').onclick=()=>{if(N()<6){lanes.push({pgIdx:0,lfIdx:0});ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+
+// ══ MIS PROYECTOS ═════════════════════════════════════════════
+const PJ_KEY='zkteco-projects-v1';
+function getProjects(){try{return JSON.parse(localStorage.getItem(PJ_KEY)||'[]');}catch(e){return[];}}
+function _savePJStore(arr){try{localStorage.setItem(PJ_KEY,JSON.stringify(arr));}catch(e){console.error('Projects save error:',e);}}
+function saveToProjects(){
+  const name=prompt(T('projSave')+':',document.getElementById('f-project').value||'Proyecto');
+  if(!name||!name.trim())return;
+  const arr=getProjects();if(arr.length>=10){alert(T('projMax'));return;}
+  const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
+  arr.unshift({id:Date.now().toString(),name:name.trim(),model:M,nLanes:N(),date:new Date().toLocaleDateString(),tw:rnd(TWfull()),
+    data:JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,
+      cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}})});
+  _savePJStore(arr);renderProjectsModal();
+}
+function loadFromProjects(id){
+  const proj=getProjects().find(p=>p.id===id);if(!proj)return;
+  try{
+    const d=JSON.parse(proj.data);
+    if(d.model&&MODELS[d.model])M=d.model;
+    if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const mxP=sp2?sp2.pg.length-1:0,mxL=sp2?sp2.pg[Math.min(pg,mxP)].leaves.length-1:0;return{pgIdx:Math.min(pg,mxP),lfIdx:Math.min(lf,mxL)};});}
+    if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
+    if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
+    accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([eid,v])=>{const el=document.getElementById(eid);if(el&&v!=null)el.value=v;});}
+    closeProjects();ui();redrawPage();autoSave();
+  }catch(err){alert(T('errorLoad')+': '+err.message);}
+}
+function deleteProject(id){_savePJStore(getProjects().filter(p=>p.id!==id));renderProjectsModal();}
+function openProjects(){document.getElementById('proj-modal').style.display='flex';renderProjectsModal();}
+function closeProjects(){document.getElementById('proj-modal').style.display='none';}
+function renderProjectsModal(){
+  const arr=getProjects(),el=document.getElementById('proj-list');if(!el)return;
+  if(!arr.length){el.innerHTML=`<div class="pj-empty">${T('projEmpty')}</div>`;return;}
+  el.innerHTML='<div class="pj-grid">'+arr.map(p=>`<div class="pj-card">
+    <div class="pj-name">${p.model===M?`<span class="pj-active-dot"></span>`:''}${p.name}</div>
+    <div class="pj-meta">${(MODELS[p.model]||{labelEnd:p.model}).labelEnd} · ${p.nLanes} ${T('lanes')} · ${p.tw} mm</div>
+    <div class="pj-meta">${p.date}</div>
+    <div class="pj-actions">
+      <button class="pj-load" onclick="loadFromProjects('${p.id}')">${T('projLoad')}</button>
+      <button class="pj-del" onclick="if(confirm('${T('projDel')}?'))deleteProject('${p.id}')">${T('projDel')}</button>
+    </div></div>`).join('')+'</div>';
+}
+
+// ══ VISTA 3D ISOMÉTRICA ═══════════════════════════════════════
+function drawISO(){
+  const sp=MODELS[M];if(!sp)return;
+  const n=N(),TWg=TWgate(),TWL=accSideTotalW(accLeft),TWR=accSideTotalW(accRight),TWtotal=TWfull(),MAXH=maxH();
+  const depthZ=sp.D,accDepth=140,W=720,H=480;
+  const margin=20;
+  const projW=(TWtotal+depthZ)*0.866,projH=MAXH+(TWtotal+depthZ)*0.5;
+  const sc=Math.min((W-margin*2)/projW,(H-margin-60)/projH)*0.9;
+  const ox=r(margin+depthZ*0.866*sc);
+  const oy=r(margin+MAXH*sc);
+  const pt=(x,y,z)=>({sx:r(ox+(x-z)*0.866*sc),sy:r(oy+(x+z)*0.5*sc-y*sc)});
+  const pp=pts=>pts.map(q=>q.sx+','+q.sy).join(' ');
+  const box=(x0,z0,bw,bd,bh,col,al)=>{al=al||.92;
+    const f=[pt(x0,0,z0),pt(x0+bw,0,z0),pt(x0+bw,bh,z0),pt(x0,bh,z0)];
+    const t=[pt(x0,bh,z0),pt(x0+bw,bh,z0),pt(x0+bw,bh,z0+bd),pt(x0,bh,z0+bd)];
+    const s=[pt(x0+bw,0,z0),pt(x0+bw,0,z0+bd),pt(x0+bw,bh,z0+bd),pt(x0+bw,bh,z0)];
+    const sk='stroke="rgba(0,0,0,.28)" stroke-width=".5"';
+    return `<polygon points="${pp(f)}" fill="${col}" fill-opacity="${al}" ${sk}/>`+
+      `<polygon points="${pp(t)}" fill="${col}" fill-opacity="${r(al*.72)}" ${sk}/>`+
+      `<polygon points="${pp(t)}" fill="#fff" fill-opacity=".22" stroke="none"/>`+
+      `<polygon points="${pp(s)}" fill="${col}" fill-opacity="${r(al*.56)}" ${sk}/>`+
+      `<polygon points="${pp(s)}" fill="#000" fill-opacity=".16" stroke="none"/>`;};
+  let svg=`<rect width="${W}" height="${H}" fill="#eeede5"/>`;
+  svg+=`<rect x="8" y="8" width="${W-16}" height="${H-16}" fill="none" stroke="#14304f" stroke-width="1.2"/>`;
+  svg+=`<text x="18" y="24" ${FM} font-size="10" font-weight="bold" fill="#14304f" letter-spacing="1">${T('tabIso').toUpperCase()} — ${sp.label}</text>`;
+  svg+=`<text x="18" y="36" ${FM} font-size="7" fill="#777">${sp.sub} · ${n} ${n>1?T('lanes'):T('lane')} · ${rnd(TWtotal)} mm</text>`;
+  // Ground shadow
+  const gc=[pt(0,0,0),pt(TWtotal,0,0),pt(TWtotal,0,depthZ),pt(0,0,depthZ)];
+  svg+=`<polygon points="${pp(gc)}" fill="#bbb" fill-opacity=".25" stroke="#aaa" stroke-width=".4" stroke-dasharray="5 3"/>`;
+  // Accessories LEFT
+  let axL=0;
+  for(let i=0;i<accLeft.length;i++){
+    const itm=accLeft[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
+    axL+=ACC_GAP_MM;
+    svg+=box(axL,0,aW,accDepth,aH,'#c08800',.78);
+    if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
+      const gX=axL+(aW-gW)/2,gZ=20;
+      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
+      svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
+    axL+=aW;
+  }
+  // Gate cabinets + lanes
+  let cx=TWL;
+  for(let i=0;i<=n;i++){
+    svg+=box(cx,0,sp.W,depthZ,sp.H,sp.mc,1);
+    // Wire dot on front face
+    if(i===0||i===n){const wOff=i===0?sp.wireOff:sp.W-sp.wireOff;const wp=pt(cx+wOff,sp.H*.5,0);svg+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
+    cx+=sp.W;
+    if(i<n){
+      const{pg}=getLane(i),lW=pg.s;
+      const lf=[pt(cx,0,0),pt(cx+lW,0,0),pt(cx+lW,0,depthZ),pt(cx,0,depthZ)];
+      svg+=`<polygon points="${pp(lf)}" fill="#7dd87a" fill-opacity=".1" stroke="rgba(125,216,122,.4)" stroke-width=".6"/>`;
+      const lmid=pt(cx+lW/2,2,depthZ/2);
+      svg+=`<text x="${lmid.sx}" y="${lmid.sy}" text-anchor="middle" ${FM} font-size="7" fill="#1a7a30" font-weight="bold">${pg.l} mm</text>`;
+      cx+=lW;
+    }
+  }
+  // Accessories RIGHT
+  let axR=TWL+TWg;
+  for(let i=0;i<accRight.length;i++){
+    const itm=accRight[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
+    axR+=ACC_GAP_MM;
+    svg+=box(axR,0,aW,accDepth,aH,'#c08800',.78);
+    if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
+      const gX=axR+(aW-gW)/2,gZ=20;
+      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
+      svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
+    axR+=aW;
+  }
+  // Total width dimension line
+  const dL=pt(0,0,depthZ),dR=pt(TWtotal,0,depthZ);
+  const dY=12;
+  svg+=`<line x1="${dL.sx}" y1="${dL.sy+dY}" x2="${dR.sx}" y2="${dR.sy+dY}" stroke="#14304f" stroke-width=".8"/>`;
+  svg+=`<line x1="${dL.sx}" y1="${dL.sy+dY-5}" x2="${dL.sx}" y2="${dL.sy+dY+5}" stroke="#14304f" stroke-width=".8"/>`;
+  svg+=`<line x1="${dR.sx}" y1="${dR.sy+dY-5}" x2="${dR.sx}" y2="${dR.sy+dY+5}" stroke="#14304f" stroke-width=".8"/>`;
+  svg+=`<text x="${r((dL.sx+dR.sx)/2)}" y="${r((dL.sy+dR.sy)/2+dY+12)}" text-anchor="middle" ${FM} font-size="8" fill="#14304f" font-weight="bold">${rnd(TWtotal)} mm</text>`;
+  // Depth dimension
+  const dp1=pt(TWtotal,0,0),dp2=pt(TWtotal,0,depthZ);
+  const dx=10;
+  svg+=`<line x1="${dp1.sx+dx}" y1="${dp1.sy}" x2="${dp2.sx+dx}" y2="${dp2.sy}" stroke="#666" stroke-width=".6" stroke-dasharray="3 2"/>`;
+  svg+=`<text x="${dp2.sx+dx+5}" y="${r((dp1.sy+dp2.sy)/2+3)}" ${FM} font-size="6.5" fill="#666">${sp.D} mm</text>`;
+  // Height dimension
+  const hp1=pt(0,0,0),hp2=pt(0,sp.H,0);
+  const hx=-8;
+  svg+=`<line x1="${hp1.sx+hx}" y1="${hp1.sy}" x2="${hp2.sx+hx}" y2="${hp2.sy}" stroke="#666" stroke-width=".6" stroke-dasharray="3 2"/>`;
+  svg+=`<text x="${hp1.sx+hx-3}" y="${r((hp1.sy+hp2.sy)/2+3)}" text-anchor="end" ${FM} font-size="6.5" fill="#666">${rnd(sp.H)} mm</text>`;
+  document.getElementById('isosvg').innerHTML=svg;
+}
+
+// ══ COMPARADOR DE MODELOS ═════════════════════════════════════
+function drawComparator(){
+  const W=720,H=520,colX=94,colW=r((W-colX-14)/MK.length);
+  let svg=`<rect width="${W}" height="${H}" fill="#eeede5"/>`;
+  svg+=`<rect x="8" y="8" width="${W-16}" height="${H-16}" fill="none" stroke="#14304f" stroke-width="1.2"/>`;
+  svg+=`<text x="${W/2}" y="27" text-anchor="middle" ${FM} font-size="10" font-weight="bold" fill="#14304f" letter-spacing="2">${T('tabComp').toUpperCase()}</text>`;
+  // Model headers
+  MK.forEach((k,i)=>{
+    const sp=MODELS[k],cx=r(colX+i*colW+colW/2),isActive=k===M;
+    if(isActive)svg+=`<rect x="${r(colX+i*colW+3)}" y="32" width="${r(colW-6)}" height="56" fill="${sp.mc}" fill-opacity=".1" rx="4"/>`;
+    svg+=`<rect x="${r(colX+i*colW+8)}" y="33" width="${r(colW-16)}" height="2.5" fill="${sp.mc}" rx="1"/>`;
+    svg+=`<text x="${cx}" y="48" text-anchor="middle" ${FM} font-size="${isActive?9.5:9}" font-weight="bold" fill="${sp.mc}">${sp.labelEnd.split(/[\s/]/)[0]}</text>`;
+    svg+=`<text x="${cx}" y="59" text-anchor="middle" ${FM} font-size="6.5" fill="#888">${sp.sub.split('·')[0].trim()}</text>`;
+    svg+=`<text x="${cx}" y="70" text-anchor="middle" ${FM} font-size="8" font-weight="bold" fill="${isActive?sp.mc:'#555'}">${sp.consumption}</text>`;
+    if(isActive)svg+=`<text x="${cx}" y="82" text-anchor="middle" ${FM} font-size="6" fill="${sp.mc}">◀ ${T('compActive')} ▶</text>`;
+  });
+  const rowDefs=[
+    {lbl:T('compW'),vals:MK.map(k=>MODELS[k].W),unit:'mm',bar:true,max:155},
+    {lbl:T('compD'),vals:MK.map(k=>MODELS[k].D),unit:'mm',bar:true,max:1700},
+    {lbl:T('compH'),vals:MK.map(k=>r(MODELS[k].H)),unit:'mm',bar:true,max:1100},
+    {lbl:T('compCons'),vals:MK.map(k=>parseInt(MODELS[k].consumption)||0),unit:'W',bar:true,max:200},
+    {lbl:T('compSpeed'),vals:MK.map(k=>MODELS[k].openSpeed),unit:'',bar:false,max:0},
+    {lbl:T('compTemp'),vals:MK.map(k=>MODELS[k].tempRange),unit:'',bar:false,max:0},
+    {lbl:T('compPower'),vals:MK.map(k=>MODELS[k].power),unit:'',bar:false,max:0},
+    {lbl:T('compBolts'),vals:MK.map(k=>MODELS[k].bolts.length),unit:'',bar:false,max:0},
+    {lbl:T('compLanes'),vals:MK.map(k=>MODELS[k].pg.map(p=>p.l).join(' / ')),unit:'mm',bar:false,max:0},
+  ];
+  const rStart=88,rH=r((H-rStart-12)/rowDefs.length);
+  rowDefs.forEach((rd,ri)=>{
+    const ry=rStart+ri*rH;
+    if(ri%2===0)svg+=`<rect x="10" y="${ry}" width="${W-20}" height="${rH}" fill="rgba(0,0,0,.04)"/>`;
+    svg+=`<text x="${colX-5}" y="${r(ry+rH/2+3.5)}" text-anchor="end" ${FM} font-size="7.5" fill="#666">${rd.lbl}</text>`;
+    MK.forEach((k,i)=>{
+      const sp=MODELS[k],cx=r(colX+i*colW+colW/2),val=rd.vals[i],isActive=k===M,fc=isActive?sp.mc:'#333';
+      if(rd.bar&&typeof val==='number'){
+        const bx=r(colX+i*colW+8),bMaxW=colW-16,bW=r((val/rd.max)*bMaxW),barY=r(ry+rH-8);
+        svg+=`<rect x="${bx}" y="${barY}" width="${bMaxW}" height="4" fill="rgba(0,0,0,.1)" rx="2"/>`;
+        svg+=`<rect x="${bx}" y="${barY}" width="${bW}" height="4" fill="${sp.mc}" fill-opacity=".75" rx="2"/>`;
+        svg+=`<text x="${cx}" y="${r(ry+rH/2+2)}" text-anchor="middle" ${FM} font-size="${isActive?10:9}" font-weight="bold" fill="${fc}">${val} ${rd.unit}</text>`;
+      }else{
+        svg+=`<text x="${cx}" y="${r(ry+rH/2+3)}" text-anchor="middle" ${FM} font-size="7.5" fill="${fc}">${val}${rd.unit?' '+rd.unit:''}</text>`;
+      }
+    });
+  });
+  document.getElementById('cmpsvg').innerHTML=svg;
+}
+
+// ══ PWA SERVICE WORKER ════════════════════════════════════════
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+
 autoLoad();ui();drawCAD();
 </script>
 </body>
