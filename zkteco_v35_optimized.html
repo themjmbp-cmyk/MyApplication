@@ -329,6 +329,7 @@ es:{tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'
   alertNear:(tw,lim)=>`Ancho total <b>${tw} mm</b> — quedan <b>${lim-tw} mm</b> disponibles`,
   alertOverBadge:'NO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',r50Width:'Ancho',r50Height:'Alto',
+  accRemove:'Eliminar',loadingPDF:'Cargando PDF…',modelLbl:'Modelo',sessionRestored:'Sesión restaurada',sessionClear:'Limpiar sesión guardada',
 },
 en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
@@ -364,6 +365,7 @@ en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   alertNear:(tw,lim)=>`Total width <b>${tw} mm</b> — <b>${lim-tw} mm</b> remaining`,
   alertOverBadge:'DOES NOT FIT',alertNearBadge:'TIGHT FIT',pdfPage:'Page',uiGabinets:'units',
   ficAcc:'ACCESSORIES',glass:'glass',accLabel:'ACCESSORIES:',lane:'lane',lanes:'lanes',covClient:'Client',covGates:'GATES',r50Width:'Width',r50Height:'Height',
+  accRemove:'Remove',loadingPDF:'Loading PDF…',modelLbl:'Model',sessionRestored:'Session restored',sessionClear:'Clear saved session',
 },
 pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
@@ -399,6 +401,7 @@ pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'
   alertNear:(tw,lim)=>`Largura <b>${tw} mm</b> — <b>${lim-tw} mm</b> disponíveis`,
   alertOverBadge:'NÃO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACESSÓRIOS',glass:'vidro',accLabel:'ACESSÓRIOS:',lane:'corredor',lanes:'corredores',covClient:'Cliente',covGates:'PORTÕES',r50Width:'Largura',r50Height:'Altura',
+  accRemove:'Remover',loadingPDF:'A carregar PDF…',modelLbl:'Modelo',sessionRestored:'Sessão restaurada',sessionClear:'Limpar sessão guardada',
 }};
 let LANG='es';
 const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
@@ -474,7 +477,7 @@ function renderAccSide(side,list,itemsId,addId){
       return`<div class="ac-item">
         <span class="ac-item-badge">${a.code}</span>
         <span class="ac-item-desc">${accDsc(a)} · ${dimDesc}</span>
-        <button class="ac-rm" onclick="removeAcc('${side}',${idx})" title="Eliminar">×</button>
+        <button class="ac-rm" onclick="removeAcc('${side}',${idx})" title="${T('accRemove')}">×</button>
         ${extraHtml}
       </div>`;
     }).join('');
@@ -516,10 +519,11 @@ function setPage(p){PAGE=p;['cad','wiring','ficha','cover'].forEach(id=>{documen
 
 // ══ AUTO-SAVE (LocalStorage) ══════════════════════════════════
 const LS_KEY='zkteco-cad-v35';
+let sessionRestored=false;
 function autoSave(){
   try{
     const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
-    localStorage.setItem(LS_KEY,JSON.stringify({version:'3',model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
+    localStorage.setItem(LS_KEY,JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
   }catch(e){}
 }
 function autoLoad(){
@@ -533,9 +537,10 @@ function autoLoad(){
     accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
     accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
     if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
-    return true;
+    sessionRestored=true;return true;
   }catch(e){return false;}
 }
+function clearSession(){localStorage.removeItem(LS_KEY);sessionRestored=false;location.reload();}
 
 // ══ SAVE / LOAD ═══════════════════════════════════════════════
 function saveProject(){
@@ -581,7 +586,7 @@ async function exportProject(fmt){
   else{try{const G=20,pd=pgs.map((p,i)=>{const el=document.getElementById(p.id);const vb=el.viewBox.baseVal;return{str:getSVGStr(el),W:vb.width,H:vb.height,label:lbls[i]};});const maxW=Math.max(...pd.map(p=>p.W)),totalH=pd.reduce((s,p)=>s+p.H,0)+(pgs.length-1)*G;let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${maxW}" height="${totalH}" viewBox="0 0 ${maxW} ${totalH}"><rect width="${maxW}" height="${totalH}" fill="#eeede5"/>`;let y=0;pd.forEach((p,i)=>{const ox=(maxW-p.W)/2;let inner=p.str.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');svg+=`<g transform="translate(${ox},${y})"><svg width="${p.W}" height="${p.H}" viewBox="0 0 ${p.W} ${p.H}">${inner}</svg></g>`;y+=p.H;if(i<pd.length-1){svg+=`<rect x="0" y="${y}" width="${maxW}" height="${G}" fill="#14304f"/>`;svg+=`<text x="${maxW/2}" y="${r(y+G*.65)}" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#7dd87a">— ${pd[i+1].label} —</text>`;y+=G;}});svg+=`</svg>`;dlB(new Blob([svg],{type:'image/svg+xml'}),name+'.svg');showP(100,'✅');done();}catch(ex){hideP();alert(ex);bP.disabled=false;bS.disabled=false;}}
 }
 async function exportPDF(){
-  const btn=document.getElementById('btn-pdf');btn.disabled=true;showP(0,'Cargando jsPDF…');
+  const btn=document.getElementById('btn-pdf');btn.disabled=true;showP(0,T('loadingPDF'));
   if(!window.jspdf){await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
   drawWiring();drawCover();drawFichaSVG();showP(10,'…');
   const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a3'});
@@ -1188,7 +1193,7 @@ function drawCover(){
   h+=`<text x="${W-30}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-30}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-30}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
   h+=`<text x="40" y="112" ${FM} font-size="8" fill="#888" letter-spacing="2">${T('covProject')}</text>`;h+=`<text x="40" y="135" ${FM} font-size="18" font-weight="bold" fill="#14304f">${project}</text>`;h+=`<line x1="40" y1="145" x2="${W-40}" y2="145" stroke="#14304f" stroke-width=".5"/>`;
   const c2x=390,rH=28;let ry=168;
-  const rows=[[T('fldClient').toUpperCase(),client,false,''],[T('fldAddr').toUpperCase(),addr,false,''],['MODELO',sp.label,false,''],['',unitsShort(),false,'sub'],[T('uiLanes').toUpperCase(),`${N()} ${N()>1?T('lanes'):T('lane')} · ${N()+1} ${T('nCabs').toLowerCase()}`,false,''],[T('covGates'),`${rnd(TWg)} mm`,aC!==null,''],[T('twLabel').toUpperCase(),`${rnd(TWtotal)} mm`,false,'acc']];
+  const rows=[[T('fldClient').toUpperCase(),client,false,''],[T('fldAddr').toUpperCase(),addr,false,''],[T('modelLbl').toUpperCase(),sp.label,false,''],['',unitsShort(),false,'sub'],[T('uiLanes').toUpperCase(),`${N()} ${N()>1?T('lanes'):T('lane')} · ${N()+1} ${T('nCabs').toLowerCase()}`,false,''],[T('covGates'),`${rnd(TWg)} mm`,aC!==null,''],[T('twLabel').toUpperCase(),`${rnd(TWtotal)} mm`,false,'acc']];
   rows.forEach(([lbl,val,alert,type])=>{const y=ry,isSub=type==='sub',isAlt=alert&&aC,isAcc=type==='acc';if(isSub){h+=`<text x="40" y="${y}" ${FM} font-size="8.5" font-weight="500" fill="#555">${val}</text>`;h+=`<line x1="40" y1="${r(y+4)}" x2="${r(c2x-20)}" y2="${r(y+4)}" stroke="#eee" stroke-width=".5"/>`;ry+=15;return;}if(isAlt)h+=`<rect x="36" y="${r(y-14)}" width="${r(c2x-56)}" height="${rH-2}" fill="${aC}12" rx="3"/>`;if(isAcc&&TWtotal!==TWg)h+=`<rect x="36" y="${r(y-14)}" width="${r(c2x-56)}" height="${rH-2}" fill="rgba(200,136,0,.08)" rx="3"/>`;if(lbl)h+=`<text x="40" y="${y}" ${FM} font-size="7" fill="${isAlt?aC:isAcc&&TWtotal!==TWg?'#c08800':'#888'}" letter-spacing="1">${lbl}</text>`;h+=`<text x="40" y="${r(y+13)}" ${FM} font-size="${isAlt||isAcc?12:11}" font-weight="bold" fill="${isAlt?aC:isAcc&&TWtotal!==TWg?'#c08800':'#14304f'}">${val}${isAlt?' ⚠':''}</text>`;h+=`<line x1="40" y1="${r(y+17)}" x2="${r(c2x-20)}" y2="${r(y+17)}" stroke="${isAlt?aC+'40':'#ccc'}" stroke-width=".5"/>`;ry+=rH;});
   if(siteLimit>0){const sl=siteLimit-TWfull(),bc=aC||'#1a7a30';h+=`<rect x="36" y="${ry}" width="${r(c2x-56)}" height="24" fill="${bc}10" stroke="${bc}50" stroke-width=".8" rx="3"/>`;h+=`<text x="44" y="${r(ry+9)}" ${FM} font-size="7" fill="${bc}" letter-spacing="1">${T('covLimit')}</text>`;h+=`<text x="44" y="${r(ry+20)}" ${FM} font-size="11" font-weight="bold" fill="${bc}">${siteLimit} mm — ${state==='over'?T('alertOverBadge')+' +'+rnd(TWfull()-siteLimit)+'mm':state==='near'?T('alertNearBadge')+' '+rnd(sl)+'mm':T('limOk')+' '+rnd(sl)+'mm'}</text>`;}
   // Accessories summary in cover
@@ -1229,7 +1234,8 @@ function ui(){
     ${TWtotal!==TWg?`<div class="sc"><span class="sl">${T('twLabel')}</span><span class="sv ${tc}" style="${tc?'':'color:#c08800'}">${rnd(TWtotal).toLocaleString()} mm${st==='over'?' ⚠':''}</span></div>`:''}
     <div class="sc"><span class="sl">${T('nCabs')}</span><span class="sv">${N()+1} ${T('uiGabinets')}</span></div>
     <div class="sc"><span class="sl">PVC</span><span class="sv" style="color:${pvc.color}">${pvc.label}</span></div>
-    ${siteLimit>0?`<div class="sc"><span class="sl">${T('maxLbl')}</span><span class="sv ${tc}">${st==='over'?T('alertOverBadge'):st==='near'?T('alertNearBadge'):'✓ '+slack+'mm'}</span></div>`:''}`;
+    ${siteLimit>0?`<div class="sc"><span class="sl">${T('maxLbl')}</span><span class="sv ${tc}">${st==='over'?T('alertOverBadge'):st==='near'?T('alertNearBadge'):'✓ '+slack+'mm'}</span></div>`:''}
+    ${sessionRestored?`<div class="sc" style="margin-left:auto"><span style="font-size:9px;color:#2a7a2a;opacity:.75">↺ ${T('sessionRestored')}</span><button onclick="clearSession()" style="margin-left:4px;font-size:10px;line-height:1;background:none;border:none;color:#888;cursor:pointer;padding:0" title="${T('sessionClear')}">×</button></div>`:''}`;
   updateAlerts();updateI18nDOM();renderAccBar();autoSave();
 }
 document.getElementById('dm').onclick=()=>{if(N()>1){lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
