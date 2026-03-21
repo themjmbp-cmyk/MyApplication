@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>ZKTeco SpeedGate CAD v35</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#1a2a3a}
+:root{--d:#0d1f30;--nv:#14304f;--nv2:#1a3a5c;--ac:#7dd87a;--bl:#1a5fa0;--rd:#cc1111;--am:#c08800;--gn:#1a7a30;--t2:#a8bdd4;--br:rgba(255,255,255,.10);--hv:rgba(255,255,255,.07)}
+#w{font-family:system-ui,sans-serif;width:100%;max-width:100%}
+.tb{background:var(--d);padding:0 14px;display:flex;align-items:center;gap:12px;height:48px;border-bottom:2px solid var(--nv2);flex-wrap:wrap}
+.logo{font-size:20px;font-weight:700;color:#fff;font-family:monospace;flex-shrink:0}.logo em{color:var(--ac);font-style:normal}
+.vtag{background:var(--nv2);border:1px solid var(--br);color:var(--t2);font-size:9px;font-family:monospace;padding:2px 8px;border-radius:20px}
+.lp{display:flex;gap:2px;background:var(--nv2);border-radius:20px;padding:2px;margin-left:auto}
+.lb{padding:3px 10px;border:none;border-radius:16px;background:transparent;color:var(--t2);font-size:10px;font-family:monospace;font-weight:700;cursor:pointer;transition:all .15s}
+.lb.on{background:var(--ac);color:#0d1f30}.lb:hover:not(.on){background:var(--hv);color:#fff}
+.pt{background:var(--nv);display:flex;align-items:stretch;border-bottom:1px solid var(--br);padding:0 8px;gap:2px}
+.ptb{display:flex;align-items:center;gap:6px;padding:10px 16px 8px;font-size:11px;font-weight:600;color:var(--t2);border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;border-radius:6px 6px 0 0;margin-bottom:-1px}
+.ptb:hover:not(.on){background:var(--hv);color:#fff}.ptb.on{color:var(--ac);border-bottom-color:var(--ac);background:rgba(125,216,122,.08)}
+.xb{background:var(--d);border-bottom:1px solid var(--br);display:flex;align-items:center;gap:6px;padding:8px 14px;flex-wrap:wrap}
+.xlbl{font-size:9px;font-family:monospace;color:var(--t2);letter-spacing:1px;text-transform:uppercase;flex-shrink:0}
+.bf{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;border:1.5px solid;font-size:10px;font-family:monospace;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
+.bsv{border-color:#2a7a50;color:#4acc80;background:rgba(42,122,80,.12)}.bsv:hover{background:rgba(42,122,80,.25)}
+.bld{border-color:#6a3a9a;color:#b07fe0;background:rgba(106,58,154,.12)}.bld:hover{background:rgba(106,58,154,.25)}
+.eg{display:flex;border-radius:6px;overflow:hidden;border:1.5px solid rgba(42,107,176,.5);margin-left:auto}
+.be{display:flex;align-items:center;gap:4px;padding:6px 11px;border:none;border-right:1px solid rgba(42,107,176,.3);font-size:10px;font-family:monospace;font-weight:600;cursor:pointer;transition:all .15s;background:rgba(42,107,176,.1);color:#7ab8f0}
+.be:last-child{border-right:none}.be:hover{background:rgba(42,107,176,.3);color:#c8e0ff}
+.bpdf{background:rgba(139,0,0,.12);color:#f08080}.bpdf:hover{background:rgba(139,0,0,.28)}
+.bpe{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.12);font-size:9px;font-family:monospace;cursor:pointer;transition:all .15s;background:transparent;color:var(--t2)}
+.bpe:hover{background:var(--hv);color:#fff;border-color:rgba(255,255,255,.25)}.bpe:disabled{opacity:.35;cursor:default;pointer-events:none}
+.ab{display:none;padding:8px 16px;font-family:monospace;font-size:9.5px;align-items:center;gap:10px;border-bottom:2px solid;flex-wrap:wrap}
+.ab.on{display:flex}.ab.over{background:#2a0505;border-color:var(--rd);color:#ff9090}.ab.near{background:#2a1f00;border-color:var(--am);color:#f0c060}
+.abody{flex:1;line-height:1.5}.abadge{padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;flex-shrink:0}
+.ab.over .abadge{background:var(--rd);color:#fff}.ab.near .abadge{background:var(--am);color:#fff}
+.pb{display:none;background:var(--nv2);padding:7px 16px;font-family:monospace;font-size:9px;color:#90d0ff;align-items:center;gap:10px}.pb.on{display:flex}
+.pbf{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.pbi{height:100%;background:var(--ac);border-radius:4px;transition:width .3s}
+.mb{background:var(--d);border-bottom:1px solid var(--br);display:flex;overflow-x:auto;padding:0 8px;gap:2px}
+.mbt{display:flex;flex-direction:column;gap:2px;padding:8px 14px;border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;flex-shrink:0;border-radius:6px 6px 0 0;margin-bottom:-1px}
+.mbt:hover:not(.on){background:var(--hv)}.mbt.on{background:rgba(125,216,122,.08);border-bottom-color:var(--ac)}
+.mn{font-size:10px;font-weight:600;font-family:monospace;color:var(--t2)}.mbt.on .mn{color:var(--ac)}
+.ms{font-size:7.5px;color:rgba(168,189,212,.6);font-family:monospace}.mbt.on .ms{color:rgba(125,216,122,.6)}
+.cb{background:var(--nv);display:flex;align-items:stretch;border-bottom:1px solid var(--br);flex-wrap:wrap}
+.cg{padding:8px 14px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.cg.str{flex:1;border-right:none;align-items:flex-end;justify-content:center;padding-right:16px}
+.cl{font-size:8px;font-weight:600;color:var(--t2);letter-spacing:.12em;text-transform:uppercase;font-family:monospace}
+.cr{display:flex;gap:4px;align-items:center}
+.nb{width:26px;height:26px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.05);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;font-family:monospace;user-select:none}
+.nb:hover{background:rgba(255,255,255,.12)}.nb:disabled{opacity:.3;cursor:default;pointer-events:none}
+.nv{font-size:22px;font-weight:700;font-family:monospace;min-width:28px;text-align:center;color:#fff}
+.lf{width:84px;padding:5px 8px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.05);color:#fff;font-family:monospace;font-size:12px;text-align:right}
+.lf:focus{outline:none;border-color:var(--bl)}.lf.over{border-color:var(--rd);color:#ff9090}.lf.near{border-color:var(--am);color:#f0c060}
+.lu{font-size:10px;color:var(--t2);font-family:monospace}
+.sr{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sc{display:flex;flex-direction:column;background:rgba(255,255,255,.05);border:1px solid var(--br);border-radius:8px;padding:4px 10px}
+.sl{font-size:7.5px;color:var(--t2);font-family:monospace;letter-spacing:.3px}.sv{font-size:13px;font-weight:700;font-family:monospace;color:#fff}
+.sv.over{color:#ff9090}.sv.near{color:#f0c060}
+.lr{background:rgba(255,255,255,.02);border-bottom:1px solid var(--br);display:flex;overflow-x:auto;padding:4px 10px;gap:4px}
+.lc{padding:4px 10px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:3px;flex-shrink:0}.lc:last-child{border-right:none}
+.ln{font-size:8px;font-weight:600;color:var(--t2);letter-spacing:.1em;text-transform:uppercase;font-family:monospace}
+.lch{display:flex;gap:3px;flex-wrap:wrap}
+.ch{padding:2px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);cursor:pointer;font-size:9px;font-family:monospace;color:var(--t2);transition:all .1s;white-space:nowrap;line-height:1.5}
+.ch.op{border-color:var(--bl);background:rgba(42,107,176,.2);color:#7ab8f0;font-weight:700}
+.ch.ol{border-color:var(--gn);background:rgba(26,122,48,.2);color:var(--ac);font-weight:700}
+.ch:hover:not(.op):not(.ol){background:var(--hv);color:#fff}
+
+/* ── ACCESSORY SIDE CONFIG — green high-contrast ── */
+.acbar{background:#152010;border-top:2px solid #2e5018;border-bottom:2px solid #2e5018}
+.acbar-inner{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:700px){.acbar-inner{grid-template-columns:1fr}}
+.ac-side{padding:8px 12px;border-right:1px solid rgba(125,216,122,.15)}
+.ac-side:last-child{border-right:none}
+.ac-side-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ac-side-lbl{font-size:8px;font-weight:700;color:#a8e080;letter-spacing:.15em;text-transform:uppercase;font-family:monospace}
+.ac-dir{font-size:11px;color:#7dd87a;font-family:monospace;font-weight:900}
+.ac-items{display:flex;flex-direction:column;gap:5px;min-height:28px}
+.ac-item{display:flex;align-items:center;gap:6px;background:rgba(125,216,122,.09);border:1.5px solid rgba(125,216,122,.3);border-radius:7px;padding:5px 8px;flex-wrap:wrap}
+.ac-item-badge{background:#3d7a20;color:#c8f090;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800;font-family:monospace;flex-shrink:0;border:1px solid rgba(125,216,122,.4)}
+.ac-item-desc{font-size:8.5px;color:#a8d888;font-family:monospace;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* R50 custom dim inputs */
+.ac-r50-row{width:100%;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px;padding-top:4px;border-top:1px solid rgba(125,216,122,.15)}
+.ac-r50-lbl{font-size:8px;color:#90c860;font-family:monospace;white-space:nowrap;font-weight:600}
+.ac-r50-inp{width:68px;padding:3px 6px;border-radius:5px;border:1.5px solid rgba(125,216,122,.4);background:rgba(0,0,0,.35);color:#d8f4b8;font-family:monospace;font-size:11px;font-weight:700;text-align:right}
+.ac-r50-inp:focus{outline:none;border-color:#7dd87a;background:rgba(0,0,0,.5)}
+.ac-r50-unit{font-size:8px;color:#6aaa40;font-family:monospace}
+.ac-r50-range{font-size:7px;color:rgba(125,216,122,.45);font-family:monospace;white-space:nowrap}
+.ac-rm{background:rgba(255,70,70,.15);border:1.5px solid rgba(255,70,70,.4);border-radius:5px;color:#ff9090;font-size:14px;cursor:pointer;padding:0 7px;flex-shrink:0;transition:all .12s;line-height:1.8}
+.ac-rm:hover{background:rgba(255,70,70,.4);color:#fff;border-color:#ff4040}
+.ac-add-row{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;align-items:center}
+.ac-add-lbl{font-size:8px;color:#7dd87a;font-family:monospace;text-transform:uppercase;letter-spacing:.8px;margin-right:2px;font-weight:600}
+.ac-add-btn{padding:4px 12px;border-radius:20px;border:2px solid rgba(125,216,122,.55);background:rgba(125,216,122,.1);cursor:pointer;font-size:10px;font-family:monospace;font-weight:700;color:#a8e880;transition:all .12s;white-space:nowrap}
+.ac-add-btn:hover{background:rgba(125,216,122,.28);color:#d0ffb0;border-color:#7dd87a;box-shadow:0 0 8px rgba(125,216,122,.2)}
+.ac-add-btn:disabled{opacity:.22;cursor:default;pointer-events:none}
+.ac-none{font-size:8px;color:rgba(125,216,122,.35);font-family:monospace;font-style:italic;padding:2px 0}
+
+.dw{background:#eeede5;line-height:0;width:100%}.dw svg{display:block;width:100%;height:auto}
+.cvw{background:var(--d);padding:16px;display:flex;gap:14px;flex-wrap:wrap}
+.cvc{flex:1;min-width:210px;display:flex;flex-direction:column;gap:10px}
+.fr{display:flex;flex-direction:column;gap:4px}
+.fr label{font-size:8px;font-weight:600;color:var(--t2);letter-spacing:.12em;text-transform:uppercase;font-family:monospace}
+.fr input{padding:6px 10px;border:1.5px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(255,255,255,.06);color:#fff;font-family:monospace;font-size:11px;width:100%}
+.fr input:focus{outline:none;border-color:var(--bl)}
+.whb{background:var(--d);padding:8px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--br);flex-wrap:wrap}
+/* ficha */
+#pf{background:#f8f8f6}
+.fo{padding:12px 16px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-family:monospace}
+@media(max-width:640px){.fg{grid-column:1fr}}
+.fc{border:1px solid #c8d4e8;border-radius:6px;overflow:hidden}
+.fh{padding:7px 12px;font-size:10px;font-weight:bold;letter-spacing:1px}
+.fhd{background:#14304f;color:#7dd87a}.fhg{background:#1a4a28;color:#7dd87a}.fhb{background:#0a2a50;color:#7dd87a}.fhr{background:#5a1010;color:#ffaaaa}.fha{background:#3a2400;color:#f0c060}
+.fr2{display:flex;justify-content:space-between;align-items:baseline;padding:5px 12px;border-bottom:.5px solid #e0e8f0;gap:8px}.fr2:last-child{border-bottom:none}
+.fk{font-size:9px;color:#666;white-space:nowrap}.fv{font-size:10.5px;font-weight:600;color:#111;text-align:right}
+.fv .u{font-size:8px;font-weight:400;color:#888;margin-left:3px}
+.fkpi{background:#dceefb;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #c8d4e8}
+.fkl{font-size:9px;font-weight:700;color:#0a3070;letter-spacing:.5px}.fkv{font-size:20px;font-weight:900;color:#0a3070;font-family:monospace}
+.fhr2{background:#14304f;color:#7dd87a;text-align:center;padding:10px 16px;font-size:14px;font-weight:bold;letter-spacing:1px;border-radius:6px 6px 0 0;margin-bottom:12px;grid-column:1/-1}
+.flg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;padding:8px 12px;background:#f8f8f6}
+.fli{border:.5px solid #ddd;border-radius:4px;padding:6px 8px;background:#f2f2f0}
+.flinum{font-size:7px;color:#888;letter-spacing:.5px;text-transform:uppercase}
+.flipass{font-size:11px;font-weight:700;color:#2a7a2a;font-family:monospace}.flileaf{font-size:8.5px;color:#333;font-weight:600;margin-top:2px}
+.fligmp{font-size:7px;color:#888;margin-top:1px}.flidims{font-size:6.5px;color:#aaa}
+.pvcc{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:800;font-family:monospace;margin:6px 12px}
+.bpr{display:flex;gap:4px;padding:5px 12px;flex-wrap:wrap;border-bottom:.5px solid #e0e8f0}
+.bp{background:#cc1111;color:#fff;border-radius:3px;padding:1px 5px;font-size:8px;font-family:monospace;font-weight:600}
+.fft{background:#14304f;color:#7dd87a;text-align:center;padding:7px;font-size:7.5px;letter-spacing:.8px;border-radius:0 0 6px 6px;grid-column:1/-1}
+/* acc ficha */
+.afc{grid-column:1/-1;border:1.5px solid rgba(200,136,0,.4);border-radius:6px;overflow:hidden}
+.afh{background:#3a2400;color:#f0c060;padding:7px 12px;font-size:10px;font-weight:bold;letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.afbadge{background:#c08800;color:#fff;border-radius:4px;padding:2px 8px;font-size:11px;font-weight:800;font-family:monospace}
+.afsides{display:grid;grid-template-columns:1fr 1fr;gap:0;background:#f8f8f6}
+.afside{padding:8px 12px;border-right:.5px solid rgba(200,136,0,.2)}.afside:last-child{border-right:none}
+.afside-lbl{font-size:8px;font-weight:700;color:rgba(200,136,0,.8);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;font-family:monospace}
+.adr{display:flex;justify-content:space-between;padding:3px 0;border-bottom:.5px solid rgba(200,136,0,.1);gap:8px}.adr:last-child{border-bottom:none}
+.adk{font-size:8.5px;color:#666}.adv{font-size:10px;font-weight:700;color:#c08800;font-family:monospace}
+.ac-none-note{font-size:8px;color:#aaa;font-style:italic;padding:4px 0}
+</style>
+</head>
+<body>
+<div id="w">
+<div class="tb">
+  <span class="logo"><em>ZK</em>Teco</span><span class="vtag">SpeedGate CAD v35</span>
+  <div class="lp">
+    <button class="lb on" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+  </div>
+</div>
+<div class="pt">
+  <button class="ptb on" id="tab-cad" onclick="setPage('cad')">📐 <span data-t="tabCad">Plano CAD</span></button>
+  <button class="ptb" id="tab-wiring" onclick="setPage('wiring')">🔌 <span data-t="tabWiring">Cableado</span></button>
+  <button class="ptb" id="tab-ficha" onclick="setPage('ficha')">📋 <span data-t="tabFicha">Ficha técnica</span></button>
+  <button class="ptb" id="tab-cover" onclick="setPage('cover')">📄 <span data-t="tabCover">Portada</span></button>
+</div>
+<div class="xb">
+  <span class="xlbl" data-t="expProject">Proyecto</span>
+  <button class="bf bsv" onclick="saveProject()">💾 <span data-t="btnSave">Guardar</span></button>
+  <button class="bf bld" onclick="document.getElementById('fi-load').click()">📂 <span data-t="btnLoad">Cargar</span></button>
+  <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
+  <div class="eg">
+    <button class="be" onclick="exportProject('png')" id="btn-all-png">⬇ PNG</button>
+    <button class="be" onclick="exportProject('svg')" id="btn-all-svg">⬇ SVG</button>
+    <button class="be bpdf" onclick="exportPDF()" id="btn-pdf">⬇ PDF A3</button>
+  </div>
+</div>
+<div class="pb" id="pbar"><span id="pbar-txt">…</span><div class="pbf"><div class="pbi" id="pbar-inner" style="width:0%"></div></div><span id="pbar-pct" style="font-family:monospace;font-size:9px;color:#7dd87a">0%</span></div>
+<div class="ab" id="alert-bar"><span style="font-size:16px;flex-shrink:0">⚠</span><span class="abody" id="alert-body"></span><span class="abadge" id="alert-badge"></span></div>
+
+<div id="page-cad">
+  <div class="mb" id="mtabs"></div>
+  <div class="cb">
+    <div class="cg"><div class="cl" id="lbl-lanes">Nº Pasillos</div>
+      <div class="cr"><button class="nb" id="dm">−</button><div class="nv" id="nv">2</div><button class="nb" id="ip">+</button></div></div>
+    <div class="cg"><div class="cl" id="lbl-limit">Hueco disponible obra</div>
+      <div class="cr"><input class="lf" id="limit-input" type="number" min="0" step="10" placeholder="∞" oninput="onLimitChange()"><span class="lu">mm</span></div></div>
+    <div class="cg"><div class="cl" id="lbl-page">Esta página</div>
+      <div class="cr" style="gap:6px"><button class="bpe" onclick="exportPage('cv','svg')">SVG</button><button class="bpe" onclick="exportPage('cv','png')">PNG</button></div></div>
+    <div class="cg str"><div class="sr" id="sk"></div></div>
+  </div>
+  <div class="lr" id="lr"></div>
+  <!-- Accessories side configurator -->
+  <div class="acbar">
+    <div class="acbar-inner">
+      <div class="ac-side" id="acc-left-panel">
+        <div class="ac-side-hdr">
+          <span class="ac-dir">◀</span>
+          <span class="ac-side-lbl" data-t="accLeftSide">Lado izquierdo</span>
+        </div>
+        <div class="ac-items" id="acc-left-items"></div>
+        <div class="ac-add-row" id="acc-left-add"></div>
+      </div>
+      <div class="ac-side" id="acc-right-panel">
+        <div class="ac-side-hdr">
+          <span class="ac-side-lbl" data-t="accRightSide">Lado derecho</span>
+          <span class="ac-dir">▶</span>
+        </div>
+        <div class="ac-items" id="acc-right-items"></div>
+        <div class="ac-add-row" id="acc-right-add"></div>
+      </div>
+    </div>
+  </div>
+  <div class="dw"><svg id="cv" viewBox="0 0 720 700"></svg></div>
+</div>
+
+<div id="page-wiring" style="display:none">
+  <div class="whb"><div style="font-size:11px;font-weight:600;color:#fff;font-family:monospace" id="w-title">—</div><div id="pvc-badge"></div><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('wsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('wsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="wsvg" viewBox="0 0 720 400"></svg></div>
+</div>
+
+<div id="page-ficha" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabFicha">Ficha técnica</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportFicha('svg')">SVG</button><button class="bpe" onclick="exportFicha('png')">PNG</button></div></div>
+  <div id="pf"><div class="fo" id="ficha-outer"></div></div>
+  <div style="position:absolute;left:-9999px"><svg id="ficha-svg" viewBox="0 0 680 800"></svg></div>
+</div>
+
+<div id="page-cover" style="display:none">
+  <div class="cvw">
+    <div class="cvc">
+      <div class="fr"><label id="lbl-client">Cliente</label><input id="f-client" value="Cliente S.A." oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-project">Obra / Proyecto</label><input id="f-project" value="Acceso Principal — Torre Norte" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-addr">Dirección</label><input id="f-addr" value="Calle Gran Vía 28, Madrid" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-ref">Referencia</label><input id="f-ref" value="ZK-2025-001" oninput="drawCover()"></div>
+    </div>
+    <div class="cvc">
+      <div class="fr"><label id="lbl-author">Elaborado por</label><input id="f-author" value="Ingeniería ZKTeco España" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-revby">Revisado por</label><input id="f-rev" value="" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-date">Fecha</label><input id="f-date" type="date" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-version">Revisión</label><input id="f-version" value="Rev. A" oninput="drawCover()"></div>
+    </div>
+  </div>
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabCover">Portada</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('covsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('covsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="covsvg" viewBox="0 0 720 560"></svg></div>
+</div>
+</div>
+
+<script>
+const GAP_MM=50, MAX_ACC_PER_SIDE=4;
+
+// ══ ACCESSORY CATALOG ═════════════════════════════════════════
+const ACC_CAT=[
+  {code:'R10',W:500,H:950,hasGlass:false,gW:0,gH:0,
+   label:'R10 · Poste y barra',labelEn:'R10 · Post & rail',labelPt:'R10 · Poste e barra',
+   desc:'Inox sin vidrio',descEn:'Stainless, no glass',descPt:'Inox sem vidro'},
+  {code:'R20',W:1020,H:950,hasGlass:false,gW:0,gH:0,
+   label:'R20 · Poste y barra ancho',labelEn:'R20 · Wide post & rail',labelPt:'R20 · Poste e barra largo',
+   desc:'Inox ancho sin vidrio',descEn:'Wide stainless, no glass',descPt:'Inox largo sem vidro'},
+  {code:'R30',W:500,H:950,hasGlass:true,gW:415,gH:600,
+   label:'R30 · Inox + vidrio',labelEn:'R30 · Rail + glass',labelPt:'R30 · Inox + vidro',
+   desc:'Inox + vidrio templado',descEn:'Inox + tempered glass',descPt:'Inox + vidro temperado'},
+  {code:'R40',W:1020,H:950,hasGlass:true,gW:920,gH:600,
+   label:'R40 · Inox ancho + vidrio',labelEn:'R40 · Wide rail + glass',labelPt:'R40 · Inox largo + vidro',
+   desc:'Inox ancho + vidrio templado',descEn:'Wide inox + tempered glass',descPt:'Inox largo + vidro temperado'},
+  {code:'R50',W:1020,H:955,hasGlass:true,gW:920,gH:600,
+   customW:true, // outer frame width is fixed 1020mm; glass is custom
+   customGlass:true, // glass dimensions are freely configurable within range
+   gWmin:920,gWmax:1400,gHmin:600,gHmax:850,
+   label:'R50 · Poste inox + vidrio obra',labelEn:'R50 · Post + glass on site',labelPt:'R50 · Poste + vidro em obra',
+   desc:'Inox + vidrio a medida (obra)',descEn:'Inox + custom glass on site',descPt:'Inox + vidro medida (obra)'}
+];
+const ACC_BY_CODE=Object.fromEntries(ACC_CAT.map(a=>[a.code,a]));
+
+// State: each side is an array of {code, r50gi, r50gW, r50gH}
+// r50gW/r50gH: custom glass dims for R50 (default 920×600)
+let accLeft=[], accRight=[];
+
+function getAccGlass(item){
+  const a=ACC_BY_CODE[item.code];
+  if(!a||!a.hasGlass)return null;
+  if(a.customGlass){
+    // R50: custom glass dimensions stored in item
+    const gW=Math.max(a.gWmin,Math.min(a.gWmax,+(item.r50gW)||a.gW));
+    const gH=Math.max(a.gHmin,Math.min(a.gHmax,+(item.r50gH)||a.gH));
+    return{gW,gH,custom:true};
+  }
+  if(a.glassOpts)return a.glassOpts[Math.min(item.r50gi||0,a.glassOpts.length-1)];
+  return{gW:a.gW,gH:a.gH};
+}
+function setR50Custom(side,idx,field,val){
+  const list=side==='left'?accLeft:accRight;
+  if(!list[idx])return;
+  list[idx][field]=val;
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();
+}
+// R50 total width = glass width + 100mm (50mm post on each side)
+// All other accessories have fixed W from catalog
+function getAccItemW(item){
+  const a=ACC_BY_CODE[item.code];if(!a)return 0;
+  if(a.customGlass){return(+(item.r50gW)||a.gW)+100;}
+  return a.W;
+}
+const ACC_GAP_MM=20;
+// Total width of one side: gap-before-first + sum(widths) + gaps-between
+function accSideTotalW(list){if(list.length===0)return 0;return list.length*ACC_GAP_MM+list.reduce((s,it)=>s+getAccItemW(it),0);}
+function accTotalW(list){return accSideTotalW(list);}
+function accLbl(a){return LANG==='en'?a.labelEn:LANG==='pt'?a.labelPt:a.label;}
+function accDsc(a){return LANG==='en'?a.descEn:LANG==='pt'?a.descPt:a.desc;}
+function goLbl(o){return LANG==='en'?o.labelEn:LANG==='pt'?o.labelPt:o.label;}
+
+// ══ I18N ══════════════════════════════════════════════════════
+const I18N={
+es:{tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'Portada',
+  btnSave:'Guardar',btnLoad:'Cargar',expProject:'Proyecto',
+  accLeftSide:'Lado izquierdo',accRightSide:'Lado derecho',accAdd:'+ Añadir',accNone:'Sin accesorio',
+  uiLanes:'Nº Pasillos',uiLimit:'Hueco disponible obra',uiPage:'Esta página',
+  planTitle:'VISTA EN PLANTA',frontTitle:'ALZADO FRONTAL  A—A',cotas:'Cotas en mm',scaleLbl:'500 mm',
+  ugSection:'SECCIÓN CANALIZACIÓN SUBTERRÁNEA',slab:'Losa HA·25',awaiting:'Línea de espera',
+  twLabel:'Ancho total',nCabs:'Gabinetes',maxLbl:'HUECO MÁX',limOk:'✓ Cabe',
+  pernoLbl:'Perno',gabLbl:'Gabinete',slotLbl:'Slot motores',totalLbl:'Total',slotDimLbl:'Slot',libreLbl:'Libre',gapNote:'incluido en cota',
+  wiringTitle:'DIAGRAMA DE CABLEADO — CADENA MAESTRO / ESCLAVO',
+  switchLbl:'SWITCH / ACCESO',accessCtrl:'Control de acceso',
+  unitLeftEnd:'Extremo izquierdo',unitRightEnd:'Extremo derecho',unitCentral:'Mueble central',
+  ctrlMaster:'MAESTRA',ctrlSlave:'ESCLAVA',chainNote:'Cadena Maestro→Esclavo',
+  pvcSizing:'DIMENSIONADO PVC',legend:'LEYENDA',pvcNote:'prof. 50 mm · long. 1000 mm',
+  cables:['AC 110/220V','Ethernet acceso','Ethernet motor','M-S 4 hilos'],
+  pvcRanges:['1–2 pasillos','3–4 pasillos','5–6 pasillos'],
+  coverTitle:'PLANO DE INSTALACIÓN',covProject:'PROYECTO',covTW:'ANCHO TOTAL',covLimit:'HUECO OBRA',covLeaves:'PALAS',
+  covBy:'ELABORADO POR',covCheck:'REVISADO POR',covDate:'FECHA',covRev:'REVISIÓN',
+  ficGab:'GABINETE',ficType:'Tipo',ficLargo:'Largo (profundidad)',ficAncho:'Ancho (frente)',ficAlto:'Alto',ficArm:'Brazo base',
+  ficTemp:'Temperatura operación',ficVel:'Velocidad apertura',ficElec:'Alimentación',ficPow:'Consumo por unidad',ficGap:'GAP central palas',
+  ficComm:'COMUNICACIÓN',ficProto:'Protocolo',ficRS485:'RS485 / TCP-IP',ficBaud:'Baudrate',ficBaud9:'9.600 bps',
+  ficMaster:'Maestra (extremos)',ficSlave:'Esclava (centrales)',
+  ficProj:'PROYECTO',ficLanes:'Pasillos',ficCabs:'Gabinetes (físicos)',ficCabDetail:'Composición (BOM)',
+  ficTW:'ANCHO PUERTAS',ficTWfull:'ANCHO TOTAL (puertas + accesorios)',ficLimit:'HUECO OBRA',
+  ficAnc:'ANCLAJES',ficPernos:'Pernos totales',ficPos:'Posiciones (desde base)',ficProf:'Prof. taladro',ficDiam:'Diámetro taladro',ficHolg:'Holgura al muro',
+  ficCond:'CANALIZACIÓN PVC (IEC 61386)',ficPVC:'Conducto',ficCables:'Cables totales',ficFill:'Factor llenado',
+  ficLeaves:'ACCESORIOS — PALAS POR PASILLO',ficStep:'Paso libre',ficSlot:'Slot motor',
+  ficAccL:'ACCESORIOS LADO IZQUIERDO',ficAccR:'ACCESORIOS LADO DERECHO',
+  ficAccDesc:'Descripción',ficAccW:'Ancho exterior',ficAccH:'Alto',ficAccGW:'Ancho vidrio',ficAccGH:'Alto vidrio',ficAccOpt:'Opción vidrio',ficAccQty:'Unidades',ficAccTW:'Ancho total accesorios lado',
+  swingBarrier:'Swing Barrier',
+  fldClient:'Cliente',fldProject:'Obra / Proyecto',fldAddr:'Dirección',fldRef:'Referencia',
+  fldAuthor:'Elaborado por',fldRevBy:'Revisado por',fldDate:'Fecha',fldVersion:'Revisión',
+  alertOver:(tw,lim)=>`Ancho total <b>${tw} mm</b> supera el hueco <b>${lim} mm</b> — exceso <b>${tw-lim} mm</b>`,
+  alertNear:(tw,lim)=>`Ancho total <b>${tw} mm</b> — quedan <b>${lim-tw} mm</b> disponibles`,
+  alertOverBadge:'NO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
+  ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',
+},
+en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
+  btnSave:'Save',btnLoad:'Load',expProject:'Project',
+  accLeftSide:'Left side',accRightSide:'Right side',accAdd:'+ Add',accNone:'No accessory',
+  uiLanes:'No. Lanes',uiLimit:'Site opening',uiPage:'This page',
+  planTitle:'PLAN VIEW',frontTitle:'FRONT ELEVATION  A—A',cotas:'Dimensions in mm',scaleLbl:'500 mm',
+  ugSection:'UNDERGROUND CONDUIT SECTION',slab:'R.C. Slab',awaiting:'Waiting line',
+  twLabel:'Total width',nCabs:'Cabinets',maxLbl:'MAX OPENING',limOk:'✓ Fits',
+  pernoLbl:'Bolt',gabLbl:'Cabinet',slotLbl:'Motor slot',totalLbl:'Total',slotDimLbl:'Slot',libreLbl:'Clear',gapNote:'included in dim.',
+  wiringTitle:'WIRING DIAGRAM — MASTER / SLAVE CHAIN',switchLbl:'SWITCH / ACCESS',accessCtrl:'Access Control',
+  unitLeftEnd:'Left end unit',unitRightEnd:'Right end unit',unitCentral:'Central unit',
+  ctrlMaster:'MASTER',ctrlSlave:'SLAVE',chainNote:'Master→Slave chain',
+  pvcSizing:'PVC SIZING',legend:'LEGEND',pvcNote:'depth 50 mm · length 1000 mm',
+  cables:['AC 110/220V','Ethernet access','Ethernet motor','M-S 4-wire'],
+  pvcRanges:['1–2 lanes','3–4 lanes','5–6 lanes'],
+  coverTitle:'INSTALLATION PLAN',covProject:'PROJECT',covTW:'TOTAL WIDTH',covLimit:'SITE OPENING',covLeaves:'BARRIERS',
+  covBy:'PREPARED BY',covCheck:'CHECKED BY',covDate:'DATE',covRev:'REVISION',
+  ficGab:'CABINET',ficType:'Type',ficLargo:'Length (depth)',ficAncho:'Width (front)',ficAlto:'Height',ficArm:'Arm base',
+  ficTemp:'Operating temp.',ficVel:'Opening speed',ficElec:'Power supply',ficPow:'Consumption/unit',ficGap:'Central barrier GAP',
+  ficComm:'COMMUNICATION',ficProto:'Protocol',ficRS485:'RS485 / TCP-IP',ficBaud:'Baudrate',ficBaud9:'9,600 bps',
+  ficMaster:'Master (end units)',ficSlave:'Slave (central units)',
+  ficProj:'PROJECT',ficLanes:'Lanes',ficCabs:'Cabinets (physical)',ficCabDetail:'Composition (BOM)',
+  ficTW:'GATES WIDTH (doors only)',ficTWfull:'TOTAL WIDTH (gates + accessories)',ficLimit:'SITE OPENING',
+  ficAnc:'ANCHORS',ficPernos:'Total bolts',ficPos:'Positions (from base)',ficProf:'Drill depth',ficDiam:'Drill diameter',ficHolg:'Wall clearance',
+  ficCond:'PVC CONDUIT (IEC 61386)',ficPVC:'Conduit',ficCables:'Total cables',ficFill:'Fill factor',
+  ficLeaves:'ACCESSORIES — BARRIERS BY LANE',ficStep:'Clear passage',ficSlot:'Motor slot',
+  ficAccL:'LEFT SIDE ACCESSORIES',ficAccR:'RIGHT SIDE ACCESSORIES',
+  ficAccDesc:'Description',ficAccW:'Outer width',ficAccH:'Height',ficAccGW:'Glass width',ficAccGH:'Glass height',ficAccOpt:'Glass option',ficAccQty:'Units',ficAccTW:'Total accessories width per side',
+  swingBarrier:'Swing Barrier',
+  fldClient:'Client',fldProject:'Project / Site',fldAddr:'Address',fldRef:'Reference',
+  fldAuthor:'Prepared by',fldRevBy:'Checked by',fldDate:'Date',fldVersion:'Revision',
+  alertOver:(tw,lim)=>`Total width <b>${tw} mm</b> exceeds opening <b>${lim} mm</b> — overflow <b>${tw-lim} mm</b>`,
+  alertNear:(tw,lim)=>`Total width <b>${tw} mm</b> — <b>${lim-tw} mm</b> remaining`,
+  alertOverBadge:'DOES NOT FIT',alertNearBadge:'TIGHT FIT',pdfPage:'Page',uiGabinets:'units',
+  ficAcc:'ACCESSORIES',glass:'glass',accLabel:'ACCESSORIES:',lane:'lane',lanes:'lanes',covClient:'Client',covGates:'GATES',
+},
+pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
+  btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
+  accLeftSide:'Lado esquerdo',accRightSide:'Lado direito',accAdd:'+ Adicionar',accNone:'Sem acessório',
+  uiLanes:'Nº Corredores',uiLimit:'Vão disponível',uiPage:'Esta página',
+  planTitle:'PLANTA BAIXA',frontTitle:'ELEVAÇÃO FRONTAL  A—A',cotas:'Cotas em mm',scaleLbl:'500 mm',
+  ugSection:'SECÇÃO CANALIZAÇÃO SUBTERRÂNEA',slab:'Laje betão',awaiting:'Linha de espera',
+  twLabel:'Largura total instalação',nCabs:'Gabinetes',maxLbl:'VÃO MÁX',limOk:'✓ Cabe',
+  pernoLbl:'Parafuso',gabLbl:'Gabinete',slotLbl:'Slot motor',totalLbl:'Total',slotDimLbl:'Slot',libreLbl:'Livre',gapNote:'incluído na cota',
+  wiringTitle:'DIAGRAMA CABLAGEM — CADEIA MESTRE/ESCRAVO',switchLbl:'SWITCH / ACESSO',accessCtrl:'Controlo de acesso',
+  unitLeftEnd:'Extremidade esquerda',unitRightEnd:'Extremidade direita',unitCentral:'Mueble central',
+  ctrlMaster:'MESTRE',ctrlSlave:'ESCRAVO',chainNote:'Cadeia Mestre→Escravo',
+  pvcSizing:'DIMENSIONAMENTO PVC',legend:'LEGENDA',pvcNote:'prof. 50 mm · comp. 1000 mm',
+  cables:['AC 110/220V','Ethernet acesso','Ethernet motor','Cabo M-S 4 fios'],
+  pvcRanges:['1–2 corredores','3–4 corredores','5–6 corredores'],
+  coverTitle:'PLANO DE INSTALAÇÃO',covProject:'PROJECTO',covTW:'LARGURA TOTAL',covLimit:'VÃO OBRA',covLeaves:'PALETAS',
+  covBy:'ELABORADO POR',covCheck:'REVISTO POR',covDate:'DATA',covRev:'REVISÃO',
+  ficGab:'GABINETE',ficType:'Tipo',ficLargo:'Comprimento',ficAncho:'Largura',ficAlto:'Altura',ficArm:'Base braço',
+  ficTemp:'Temp. operação',ficVel:'Velocidade abertura',ficElec:'Alimentação',ficPow:'Consumo/unidade',ficGap:'GAP central paletas',
+  ficComm:'COMUNICAÇÃO',ficProto:'Protocolo',ficRS485:'RS485 / TCP-IP',ficBaud:'Baudrate',ficBaud9:'9.600 bps',
+  ficMaster:'Mestre (extremidades)',ficSlave:'Escravo (centrais)',
+  ficProj:'PROJECTO',ficLanes:'Corredores',ficCabs:'Gabinetes (físicos)',ficCabDetail:'Composição (BOM)',
+  ficTW:'LARGURA PORTAS',ficTWfull:'LARGURA TOTAL (portas + acessórios)',ficLimit:'VÃO OBRA',
+  ficAnc:'ANCORAGENS',ficPernos:'Parafusos totais',ficPos:'Posições (da base)',ficProf:'Prof. furação',ficDiam:'Diâm. furação',ficHolg:'Folga ao parede',
+  ficCond:'CANALIZAÇÃO PVC (IEC 61386)',ficPVC:'Conduíte',ficCables:'Cabos totais',ficFill:'Factor enchimento',
+  ficLeaves:'ACESSÓRIOS — PALETAS POR CORREDOR',ficStep:'Passagem livre',ficSlot:'Slot motor',
+  ficAccL:'ACESSÓRIOS LADO ESQUERDO',ficAccR:'ACESSÓRIOS LADO DIREITO',
+  ficAccDesc:'Descrição',ficAccW:'Largura exterior',ficAccH:'Altura',ficAccGW:'Largura vidro',ficAccGH:'Altura vidro',ficAccOpt:'Opção vidro',ficAccQty:'Unidades',ficAccTW:'Largura total acessórios lado',
+  swingBarrier:'Swing Barrier',
+  fldClient:'Cliente',fldProject:'Obra / Projecto',fldAddr:'Endereço',fldRef:'Referência',
+  fldAuthor:'Elaborado por',fldRevBy:'Revisto por',fldDate:'Data',fldVersion:'Revisão',
+  alertOver:(tw,lim)=>`Largura <b>${tw} mm</b> excede o vão <b>${lim} mm</b> — excesso <b>${tw-lim} mm</b>`,
+  alertNear:(tw,lim)=>`Largura <b>${tw} mm</b> — <b>${lim-tw} mm</b> disponíveis`,
+  alertOverBadge:'NÃO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
+  ficAcc:'ACESSÓRIOS',glass:'vidro',accLabel:'ACESSÓRIOS:',lane:'corredor',lanes:'corredores',covClient:'Cliente',covGates:'PORTÕES',
+}};
+let LANG='es';
+const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
+function setLang(l){LANG=l;document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));updateI18nDOM();redrawPage();}
+function updateI18nDOM(){
+  const ids={'lbl-lanes':'uiLanes','lbl-limit':'uiLimit','lbl-page':'uiPage','lbl-client':'fldClient','lbl-project':'fldProject','lbl-addr':'fldAddr','lbl-ref':'fldRef','lbl-author':'fldAuthor','lbl-revby':'fldRevBy','lbl-date':'fldDate','lbl-version':'fldVersion'};
+  Object.entries(ids).forEach(([id,k])=>{const el=document.getElementById(id);if(el)el.textContent=T(k);});
+  document.querySelectorAll('[data-t]').forEach(el=>{const v=T(el.dataset.t);if(typeof v==='string')el.textContent=v;});
+  renderAccBar();
+}
+function redrawPage(){drawCAD();if(PAGE==='wiring')drawWiring();else if(PAGE==='ficha')drawFicha();else if(PAGE==='cover')drawCover();}
+
+// ══ MODELS ════════════════════════════════════════════════════
+function pvcSize(n){const t=2+4*n;if(t<=8)return{d:50,label:'Ø50 mm',color:'#2a7a2a'};if(t<=12)return{d:63,label:'Ø63 mm',color:'#c08800'};return{d:75,label:'Ø75 mm',color:'#cc4400'};}
+const MODELS={
+  sbtl8000:{label:'SBTL8000 / SBTL8200',labelEnd:'SBTL8000',labelCentral:'SBTL8200',sub:'Swing Barrier · Industrial',W:134,D:1613,H:1017.5,armBase:200,wallCl:100,bolts:[80,336,681,977,1533],wireOff:88,mc:'#c04000',tempRange:'-25°C ~ +70°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'150W',
+   pg:[{c:660,s:788.5,l:'660',leaves:[{label:'Std 935',gmp:'GMP-ACC-640X935-A',pH:480,pW:295,topH:935},{label:'H 1.2m',gmp:'GMP-ACC-640X1200-A',pH:745,pW:295,topH:1200},{label:'H 1.5m',gmp:'GMP-ACC-640X1500-A',pH:1045,pW:295,topH:1500}]},{c:900,s:1028,l:'900',leaves:[{label:'Wide 935',gmp:'GMP-ACC-900X935-A',pH:480,pW:425,topH:935},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:425,topH:1500}]},{c:1200,s:1330,l:'1200',leaves:[{label:'XL 935',gmp:'GMP-ACC-1200X935-A',pH:630,pW:575,topH:935}]}]},
+  comet:{label:'Comet S1000 / S1200',labelEnd:'Comet S1000',labelCentral:'Comet S1200',sub:'Swing Gate · Slim',W:115,D:1500,H:1000,armBase:255,wallCl:100,bolts:[76,724,1424],wireOff:76,mc:'#005080',tempRange:'-25°C ~ +70°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'120W',
+   pg:[{c:660,s:812,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:875},{label:'H 1.2m',gmp:'GMP-ACC-650X1200-A',pH:955,pW:295,topH:1200}]},{c:900,s:1010,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:875}]},{c:1200,s:1310,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:875}]}]},
+  mars:{label:'Mars Pro-S1000 / S1200',labelEnd:'Mars Pro-S1000',labelCentral:'Mars Pro-S1200',sub:'Swing Barrier · Compact',W:120,D:1360,H:1020,armBase:245,wallCl:100,bolts:[60,1300],wireOff:60,mc:'#1a6a30',tempRange:'-20°C ~ +60°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'100W',
+   pg:[{c:650,s:800,l:'650',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:875},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1500}]},{c:900,s:1050,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:875},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1500}]},{c:1200,s:1350,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:875}]}]},
+  mars_s100:{label:'Mars-S100 / S120',labelEnd:'Mars-S100',labelCentral:'Mars-S120',sub:'Swing Barrier · Ultra-Compact',W:120,D:600,H:1040,armBase:264,wallCl:100,bolts:[60,540],wireOff:60,mc:'#1a5a8a',tempRange:'-20°C ~ +60°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'100W',
+   pg:[{c:660,s:820,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:894},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1519}]},{c:900,s:1060,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:894},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1519}]},{c:1200,s:1360,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:894}]}]},
+};
+const MK=Object.keys(MODELS);
+let M='sbtl8000',lanes=[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}],PAGE='cad',siteLimit=0;
+const N=()=>lanes.length;
+const r=n=>+(Math.round(n*10)/10);
+const rnd=n=>Math.round(n);
+const mn=(...a)=>a.reduce((b,c)=>b<c?b:c);
+function getLane(i){const sp=MODELS[M],l=lanes[i],pgI=Math.min(l.pgIdx,sp.pg.length-1),pg=sp.pg[pgI],lfI=Math.min(l.lfIdx,pg.leaves.length-1);return{pg,lf:pg.leaves[lfI]};}
+function TWgate(){return(N()+1)*MODELS[M].W+Array.from({length:N()},(_,i)=>getLane(i).pg.s).reduce((a,b)=>a+b,0);}
+function TWfull(){return accSideTotalW(accLeft)+TWgate()+accSideTotalW(accRight);}
+function maxH(){return Math.max(MODELS[M].H,...Array.from({length:N()},(_,i)=>getLane(i).lf.topH));}
+function cabType(i){if(i===0)return'left';if(i===N())return'right';return'central';}
+function unitsInfo(){const sp=MODELS[M],nC=Math.max(0,N()-1);return nC>0?`1 × ${sp.labelEnd} + ${nC} × ${sp.labelCentral}`:`1 × ${sp.labelEnd}`;}
+function unitsShort(){const sp=MODELS[M],nC=Math.max(0,N()-1);return nC>0?`1×${sp.labelEnd} + ${nC}×${sp.labelCentral}`:`1×${sp.labelEnd}`;}
+
+// ══ ACCESSORY UI ══════════════════════════════════════════════
+function renderAccBar(){
+  renderAccSide('left',accLeft,'acc-left-items','acc-left-add');
+  renderAccSide('right',accRight,'acc-right-items','acc-right-add');
+}
+function renderAccSide(side,list,itemsId,addId){
+  const itemsEl=document.getElementById(itemsId);
+  const addEl=document.getElementById(addId);
+  if(!itemsEl||!addEl)return;
+  if(list.length===0){itemsEl.innerHTML=`<div class="ac-none">${T('accNone')}</div>`;}
+  else{
+    itemsEl.innerHTML=list.map((item,idx)=>{
+      const a=ACC_BY_CODE[item.code];if(!a)return'';
+      const gO=getAccGlass(item);
+      let extraHtml='';
+      if(a.customGlass){
+        // R50: show custom numeric inputs for glass width and height
+        const gW=+(item.r50gW)||920, gH=+(item.r50gH)||600;
+        extraHtml=`<div class="ac-r50-row">
+          <span class="ac-r50-lbl">Vidrio:</span>
+          <span class="ac-r50-lbl">Ancho</span>
+          <input class="ac-r50-inp" type="number" min="${a.gWmin}" max="${a.gWmax}" step="10" value="${gW}"
+            onchange="setR50Custom('${side}',${idx},'r50gW',Math.max(${a.gWmin},Math.min(${a.gWmax},+this.value)))">
+          <span class="ac-r50-unit">mm</span>
+          <span class="ac-r50-range">(${a.gWmin}–${a.gWmax})</span>
+          <span class="ac-r50-lbl" style="margin-left:4px">Alto</span>
+          <input class="ac-r50-inp" type="number" min="${a.gHmin}" max="${a.gHmax}" step="10" value="${gH}"
+            onchange="setR50Custom('${side}',${idx},'r50gH',Math.max(${a.gHmin},Math.min(${a.gHmax},+this.value)))">
+          <span class="ac-r50-unit">mm</span>
+          <span class="ac-r50-range">(${a.gHmin}–${a.gHmax})</span>
+        </div>`;
+      }
+      const dynW=getAccItemW(item);
+      const dimDesc=`${dynW}×${a.H}mm${gO?` · ${T('glass')} ${gO.gW}×${gO.gH}mm`:''}`;
+      return`<div class="ac-item">
+        <span class="ac-item-badge">${a.code}</span>
+        <span class="ac-item-desc">${accDsc(a)} · ${dimDesc}</span>
+        <button class="ac-rm" onclick="removeAcc('${side}',${idx})" title="Eliminar">×</button>
+        ${extraHtml}
+      </div>`;
+    }).join('');
+  }
+  const canAdd=list.length<MAX_ACC_PER_SIDE;
+  addEl.innerHTML=`<span class="ac-add-lbl">${T('accAdd')}:</span>`+
+    ACC_CAT.map(a=>`<button class="ac-add-btn" ${canAdd?'':'disabled'} onclick="addAcc('${side}','${a.code}')">${a.code}</button>`).join('');
+}
+function addAcc(side,code){
+  const a=ACC_BY_CODE[code];if(!a)return;
+  const list=side==='left'?accLeft:accRight;
+  if(list.length>=MAX_ACC_PER_SIDE)return;
+  list.push({code,r50gi:0,r50gW:920,r50gH:600});
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();
+}
+function removeAcc(side,idx){
+  const list=side==='left'?accLeft:accRight;
+  list.splice(idx,1);
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();
+}
+function setAccGlass(side,idx,gi){
+  const list=side==='left'?accLeft:accRight;
+  if(list[idx])list[idx].r50gi=gi;
+  renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();
+}
+
+// ══ ALERTS ════════════════════════════════════════════════════
+function getAlertState(){if(!siteLimit||siteLimit<=0)return null;const tw=TWfull();if(tw>siteLimit)return'over';if(tw>siteLimit*0.95)return'near';return null;}
+function updateAlerts(){
+  const state=getAlertState(),tw=rnd(TWfull());
+  const bar=document.getElementById('alert-bar');
+  bar.className='ab'+(state?' on ':' ')+(state||'');
+  if(state==='over'){document.getElementById('alert-body').innerHTML=T('alertOver')(tw,siteLimit);document.getElementById('alert-badge').textContent=T('alertOverBadge');}
+  else if(state==='near'){document.getElementById('alert-body').innerHTML=T('alertNear')(tw,siteLimit);document.getElementById('alert-badge').textContent=T('alertNearBadge');}
+  const inp=document.getElementById('limit-input');inp.className='lf'+(state?' '+state:'');
+}
+function onLimitChange(){siteLimit=parseInt(document.getElementById('limit-input').value)||0;updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}
+function setPage(p){PAGE=p;['cad','wiring','ficha','cover'].forEach(id=>{document.getElementById('page-'+id).style.display=id===p?'':'none';document.getElementById('tab-'+id).classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();}
+
+// ══ SAVE / LOAD ═══════════════════════════════════════════════
+function saveProject(){
+  const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
+  const data={version:'3',app:'ZKTeco SpeedGate CAD v35',saved:new Date().toISOString(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}};
+  dlB(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-${new Date().toISOString().slice(0,10)}.json`);
+}
+function loadProject(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(d.model&&MODELS[d.model])M=d.model;
+      if(Array.isArray(d.lanes))lanes=d.lanes.map(l=>({pgIdx:+(l.pgIdx)||0,lfIdx:+(l.lfIdx)||0}));
+      if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
+      if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
+      accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+      accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+      if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
+      ui();redrawPage();
+    }catch(err){alert('Error: '+err.message);}
+    e.target.value='';
+  };reader.readAsText(file);
+}
+
+// ══ EXPORT ════════════════════════════════════════════════════
+function getSVGStr(el){const vb=el.viewBox.baseVal,cl=el.cloneNode(true);cl.setAttribute('width',vb.width);cl.setAttribute('height',vb.height);cl.setAttribute('xmlns','http://www.w3.org/2000/svg');let s=new XMLSerializer().serializeToString(cl);if(!s.includes('xmlns='))s=s.replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"');return s;}
+function s2c(str,W,H,sc){return new Promise((res,rej)=>{const b=new Blob([str],{type:'image/svg+xml;charset=utf-8'}),u=URL.createObjectURL(b),img=new Image();img.onload=()=>{const c=document.createElement('canvas');c.width=W*sc;c.height=H*sc;const ctx=c.getContext('2d');ctx.fillStyle='#eeede5';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c);};img.onerror=ex=>{URL.revokeObjectURL(u);rej(ex);};img.src=u;});}
+function dlB(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(a.href),500);}
+function showP(p,txt){const pb=document.getElementById('pbar');pb.classList.add('on');document.getElementById('pbar-txt').textContent=txt;document.getElementById('pbar-inner').style.width=p+'%';document.getElementById('pbar-pct').textContent=p+'%';}
+function hideP(){document.getElementById('pbar').classList.remove('on');}
+async function exportPage(id,fmt){const el=document.getElementById(id),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-${id==='cv'?'cad':id==='wsvg'?'wiring':'portada'}`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
+async function exportFicha(fmt){drawFichaSVG();const el=document.getElementById('ficha-svg'),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-ficha`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
+async function exportProject(fmt){
+  const bP=document.getElementById('btn-all-png'),bS=document.getElementById('btn-all-svg');bP.disabled=true;bS.disabled=true;showP(0,'…');drawWiring();drawCover();drawFichaSVG();
+  const sp=MODELS[M],name=`ZKTeco-${sp.label.replace(/[\s/]+/g,'-')}-proyecto`;
+  const pgs=[{id:'covsvg'},{id:'cv'},{id:'wsvg'},{id:'ficha-svg'}];
+  const lbls=[T('tabCover'),T('tabCad'),T('tabWiring'),T('tabFicha')];
+  const done=()=>setTimeout(()=>{hideP();bP.disabled=false;bS.disabled=false;},2000);
+  if(fmt==='png'){try{const cvs=[];for(let i=0;i<pgs.length;i++){showP(10+i*18,lbls[i]+'…');const el=document.getElementById(pgs[i].id);const vb=el.viewBox.baseVal;const c=await s2c(getSVGStr(el),vb.width,vb.height,2);cvs.push({c,W:vb.width,H:vb.height});await new Promise(rr=>requestAnimationFrame(rr));}
+  const G=40,SC=2,maxW=Math.max(...cvs.map(x=>x.W))*SC,totalH=cvs.reduce((s,x)=>s+x.H*SC,0)+(pgs.length-1)*G*SC;const out=document.createElement('canvas');out.width=maxW;out.height=totalH;const ctx=out.getContext('2d');ctx.fillStyle='#eeede5';ctx.fillRect(0,0,maxW,totalH);let y=0;cvs.forEach(({c,W,H},i)=>{ctx.drawImage(c,(maxW-W*SC)/2,y);y+=H*SC;if(i<cvs.length-1){ctx.fillStyle='#14304f';ctx.fillRect(0,y,maxW,G*SC);ctx.fillStyle='#7dd87a';ctx.font=`bold ${11*SC}px monospace`;ctx.textAlign='center';ctx.fillText(`— ${lbls[i+1]} —`,maxW/2,y+G*SC*.65);y+=G*SC;}});showP(98,'…');out.toBlob(b=>{dlB(b,name+'.png');showP(100,'✅');done();},'image/png');}catch(ex){hideP();alert(ex);bP.disabled=false;bS.disabled=false;}}
+  else{try{const G=20,pd=pgs.map((p,i)=>{const el=document.getElementById(p.id);const vb=el.viewBox.baseVal;return{str:getSVGStr(el),W:vb.width,H:vb.height,label:lbls[i]};});const maxW=Math.max(...pd.map(p=>p.W)),totalH=pd.reduce((s,p)=>s+p.H,0)+(pgs.length-1)*G;let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${maxW}" height="${totalH}" viewBox="0 0 ${maxW} ${totalH}"><rect width="${maxW}" height="${totalH}" fill="#eeede5"/>`;let y=0;pd.forEach((p,i)=>{const ox=(maxW-p.W)/2;let inner=p.str.replace(/^<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'');svg+=`<g transform="translate(${ox},${y})"><svg width="${p.W}" height="${p.H}" viewBox="0 0 ${p.W} ${p.H}">${inner}</svg></g>`;y+=p.H;if(i<pd.length-1){svg+=`<rect x="0" y="${y}" width="${maxW}" height="${G}" fill="#14304f"/>`;svg+=`<text x="${maxW/2}" y="${r(y+G*.65)}" text-anchor="middle" font-family="monospace" font-size="10" font-weight="bold" fill="#7dd87a">— ${pd[i+1].label} —</text>`;y+=G;}});svg+=`</svg>`;dlB(new Blob([svg],{type:'image/svg+xml'}),name+'.svg');showP(100,'✅');done();}catch(ex){hideP();alert(ex);bP.disabled=false;bS.disabled=false;}}
+}
+async function exportPDF(){
+  const btn=document.getElementById('btn-pdf');btn.disabled=true;showP(0,'Cargando jsPDF…');
+  if(!window.jspdf){await new Promise((res,rej)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+  drawWiring();drawCover();drawFichaSVG();showP(10,'…');
+  const{jsPDF}=window.jspdf;const doc=new jsPDF({orientation:'landscape',unit:'mm',format:'a3'});
+  const PW=420,PH=297,mg=12;
+  const pgs=[{id:'covsvg',label:T('tabCover')},{id:'cv',label:T('tabCad')},{id:'wsvg',label:T('tabWiring')},{id:'ficha-svg',label:T('tabFicha')}];
+  const sp=MODELS[M];
+  for(let i=0;i<pgs.length;i++){if(i>0)doc.addPage();showP(10+i*20,pgs[i].label+'…');const el=document.getElementById(pgs[i].id);const vb=el.viewBox.baseVal;const canvas=await s2c(getSVGStr(el),vb.width,vb.height,2);const aR=vb.width/vb.height,pgAR=(PW-2*mg)/(PH-2*mg);let dW,dH,ox,oy;if(aR>pgAR){dW=PW-2*mg;dH=dW/aR;ox=mg;oy=mg+(PH-2*mg-dH)/2;}else{dH=PH-2*mg;dW=dH*aR;oy=mg;ox=mg+(PW-2*mg-dW)/2;}doc.addImage(canvas.toDataURL('image/jpeg',.93),'JPEG',ox,oy,dW,dH);doc.setFillColor(20,48,79);doc.rect(0,0,PW,8,'F');doc.setTextColor(125,216,122);doc.setFontSize(8);doc.setFont('Courier','bold');doc.text(`ZKTeco SpeedGate CAD — ${sp.label} — ${pgs[i].label}`,mg,5.5);doc.setTextColor(150,150,150);doc.setFont('Courier','normal');doc.setFontSize(7);doc.text(`${T('pdfPage')} ${i+1} / ${pgs.length}`,PW-mg,PH-3,{align:'right'});doc.setDrawColor(200,200,200);doc.setLineWidth(.2);doc.line(mg,PH-7,PW-mg,PH-7);doc.setTextColor(150,150,150);doc.setFontSize(6);doc.text('ZKTeco Corp. © 2025 — www.zkteco.com',PW/2,PH-3,{align:'center'});await new Promise(rr=>requestAnimationFrame(rr));}
+  showP(95,'…');doc.save(`ZKTeco-${sp.label.replace(/[\s/]+/g,'-')}-proyecto.pdf`);showP(100,'✅');setTimeout(()=>{hideP();btn.disabled=false;},2000);
+}
+
+// ══ SVG HELPERS ═══════════════════════════════════════════════
+const FM=`font-family="monospace"`;
+function tickDim(x1,x2,y,lbl,col,extFrom,fs){const e=5,w=r(x2-x1);let s='';if(extFrom!==undefined){const d=y<extFrom?1:-1;s+=`<line x1="${r(x1)}" y1="${r(extFrom)}" x2="${r(x1)}" y2="${r(y+d*e)}" stroke="${col}" stroke-width=".4" stroke-dasharray="3 2.5" opacity=".5"/>`;s+=`<line x1="${r(x2)}" y1="${r(extFrom)}" x2="${r(x2)}" y2="${r(y+d*e)}" stroke="${col}" stroke-width=".4" stroke-dasharray="3 2.5" opacity=".5"/>`;}s+=`<line x1="${r(x1)}" y1="${r(y-e)}" x2="${r(x1)}" y2="${r(y+e)}" stroke="${col}" stroke-width="1"/>`;s+=`<line x1="${r(x2)}" y1="${r(y-e)}" x2="${r(x2)}" y2="${r(y+e)}" stroke="${col}" stroke-width="1"/>`;if(w>6)s+=`<line x1="${r(x1+.5)}" y1="${r(y)}" x2="${r(x2-.5)}" y2="${r(y)}" stroke="${col}" stroke-width=".8" marker-start="url(#da)" marker-end="url(#da)"/>`;if(w>16&&lbl){const f=fs||(w<40?6:w<70?7.5:9);s+=`<text x="${r((x1+x2)/2)}" y="${r(y-7)}" text-anchor="middle" ${FM} font-size="${f}" fill="${col}" font-weight="600">${lbl}</text>`;}return s;}
+function DV(x,y1,y2,lbl,right=true,col='#1a5fa0'){const e=5,tx=right?r(x+15):r(x-15),my=r((y1+y2)/2),h2=r(y2-y1);let s='';s+=`<line x1="${r(x-e)}" y1="${r(y1)}" x2="${r(x+e)}" y2="${r(y1)}" stroke="${col}" stroke-width=".9"/>`;s+=`<line x1="${r(x-e)}" y1="${r(y2)}" x2="${r(x+e)}" y2="${r(y2)}" stroke="${col}" stroke-width=".9"/>`;if(h2>5)s+=`<line x1="${r(x)}" y1="${r(y1+.5)}" x2="${r(x)}" y2="${r(y2-.5)}" stroke="${col}" stroke-width=".7" marker-start="url(#da)" marker-end="url(#da)"/>`;if(h2>16&&lbl){const fs=h2<40?6.5:8;s+=`<text x="${tx}" y="${my}" text-anchor="middle" dominant-baseline="central" ${FM} font-size="${fs}" fill="${col}" transform="rotate(-90,${tx},${my})">${lbl}</text>`;}return s;}
+function gnd(x1,x2,y){let s=`<line x1="${r(x1-14)}" y1="${r(y)}" x2="${r(x2+14)}" y2="${r(y)}" stroke="#333" stroke-width="2.5"/>`;for(let x=r(x1-14);x<x2+15;x+=7)s+=`<line x1="${r(x)}" y1="${r(y)}" x2="${r(x-5)}" y2="${r(y+5)}" stroke="#555" stroke-width=".7"/>`;return s;}
+function cabSVG(x,y,w,h,lbl){return`<rect x="${r(x)}" y="${r(y)}" width="${r(w)}" height="${r(h)}" fill="#b5b0a8"/><rect x="${r(x)}" y="${r(y)}" width="${r(w)}" height="${r(h)}" fill="url(#ht)" opacity=".55"/><rect x="${r(x)}" y="${r(y)}" width="${r(w)}" height="${r(h)}" fill="none" stroke="#1a1a1a" stroke-width=".9"/>${w>10?`<text x="${r(x+w/2)}" y="${r(y+h/2)}" text-anchor="middle" dominant-baseline="central" ${FM} font-size="${mn(7.5,w*.4)}" fill="#333" transform="rotate(-90,${r(x+w/2)},${r(y+h/2)})">${lbl}</text>`:''}`;}
+
+const P_TOP=14,P_BOT=305,PX={l:30,r:670},P_DT=74,DL_TOT=57,DL_SUB=72;
+const BOT_TOP=313,FXL=14,FXR=706,fW=FXR-FXL,BOT_BOT=640,fgy=628;
+const D_TOT_Y=BOT_TOP+55,D_SUB_Y=BOT_TOP+78,D_CLR_Y=BOT_TOP+101,F_DT=BOT_TOP+118;
+
+function makeDefs(){return`<defs>
+  <pattern id="ht" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)"><rect width="6" height="6" fill="#c0bbb4"/><rect width="3" height="6" fill="#b0aba4"/></pattern>
+  <pattern id="conc" patternUnits="userSpaceOnUse" width="14" height="12"><rect width="14" height="12" fill="#c8bca4"/><circle cx="3" cy="3.5" r="1.1" fill="#9a8868"/><circle cx="9" cy="2" r=".7" fill="#8a7858"/><circle cx="11.5" cy="8" r="1.3" fill="#9a8868"/><circle cx="4" cy="9" r=".9" fill="#8a7858"/><line x1="0" y1="6" x2="14" y2="6" stroke="#b8a880" stroke-width=".35" opacity=".45"/></pattern>
+  <marker id="da" viewBox="0 0 10 6" refX="9.2" refY="3" markerWidth="7" markerHeight="4.5" orient="auto-start-reverse"><path d="M0 0L10 3L0 6Z" fill="context-stroke"/></marker>
+  <marker id="ms-arr" viewBox="0 0 10 6" refX="9" refY="3" markerWidth="8" markerHeight="5" orient="auto"><path d="M0 0L10 3L0 6Z" fill="#1a7a30"/></marker>
+  <clipPath id="fe-clip"><rect x="${FXL}" y="${BOT_TOP}" width="${fW}" height="${BOT_BOT-BOT_TOP}"/></clipPath>
+  <clipPath id="ug-clip"><rect x="${FXL}" y="${BOT_BOT-70}" width="${fW}" height="72"/></clipPath>
+</defs>`;}
+
+function limitLine(origin,scale,yTop,yBot,labelY){if(!siteLimit||siteLimit<=0)return'';const state=getAlertState(),col=state==='over'?'#cc1111':state==='near'?'#c08800':'#1a7a30';const lx=r(origin+siteLimit*scale);let h='';h+=`<line x1="${lx}" y1="${r(yTop-4)}" x2="${lx}" y2="${r(yBot+2)}" stroke="${col}" stroke-width="1.8" stroke-dasharray="${state==='over'?'7 4':'10 5'}" stroke-linecap="round" opacity=".9"/>`;h+=`<polygon points="${lx-5},${r(yTop+2)} ${lx+5},${r(yTop+8)} ${lx-5},${r(yTop+14)}" fill="${col}" opacity=".85"/>`;if(state==='over'){const tw=TWfull(),iE=r(origin+tw*scale);if(iE>lx){h+=`<rect x="${lx}" y="${r(yTop-4)}" width="${r(iE-lx)}" height="${r(yBot-yTop+6)}" fill="#cc111115"/>`;h+=tickDim(lx,iE,r(yBot-8),`+${rnd(tw-siteLimit)}mm`,'#cc1111');}}const tagW=58,tagX=lx+2,tagY=r(labelY);h+=`<rect x="${tagX}" y="${r(tagY-10)}" width="${tagW}" height="13" fill="${col}" rx="2" opacity=".92"/>`;h+=`<text x="${r(tagX+3)}" y="${r(tagY)}" ${FM} font-size="7" font-weight="bold" fill="#fff">${T('maxLbl')}</text>`;h+=`<text x="${r(tagX+3)}" y="${r(tagY+10)}" ${FM} font-size="6.5" fill="${col}">${siteLimit} mm</text>`;return h;}
+
+function drawUG(fox,fgy,fsc,sp,pvc){
+  const L=FXL+2,R=FXR-2,UG_H=68,SLAB=10,BY=r(fgy+UG_H-10);
+  const pvcPx=Math.max(4,Math.min(10,Math.round(pvc.d*fsc*.18))),co=Math.min(pvcPx*.5,4);
+  let h='';h+=`<text x="${r((L+R)/2)}" y="${r(fgy+5)}" text-anchor="middle" ${FM} font-size="5" fill="#888" letter-spacing=".8">${T('ugSection')}</text>`;h+=`<rect x="${L}" y="${fgy}" width="${R-L}" height="${SLAB}" fill="url(#ht)" opacity=".7"/><rect x="${L}" y="${fgy}" width="${R-L}" height="${SLAB}" fill="none" stroke="#555" stroke-width=".6"/>`;h+=`<text x="${r(L+4)}" y="${r(fgy+SLAB/2+2.5)}" dominant-baseline="central" ${FM} font-size="5" fill="#555">${T('slab')}</text>`;h+=`<rect x="${L}" y="${r(fgy+SLAB)}" width="${R-L}" height="${r(UG_H-SLAB)}" fill="url(#conc)"/><rect x="${L}" y="${r(fgy+SLAB)}" width="${R-L}" height="${r(UG_H-SLAB)}" fill="none" stroke="#888" stroke-width=".5"/>`;
+  const cx=[];let wx=fox;for(let i=0;i<=N();i++){cx.push(Math.max(L+4,Math.min(R-4,r(wx+sp.W*fsc/2))));wx=r(wx+sp.W*fsc);if(i<N())wx=r(wx+getLane(i).pg.s*fsc);}
+  cx.forEach(x=>{if(x<L+2||x>R-2)return;const bT=r(fgy-2),bB=r(fgy+SLAB+18);h+=`<line x1="${x}" y1="${bT}" x2="${x}" y2="${bB}" stroke="#888" stroke-width="2.5" stroke-linecap="round"/>`;for(let ty=bT+4;ty<bB-3;ty+=4)h+=`<line x1="${r(x-1.8)}" y1="${ty}" x2="${r(x+1.8)}" y2="${ty}" stroke="#aaa" stroke-width=".5"/>`;h+=`<rect x="${r(x-4)}" y="${r(fgy-3)}" width="8" height="2.5" fill="#b0b0b0" stroke="#777" stroke-width=".5" rx=".8"/>`;h+=`<rect x="${r(x-3)}" y="${r(fgy-6.5)}" width="6" height="4" fill="#999" stroke="#666" stroke-width=".5" rx=".5"/>`;h+=`<path d="M${r(x-4.5)},${fgy} L${r(x-4.5)},${r(fgy+3)} Q${r(x-4.5)},${r(fgy+6)} ${r(x-1.5)},${r(fgy+6)} L${r(x+1.5)},${r(fgy+6)} Q${r(x+4.5)},${r(fgy+6)} ${r(x+4.5)},${r(fgy+3)} L${r(x+4.5)},${fgy}" fill="none" stroke="#777" stroke-width="1.1"/>`;});
+  for(let i=0;i<N();i++){const x0=cx[i],x1=cx[i+1];if(x0<L||x1>R||x1-x0<6)continue;const sw=x1-x0,rad=Math.min(8,r(sw*.10)),dY=r(fgy+SLAB+3);const path=`M${x0},${dY} L${x0},${r(BY-rad)} Q${x0},${BY} ${r(x0+rad)},${BY} L${r(x1-rad)},${BY} Q${x1},${BY} ${x1},${r(BY-rad)} L${x1},${dY}`;h+=`<path d="${path}" fill="none" stroke="${pvc.color}25" stroke-width="${pvcPx+5}" stroke-linecap="round" stroke-linejoin="round"/>`;h+=`<path d="${path}" fill="none" stroke="${pvc.color}" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>`;h+=`<path d="${path}" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="${Math.max(2,pvcPx-3)}" stroke-linecap="round" stroke-linejoin="round"/>`;['#cc1111','#1a5fa0','#e8a020','#2a7a2a'].forEach((cc,k)=>{const ox=r(-co*.75+k*(co*1.5/3));h+=`<line x1="${r(x0+ox)}" y1="${dY}" x2="${r(x0+ox)}" y2="${r(BY-rad-2)}" stroke="${cc}" stroke-width=".9" opacity=".88"/>`;h+=`<line x1="${r(x1+ox)}" y1="${dY}" x2="${r(x1+ox)}" y2="${r(BY-rad-2)}" stroke="${cc}" stroke-width=".9" opacity=".88"/>`;if(sw>22)h+=`<line x1="${r(x0+rad+2)}" y1="${r(BY-1.5+(k-1.5)*1.4)}" x2="${r(x1-rad-2)}" y2="${r(BY-1.5+(k-1.5)*1.4)}" stroke="${cc}" stroke-width=".9" opacity=".88"/>`;});if(sw>36)h+=`<text x="${r((x0+x1)/2)}" y="${r(BY-pvcPx/2-3)}" text-anchor="middle" ${FM} font-size="5.5" fill="${pvc.color}" font-weight="bold">C${i+1}</text>`;}
+  const cables=T('cables'),LW=136,LH=50,lx=R-LW-2,ly=r(fgy+UG_H-LH-2);
+  h+=`<rect x="${lx}" y="${ly}" width="${LW}" height="${LH}" fill="#eeede5" stroke="${pvc.color}70" stroke-width=".8" rx="3"/>`;h+=`<rect x="${lx}" y="${ly}" width="${LW}" height="13" fill="${pvc.color}" rx="3"/>`;h+=`<rect x="${lx}" y="${r(ly+9)}" width="${LW}" height="4" fill="${pvc.color}"/>`;h+=`<text x="${r(lx+LW/2)}" y="${r(ly+9)}" text-anchor="middle" ${FM} font-size="6.5" font-weight="bold" fill="#fff">PVC ${pvc.label}</text>`;cables.forEach((lbl,k)=>{const ry=r(ly+17+k*8);h+=`<rect x="${r(lx+4)}" y="${r(ry-3)}" width="7" height="4" fill="${['#cc1111','#1a5fa0','#e8a020','#2a7a2a'][k]}" rx="1"/>`;h+=`<text x="${r(lx+14)}" y="${ry}" ${FM} font-size="5.5" fill="#333">${lbl}</text>`;});
+  return h;
+}
+
+// ── Accessory drawing helpers ─────────────────────────────────
+// Draw accessories in PLAN VIEW (top view) — to the left or right of the gate footprint
+// pox = gate left edge, poy = gate top, pdd = gate depth pixels, psc = scale
+// Returns {svg, totalW_px}
+// ── Draw ONE accessory unit in PLAN VIEW (top view) ──────────
+// x0 = left pixel edge, poy = plan top, pdd = gate depth px, psc = scale
+function drawAccPlanUnit(item,x0,poy,pdd,psc){
+  const a=ACC_BY_CODE[item.code];if(!a)return'';
+  let h='';
+  const itemW=getAccItemW(item);   // ✅ dynamic width (R50 uses glass+100mm)
+  const wPx=r(itemW*psc);
+  const postWmm=a.code==='R50'?25:38;
+  const postPx=Math.max(3,r(postWmm*psc));
+  const planDepthMm=postWmm+30;
+  const dPx=Math.max(6,Math.min(r(planDepthMm*psc),r(pdd*0.25)));
+  const y0=r(poy+pdd/2-dPx/2);
+  // Outer rectangle (footprint)
+  const fill=a.hasGlass?'rgba(155,210,248,.18)':'rgba(200,136,0,.07)';
+  h+=`<rect x="${x0}" y="${y0}" width="${wPx}" height="${dPx}" fill="${fill}" stroke="#c08800" stroke-width="1.1" rx="2"/>`;
+  // Posts (small filled squares at each end)
+  h+=`<rect x="${x0}" y="${y0}" width="${postPx}" height="${dPx}" fill="rgba(145,140,128,.65)" stroke="#88877a" stroke-width=".5" rx="1"/>`;
+  h+=`<rect x="${r(x0+wPx-postPx)}" y="${y0}" width="${postPx}" height="${dPx}" fill="rgba(145,140,128,.65)" stroke="#88877a" stroke-width=".5" rx="1"/>`;
+  // Glass edge line (R30/R40/R50)
+  if(a.hasGlass){const gO=getAccGlass(item);if(gO){const gWpx=Math.min(r(gO.gW*psc),wPx-postPx*2);const gx=r(x0+(wPx-gWpx)/2);h+=`<line x1="${gx}" y1="${r(y0+dPx/2)}" x2="${r(gx+gWpx)}" y2="${r(y0+dPx/2)}" stroke="#5ab0d8" stroke-width="1.8" opacity=".75"/>`;}}
+  // Label
+  if(wPx>20)h+=`<text x="${r(x0+wPx/2)}" y="${r(y0-5)}" text-anchor="middle" ${FM} font-size="6" fill="#c08800" font-weight="700">${a.code}</text>`;
+  return h;
+}
+
+// ── Draw ONE accessory unit in FRONT ELEVATION (dynamic width, supports R50) ──
+function drawAccElevUnitDyn(item,x0,fgy,fsc){
+  const a=ACC_BY_CODE[item.code];if(!a)return'';
+  const itemW=getAccItemW(item);  // ✅ dynamic width for R50
+  const origW=a.W;
+  // Temporarily patch dimensions for drawing by overriding wPx via a proxy-item
+  // We do this by building inline with itemW
+  let h='';
+  const wPx=r(itemW*fsc);
+  const totalH=r(a.H*fsc);
+  const y0=r(fgy-totalH);
+  const postWmm=a.code==='R50'?25:38;
+  const postWpx=Math.max(3,r(postWmm*fsc));
+  const postRad=Math.max(1,r(postWmm*fsc*0.28));
+  const railHmm=32;
+  const railHpx=Math.max(2,r(railHmm*fsc));
+  const baseWmm=postWmm+32;
+  const baseHmm=14;
+  const baseHpx=Math.max(2,r(baseHmm*fsc));
+  const baseWpx=Math.max(postWpx+3,r(baseWmm*fsc));
+  const postCol='#a8a89e',postStroke='#6a6a62',railCol='#b8b8ae';
+  h+=`<rect x="${x0}" y="${r(y0+railHpx)}" width="${postWpx}" height="${r(totalH-railHpx-baseHpx)}" fill="${postCol}" stroke="${postStroke}" stroke-width=".6" rx="${postRad}"/>`;
+  h+=`<rect x="${r(x0+wPx-postWpx)}" y="${r(y0+railHpx)}" width="${postWpx}" height="${r(totalH-railHpx-baseHpx)}" fill="${postCol}" stroke="${postStroke}" stroke-width=".6" rx="${postRad}"/>`;
+  h+=`<rect x="${x0}" y="${y0}" width="${wPx}" height="${railHpx}" fill="${railCol}" stroke="${postStroke}" stroke-width=".7" rx="${Math.max(1,r(railHmm*fsc*0.3))}"/>`;
+  if(railHpx>3)h+=`<rect x="${r(x0+2)}" y="${r(y0+1)}" width="${r(wPx-4)}" height="${r(railHpx*0.35)}" fill="rgba(255,255,255,.2)" rx="1"/>`;
+  const lbX=r(x0+postWpx/2-baseWpx/2);
+  h+=`<rect x="${lbX}" y="${r(fgy-baseHpx)}" width="${baseWpx}" height="${baseHpx}" fill="${postCol}" stroke="${postStroke}" stroke-width=".5" rx="1"/>`;
+  const rbX=r(x0+wPx-postWpx/2-baseWpx/2);
+  h+=`<rect x="${rbX}" y="${r(fgy-baseHpx)}" width="${baseWpx}" height="${baseHpx}" fill="${postCol}" stroke="${postStroke}" stroke-width=".5" rx="1"/>`;
+  if(!a.hasGlass){
+    const midBarY=r(y0+totalH*0.48);const midBarH=Math.max(2,r(14*fsc));
+    h+=`<rect x="${x0}" y="${r(midBarY-midBarH/2)}" width="${wPx}" height="${midBarH}" fill="${railCol}" stroke="${postStroke}" stroke-width=".45" rx="1"/>`;
+    if(wPx>18){
+      const bTopY=r(y0+railHpx+4);const bBotY=r(midBarY+midBarH/2);const midX=r(x0+wPx/2);
+      h+=`<line x1="${r(x0+postWpx+1)}" y1="${bTopY}" x2="${midX}" y2="${bBotY}" stroke="${postStroke}" stroke-width=".8" opacity=".55"/>`;
+      h+=`<line x1="${r(x0+wPx-postWpx-1)}" y1="${bTopY}" x2="${midX}" y2="${bBotY}" stroke="${postStroke}" stroke-width=".8" opacity=".55"/>`;
+      const lMidY=r((midBarY+fgy-baseHpx)*0.5);
+      h+=`<line x1="${r(x0+postWpx+1)}" y1="${r(midBarY+midBarH/2)}" x2="${r(x0+wPx/2)}" y2="${lMidY}" stroke="${postStroke}" stroke-width=".5" opacity=".35"/>`;
+      h+=`<line x1="${r(x0+wPx-postWpx-1)}" y1="${r(midBarY+midBarH/2)}" x2="${r(x0+wPx/2)}" y2="${lMidY}" stroke="${postStroke}" stroke-width=".5" opacity=".35"/>`;
+    }
+  } else {
+    const gO=getAccGlass(item);
+    if(gO){
+      const glassBottomMm=120;
+      // For R50 the glass can be as wide as itemW - posts, for others clamp to wPx
+      const gWpx=a.code==='R50'?r(gO.gW*fsc):Math.min(r(gO.gW*fsc),wPx-postWpx*1.2);
+      const gHpx=r(gO.gH*fsc);
+      const gBotPx=r(glassBottomMm*fsc);
+      const gx=r(x0+(wPx-gWpx)/2);
+      const gy=r(fgy-gBotPx-gHpx);
+      h+=`<rect x="${gx}" y="${gy}" width="${gWpx}" height="${gHpx}" fill="rgba(155,210,245,.52)" stroke="#48a8d0" stroke-width=".9" rx="1"/>`;
+      if(gWpx>10)h+=`<rect x="${r(gx+2)}" y="${r(gy+2)}" width="${r(Math.max(3,gWpx*0.10))}" height="${r(gHpx*0.72)}" fill="rgba(255,255,255,.22)" rx=".5"/>`;
+      if(gHpx>20)h+=`<line x1="${r(gx+3)}" y1="${r(gy+gHpx*0.5)}" x2="${r(gx+gWpx-3)}" y2="${r(gy+gHpx*0.5)}" stroke="rgba(255,255,255,.18)" stroke-width=".8"/>`;
+      const spacerH=Math.max(2,r(12*fsc));
+      h+=`<rect x="${gx}" y="${r(fgy-gBotPx-spacerH)}" width="${gWpx}" height="${spacerH}" fill="${railCol}" stroke="${postStroke}" stroke-width=".5" rx="1"/>`;
+      if(a.code==='R50'&&gWpx>8){
+        const cW=Math.max(3,r(10*fsc)),cH=Math.max(2,r(8*fsc));
+        [[gx-cW+2,gy+r(gHpx*.18)],[gx-cW+2,gy+r(gHpx*.75)]].forEach(([cx,cy])=>h+=`<rect x="${r(cx)}" y="${r(cy)}" width="${cW}" height="${cH}" fill="#888" stroke="#555" stroke-width=".4" rx=".5"/>`);
+        [[gx+gWpx-2,gy+r(gHpx*.18)],[gx+gWpx-2,gy+r(gHpx*.75)]].forEach(([cx,cy])=>h+=`<rect x="${r(cx)}" y="${r(cy)}" width="${cW}" height="${cH}" fill="#888" stroke="#555" stroke-width=".4" rx=".5"/>`);
+      }
+      // Glass dimensions inside label
+      if(gHpx>18&&gWpx>30)h+=`<text x="${r(gx+gWpx/2)}" y="${r(gy-4)}" text-anchor="middle" ${FM} font-size="5.5" fill="#48a8d0" font-weight="600">↑${gO.gH}mm</text>`;
+      if(gWpx>40)h+=`<text x="${r(gx+gWpx/2)}" y="${r(gy+gHpx/2+4)}" text-anchor="middle" ${FM} font-size="5" fill="#48a8d0">←${gO.gW}→</text>`;
+    }
+  }
+  if(wPx>16){const midHy=r(y0+totalH*0.38);h+=`<text x="${r(x0+wPx/2)}" y="${midHy}" text-anchor="middle" ${FM} font-size="${Math.max(5,Math.min(9,wPx*0.13))}" fill="#555" font-weight="600">${a.code}</text>`;}
+  return h;
+}
+
+// ── Draw PLAN VIEW accessories for one side ───────────────────
+function drawAccListPlan(list,side,pox,poy,pdd,psc){
+  if(list.length===0)return{svg:'',totalW:0};
+  let h='';
+  const totalSideW=accSideTotalW(list);
+  const firstGapPx=r(ACC_GAP_MM*psc);
+  let offset=ACC_GAP_MM*psc;
+  list.forEach((item,idx)=>{
+    const a=ACC_BY_CODE[item.code];if(!a)return;
+    const itemW=getAccItemW(item);  // ✅ dynamic width
+    const wPx=r(itemW*psc);
+    let x0;
+    if(side==='left'){x0=r(pox-offset-wPx);}
+    else{x0=r(pox+offset);}
+    h+=drawAccPlanUnit(item,x0,poy,pdd,psc);
+    // Dim for this accessory width
+    if(wPx>20)h+=tickDim(r(x0),r(x0+wPx),r(poy-14),`${itemW}`,'#c08800');
+    // Gap between accessories
+    if(idx<list.length-1){
+      const gapPx=r(ACC_GAP_MM*psc);
+      const gapX=side==='left'?r(x0-gapPx):r(x0+wPx);
+      if(gapPx>4)h+=tickDim(gapX,r(gapX+gapPx),r(poy-14),'20','#c06000');
+    }
+    offset+=wPx+ACC_GAP_MM*psc;
+  });
+  // Cabinet-to-first-acc gap
+  if(firstGapPx>5){
+    const gx1=side==='left'?r(pox-firstGapPx):pox;
+    const gx2=side==='left'?pox:r(pox+firstGapPx);
+    h+=tickDim(Math.min(gx1,gx2),Math.max(gx1,gx2),r(poy-14),'20','#c06000');
+  }
+  return{svg:h,totalW:totalSideW};
+}
+
+// ── Draw FRONT ELEVATION accessories for one side ─────────────
+// Returns {svg, totalW} — NO height dims here; they are drawn in drawCAD with staggered offsets
+function drawAccListElev(list,side,fox,foy,fgy,fsc,fdw){
+  if(list.length===0)return{svg:'',totalW:0};
+  let h='';
+  const totalSideW=accSideTotalW(list);
+  let offset=ACC_GAP_MM*fsc;
+  list.forEach((item,idx)=>{
+    const a=ACC_BY_CODE[item.code];if(!a)return;
+    const itemW=getAccItemW(item);  // ✅ dynamic width
+    const wPx=r(itemW*fsc);
+    let x0;
+    if(side==='left'){x0=r(fox-offset-wPx);}
+    else{x0=r(fox+fdw+offset);}
+    h+=drawAccElevUnitDyn(item,x0,fgy,fsc);
+    // Gap annotation between accessories (small dim)
+    if(idx<list.length-1){
+      const gapPx=r(ACC_GAP_MM*fsc);
+      if(gapPx>5){const gx=side==='left'?r(x0-gapPx):r(x0+wPx);h+=tickDim(gx,r(gx+gapPx),r(fgy-r(a.H*fsc)-14),'20','#c06000');}
+    }
+    // Width dim for this accessory
+    if(wPx>24){const dimY=r(fgy-r(a.H*fsc)-26);h+=tickDim(r(x0),r(x0+wPx),dimY,`${itemW}`,'#c08800');}
+    offset+=wPx+ACC_GAP_MM*fsc;
+  });
+  // First gap dim (cabinet→nearest acc)
+  const firstGapPx=r(ACC_GAP_MM*fsc);
+  if(firstGapPx>6){
+    const firstItemW=getAccItemW(list[0]);
+    const firstWpx=r(firstItemW*fsc);
+    const nearEdge=side==='left'?r(fox-firstGapPx):r(fox+fdw);
+    const farEdge=side==='left'?r(fox-firstGapPx):r(fox+fdw+firstGapPx);
+    const maxAccH=Math.max(...list.map(it=>ACC_BY_CODE[it.code]?.H||0));
+    const dimY=r(fgy-maxAccH*fsc-14);
+    h+=tickDim(Math.min(nearEdge+firstWpx,farEdge),Math.max(nearEdge+firstWpx,farEdge),dimY,'20','#c06000');
+  }
+  return{svg:h,totalW:totalSideW};
+}
+
+// ══ MAIN CAD ══════════════════════════════════════════════════
+function drawCAD(){
+  const sp=MODELS[M],TWg=TWgate(),MAXH=maxH(),pvc=pvcSize(N());
+  const TWL=accSideTotalW(accLeft),TWR=accSideTotalW(accRight),TWtotal=TWL+TWg+TWR;
+
+  // Choose scale considering accessories in plan AND elevation
+  const pW2=PX.r-PX.l,pH2=P_BOT-P_DT;
+  const psc_maxW=(pW2-14)/TWtotal,psc_maxD=(pH2-8)/sp.D;
+  const psc=Math.min(psc_maxW,psc_maxD)*.86;
+  const pdw=TWg*psc,pdd=sp.D*psc;
+  const pLWpx=r(TWL*psc),pRWpx=r(TWR*psc);
+  // Gate starts after left accessories
+  const totalPlanW=r(pLWpx+pdw+pRWpx);
+  const pox=r(PX.l+(pW2-totalPlanW)/2+pLWpx); // gate left edge in plan
+  const poy=r(P_DT+(pH2-pdd)/2);
+
+  // Front elevation scale — also considers accessories
+  const drawH=fgy-F_DT;
+  const fsc_maxW=(fW-64)/TWtotal,fsc_maxH=drawH/MAXH;
+  const fsc=Math.min(fsc_maxW,fsc_maxH)*.85;
+  const fdw=TWg*fsc,fLWpx=r(TWL*fsc),fRWpx=r(TWR*fsc);
+  const totalFrontW=r(fLWpx+fdw+fRWpx);
+  const fox=r(FXL+(fW-totalFrontW)/2+fLWpx); // gate left edge in elevation
+  const foy=r(fgy-sp.H*fsc);
+  const topMostY=r(fgy-MAXH*fsc);
+  const gapPx_p=r(GAP_MM*psc),gapPx_f=r(GAP_MM*fsc);
+
+  let h=makeDefs()+`<rect width="720" height="700" fill="#eeede5"/><rect x="8" y="8" width="704" height="684" fill="none" stroke="#111" stroke-width="1.6"/><rect x="11" y="11" width="698" height="678" fill="none" stroke="#aaa" stroke-width=".3"/><line x1="14" y1="${BOT_TOP-1}" x2="706" y2="${BOT_TOP-1}" stroke="#444" stroke-width="1.2"/>`;
+
+  // PLAN titles
+  h+=`<text x="${PX.l}" y="${P_TOP+12}" text-anchor="start" ${FM} font-size="9" font-weight="bold" fill="#111" letter-spacing="1.2">${T('planTitle')} — TOP VIEW</text>`;
+  h+=`<text x="${PX.l}" y="${P_TOP+24}" text-anchor="start" ${FM} font-size="6.5" fill="#777">${sp.label} · ${sp.sub} · ${T('cotas')}</text>`;
+
+  // Section A-A
+  const aay=r(poy+pdd*.44);
+  h+=`<line x1="${r(pox-pLWpx-24)}" y1="${aay}" x2="${r(pox-pLWpx-2)}" y2="${aay}" stroke="#555" stroke-width=".5" stroke-dasharray="5 2"/>`;
+  h+=`<line x1="${r(pox+pdw+pRWpx+2)}" y1="${aay}" x2="${r(pox+pdw+pRWpx+24)}" y2="${aay}" stroke="#555" stroke-width=".5" stroke-dasharray="5 2"/>`;
+  h+=`<text x="${r(pox-pLWpx-26)}" y="${r(aay+3)}" text-anchor="end" ${FM} font-size="7" fill="#444">A</text>`;
+  h+=`<text x="${r(pox+pdw+pRWpx+26)}" y="${r(aay+3)}" text-anchor="start" ${FM} font-size="7" fill="#444">A</text>`;
+
+  // Draw accessories in plan (LEFT side — going left from pox)
+  const accLplanResult=drawAccListPlan(accLeft,'left',pox,poy,pdd,psc);
+  h+=accLplanResult.svg;
+  // Draw accessories in plan (RIGHT side — going right from pox+pdw)
+  const accRplanResult=drawAccListPlan(accRight,'right',r(pox+pdw),poy,pdd,psc);
+  h+=accRplanResult.svg;
+
+  // Gate cabinets in plan
+  let pcx=pox;
+  for(let i=0;i<=N();i++){
+    const cw=r(sp.W*psc),cd=r(sp.D*psc),lbl=i===0||i===N()?sp.labelEnd.split(/[\s/-]/)[0]:sp.labelCentral.split(/[\s/-]/)[0];
+    h+=cabSVG(pcx,poy,cw,cd,lbl);
+    sp.bolts.forEach(b=>{const bs=r(poy+b*psc),bx=r(pcx+cw/2),br=mn(3,r(psc*9));if(bs>r(poy+3)&&bs<r(poy+cd-3)){h+=`<circle cx="${bx}" cy="${bs}" r="${br}" fill="none" stroke="#cc1111" stroke-width=".75"/>`;h+=`<line x1="${r(bx-br)}" y1="${bs}" x2="${r(bx+br)}" y2="${bs}" stroke="#cc1111" stroke-width=".5"/>`;h+=`<line x1="${bx}" y1="${r(bs-br)}" x2="${bx}" y2="${r(bs+br)}" stroke="#cc1111" stroke-width=".5"/>`;}});
+    if(i===0||i===N()){const wx=i===0?r(pox+sp.wireOff*psc):r(pox+pdw-sp.wireOff*psc);h+=`<circle cx="${wx}" cy="${r(poy+cd*.5)}" r="${mn(3.5,r(psc*20))}" fill="#1a5fa0" opacity=".7"/>`;}
+    h+=`<rect x="${r(pcx+1)}" y="${r(poy+cd-4)}" width="${r(sp.W*psc-2)}" height="4" fill="${pvc.color}35" stroke="${pvc.color}" stroke-width=".6" rx="1"/>`;
+    pcx=r(pcx+cw);
+    if(i<N()){
+      const{pg,lf}=getLane(i),lw=r(pg.s*psc),gap=r((pg.s-pg.c)/2*psc),clw=r(pg.c*psc);
+      const pax=r(poy+pdd*.42),al=mn(clw*.47,r(psc*280)),pr=mn(3.5,r(psc*10));
+      h+=`<rect x="${pcx}" y="${r(poy)}" width="${lw}" height="${r(pdd)}" fill="#bdd9ef" stroke="#5a96c8" stroke-width=".5"/>`;
+      h+=`<rect x="${r(pcx+gap)}" y="${r(poy+1)}" width="${clw}" height="${r(pdd-2)}" fill="rgba(155,210,250,.35)"/>`;
+      h+=`<line x1="${r(pcx+gap)}" y1="${pax}" x2="${r(pcx+gap+al)}" y2="${pax}" stroke="${sp.mc}" stroke-width="${mn(2.2,r(psc*12))}" stroke-linecap="round"/>`;
+      h+=`<line x1="${r(pcx+lw-gap)}" y1="${pax}" x2="${r(pcx+lw-gap-al)}" y2="${pax}" stroke="${sp.mc}" stroke-width="${mn(2.2,r(psc*12))}" stroke-linecap="round"/>`;
+      h+=`<circle cx="${r(pcx+gap)}" cy="${pax}" r="${pr}" fill="none" stroke="${sp.mc}" stroke-width=".9"/>`;h+=`<circle cx="${r(pcx+lw-gap)}" cy="${pax}" r="${pr}" fill="none" stroke="${sp.mc}" stroke-width=".9"/>`;
+      h+=`<text x="${r(pcx+lw/2)}" y="${r(poy+pdd*.63)}" text-anchor="middle" ${FM} font-size="7.5" fill="#1a5fa0">C${i+1}</text>`;
+      if(clw>28)h+=tickDim(r(pcx+gap),r(pcx+gap+clw),r(poy+pdd-5),`${pg.c}`,'#2a7a2a');
+      h+=`<line x1="${pcx}" y1="${r(poy+pdd-3)}" x2="${r(pcx+lw)}" y2="${r(poy+pdd-3)}" stroke="${pvc.color}" stroke-width="1.5" stroke-dasharray="4 2" opacity=".6"/>`;
+      if(gapPx_p>=6){const gx0=r(pcx+lw/2-gapPx_p/2),gx1=r(pcx+lw/2+gapPx_p/2),gy=r(poy+pdd*.26);h+=`<line x1="${gx0}" y1="${r(gy-3)}" x2="${gx0}" y2="${r(gy+3)}" stroke="#8a6800" stroke-width=".9"/>`;h+=`<line x1="${gx1}" y1="${r(gy-3)}" x2="${gx1}" y2="${r(gy+3)}" stroke="#8a6800" stroke-width=".9"/>`;h+=`<line x1="${gx0}" y1="${gy}" x2="${gx1}" y2="${gy}" stroke="#8a6800" stroke-width=".7" marker-start="url(#da)" marker-end="url(#da)"/>`;h+=`<text x="${r((gx0+gx1)/2)}" y="${r(gy-5)}" text-anchor="middle" ${FM} font-size="5.5" fill="#8a6800" font-weight="600">GAP ${GAP_MM}mm</text>`;}
+      pcx=r(pcx+lw);
+    }
+  }
+
+  // Plan dims
+  // Total width dim
+  const planLeft=r(pox-pLWpx),planRight=r(pox+pdw+pRWpx);
+  h+=tickDim(planLeft,planRight,DL_TOT,`${rnd(TWtotal)} mm`,'#c08800',poy,9);
+  // Gate-only dim (second row)
+  h+=tickDim(pox,r(pox+pdw),DL_SUB,`${rnd(TWg)} mm`,'#1a5fa0',poy,7.5);
+  // Cabinet sub-dims
+  let pdx=pox;
+  for(let i=0;i<=N();i++){const cw=r(sp.W*psc);h+=tickDim(pdx,r(pdx+cw),DL_SUB+14,`${sp.W}`,'#1a5fa0',poy,6);pdx=r(pdx+cw);if(i<N()){const{pg}=getLane(i),lw=r(pg.s*psc);h+=tickDim(pdx,r(pdx+lw),DL_SUB+14,`${rnd(pg.s)}`,'#555',poy,6);pdx=r(pdx+lw);}}
+  h+=DV(r(planRight+34),poy,r(poy+pdd),`${sp.D} mm`);
+
+  // Scale bar
+  const sbp=r(500*psc),sbx=r(PX.r-sbp-4),sby=r(P_BOT-14);
+  if(sbx>PX.l+130&&sbp>20){h+=`<rect x="${sbx}" y="${r(sby-4)}" width="${sbp}" height="4" fill="none" stroke="#444" stroke-width=".6"/>`;h+=`<rect x="${sbx}" y="${r(sby-4)}" width="${r(sbp/2)}" height="4" fill="#444" opacity=".6"/>`;h+=`<text x="${r(sbx+sbp/2)}" y="${r(sby-7)}" text-anchor="middle" ${FM} font-size="6.5" fill="#444">${T('scaleLbl')}</text>`;}
+
+  // Legend
+  const lx2=PX.l+4,ly2=r(P_BOT-54);
+  const legItems=[{c:'#cc1111',v:`${T('pernoLbl')} ×${(N()+1)*sp.bolts.length}`},{c:'#1a5fa0',v:T('gabLbl')},{c:'#555',v:T('slotLbl')},{c:pvc.color,v:`PVC ${pvc.label}`},{c:'#8a6800',v:`GAP central ${GAP_MM} mm`},{c:'#c08800',v:`${T('twLabel')}: ${rnd(TWtotal)} mm`}];
+  const lH=legItems.length*8+6;
+  h+=`<rect x="${lx2}" y="${r(ly2)}" width="172" height="${lH}" fill="#eeede5" stroke="#ccc" stroke-width=".35" rx="2"/>`;
+  legItems.forEach(({c,v},k)=>{const yy=r(ly2+5+k*8);h+=`<rect x="${r(lx2+5)}" y="${r(yy-4)}" width="6" height="5" fill="${c}" rx="1"/>`;h+=`<text x="${r(lx2+14)}" y="${r(yy)}" ${FM} font-size="5.5" fill="#333">${v}</text>`;});
+
+  // Limit line (full footprint)
+  if(siteLimit>0)h+=limitLine(r(pox-pLWpx),psc,poy-2,r(poy+pdd+4),r(poy+pdd/2));
+
+  // ── FRONT ELEVATION ──────────────────────────────────────────
+  h+=`<text x="${FXL+4}" y="${BOT_TOP+13}" text-anchor="start" ${FM} font-size="9" font-weight="bold" fill="#222" letter-spacing="1">${T('frontTitle')}</text>`;
+  h+=`<text x="${FXL+4}" y="${BOT_TOP+25}" text-anchor="start" ${FM} font-size="6.5" fill="#777">${sp.label} · ${sp.sub} · ${T('cotas')}</text>`;
+  const fsbp=r(500*fsc),fsbx=r(FXR-fsbp-8),fsby2=r(BOT_TOP+18);
+  if(fsbp>20){h+=`<rect x="${fsbx}" y="${r(fsby2-3)}" width="${fsbp}" height="4" fill="none" stroke="#444" stroke-width=".6"/>`;h+=`<rect x="${fsbx}" y="${r(fsby2-3)}" width="${r(fsbp/2)}" height="4" fill="#444" opacity=".6"/>`;h+=`<text x="${r(fsbx+fsbp/2)}" y="${r(fsby2-6)}" text-anchor="middle" ${FM} font-size="6.5" fill="#444">${T('scaleLbl')}</text>`;}
+
+  // Dim extension lines + dim rows (gate only)
+  const FE=[];let fex=fox;for(let i=0;i<=N();i++){const cw=r(sp.W*fsc);FE.push({type:'cab',x0:fex,x1:r(fex+cw),idx:i});fex=r(fex+cw);if(i<N()){const{pg}=getLane(i),lw=r(pg.s*fsc);FE.push({type:'lane',x0:fex,x1:r(fex+lw),c:pg.c,s:pg.s,li:i});fex=r(fex+lw);}}
+  const ob=[FE[0].x0,...FE.map(e=>e.x1)];
+  ob.forEach(bx=>{h+=`<line x1="${r(bx)}" y1="${D_TOT_Y+6}" x2="${r(bx)}" y2="${topMostY}" stroke="#777" stroke-width=".3" stroke-dasharray="3 3" opacity=".5"/>`;});
+  FE.filter(e=>e.type==='lane').forEach(e=>{const{pg}=getLane(e.li),gap=r((pg.s-pg.c)/2*fsc),clw=r(pg.c*fsc);[r(e.x0+gap),r(e.x0+gap+clw)].forEach(bx=>{h+=`<line x1="${r(bx)}" y1="${D_CLR_Y+6}" x2="${r(bx)}" y2="${topMostY}" stroke="#2a7a2a" stroke-width=".3" stroke-dasharray="2.5 2.5" opacity=".4"/>`;});});
+  // Footprint dim (top, amber)
+  h+=tickDim(r(fox-fLWpx),r(fox+fdw+fRWpx),D_TOT_Y-14,`${rnd(TWtotal)} mm`,'#c08800',undefined,10);
+  // Gate dim
+  h+=tickDim(fox,r(fox+fdw),D_TOT_Y,`${rnd(TWg)} mm`,'#1a5fa0',undefined,9);
+  FE.forEach(e=>{if(e.type==='cab')h+=tickDim(e.x0,e.x1,D_SUB_Y,r(e.x1-e.x0)>16?`${sp.W}`:null,'#1a5fa0');else h+=tickDim(e.x0,e.x1,D_SUB_Y,r(e.x1-e.x0)>22?`${rnd(e.s)}`:null,'#555');});
+  FE.filter(e=>e.type==='lane').forEach(e=>{const{pg}=getLane(e.li),gap=r((pg.s-pg.c)/2*fsc),clw=r(pg.c*fsc),xi=r(e.x0+gap),xo=r(xi+clw),ew=r(xo-xi),ec=5;h+=`<line x1="${xi}" y1="${r(D_CLR_Y-ec)}" x2="${xi}" y2="${r(D_CLR_Y+ec)}" stroke="#2a7a2a" stroke-width="1"/>`;h+=`<line x1="${xo}" y1="${r(D_CLR_Y-ec)}" x2="${xo}" y2="${r(D_CLR_Y+ec)}" stroke="#2a7a2a" stroke-width="1"/>`;if(ew>6)h+=`<line x1="${r(xi+.5)}" y1="${r(D_CLR_Y)}" x2="${r(xo-.5)}" y2="${r(D_CLR_Y)}" stroke="#2a7a2a" stroke-width=".8" marker-start="url(#da)" marker-end="url(#da)"/>`;if(ew>16){const fs=ew<40?6.5:ew<70?8:9.5;h+=`<text x="${r((xi+xo)/2)}" y="${r(D_CLR_Y-8)}" text-anchor="middle" ${FM} font-size="${fs}" fill="#2a7a2a" font-weight="600">${e.c}</text>`;}});
+  [{c:'#c08800',v:'Ancho total'},{c:'#1a5fa0',k:'totalLbl'},{c:'#555',k:'slotDimLbl'},{c:'#2a7a2a',k:'libreLbl'}].forEach(({c,k,v},ki)=>{const yy=D_TOT_Y+(ki-1)*22-2;if(ki===0)return;h+=`<line x1="${r(FXL+4)}" y1="${r(yy+3)}" x2="${r(FXL+14)}" y2="${r(yy+3)}" stroke="${c}" stroke-width="1.8"/>`;h+=`<text x="${r(FXL+17)}" y="${r(yy+6)}" ${FM} font-size="5.5" fill="${c}">${k?T(k):v}</text>`;});
+  h+=`<line x1="${r(FXL+4)}" y1="${r(D_TOT_Y-14+3)}" x2="${r(FXL+14)}" y2="${r(D_TOT_Y-14+3)}" stroke="#c08800" stroke-width="2"/>`;
+  h+=`<text x="${r(FXL+17)}" y="${r(D_TOT_Y-14+6)}" ${FM} font-size="5.5" fill="#c08800">Ancho total</text>`;
+
+  if(siteLimit>0)h+=limitLine(r(fox-fLWpx),fsc,D_TOT_Y-20,fgy+4,r(D_TOT_Y+10));
+
+  // Accessories in elevation (LEFT — outside clipping)
+  const accLelev=drawAccListElev(accLeft,'left',fox,foy,fgy,fsc,fdw);
+  h+=accLelev.svg;
+  const accRelev=drawAccListElev(accRight,'right',fox,foy,fgy,fsc,fdw);
+  h+=accRelev.svg;
+
+  // Gate cabinets + leaves in elevation (clipped)
+  h+=`<g clip-path="url(#fe-clip)">`;
+  let fecx=fox;
+  for(let i=0;i<=N();i++){
+    const cw=r(sp.W*fsc),ch=r(sp.H*fsc);
+    h+=`<rect x="${fecx}" y="${foy}" width="${cw}" height="${ch}" fill="#b5b0a8"/>`;h+=`<rect x="${fecx}" y="${foy}" width="${cw}" height="${ch}" fill="url(#ht)" opacity=".55"/>`;h+=`<rect x="${fecx}" y="${foy}" width="${cw}" height="${ch}" fill="none" stroke="#111" stroke-width=".9"/>`;h+=`<rect x="${r(fecx+cw*.1)}" y="${r(foy+3)}" width="${r(cw*.8)}" height="${r(mn(7,ch*.04))}" fill="#2a7a2a" rx="1.5"/>`;h+=`<rect x="${r(fecx+cw*.1)}" y="${r(foy+ch*.35)}" width="${r(cw*.8)}" height="${r(mn(4,ch*.025))}" fill="#1a4a9a"/>`;
+    fecx=r(fecx+cw);
+    if(i<N()){
+      const{pg,lf}=getLane(i),lw=r(pg.s*fsc),gp2=r((pg.s-pg.c)/2*fsc),clw=r(pg.c*fsc),pWpx=r(lf.pW*fsc);
+      const lb=lf.topH-lf.pH,pBy=r(fgy-lb*fsc),pTy=r(fgy-lf.topH*fsc),pHpx=r(lf.pH*fsc);
+      const armY=r(fgy-sp.armBase*fsc),bH=r(armY-pBy);
+      h+=`<rect x="${fecx}" y="${foy}" width="${gp2}" height="${r(sp.H*fsc)}" fill="rgba(0,0,0,.05)"/>`;h+=`<rect x="${r(fecx+lw-gp2)}" y="${foy}" width="${gp2}" height="${r(sp.H*fsc)}" fill="rgba(0,0,0,.05)"/>`;
+      if(bH>1){const bW=r(mn(gp2*.65,22));h+=`<rect x="${fecx}" y="${pBy}" width="${bW}" height="${bH}" fill="#888" stroke="#555" stroke-width=".4" rx="1"/>`;h+=`<rect x="${r(fecx+lw-bW)}" y="${pBy}" width="${bW}" height="${bH}" fill="#888" stroke="#555" stroke-width=".4" rx="1"/>`;}
+      h+=`<rect x="${fecx}" y="${pTy}" width="${pWpx}" height="${pHpx}" fill="rgba(130,195,255,.50)" stroke="#2a8a50" stroke-width=".85" rx="1"/>`;h+=`<rect x="${r(fecx+lw-pWpx)}" y="${pTy}" width="${pWpx}" height="${pHpx}" fill="rgba(130,195,255,.50)" stroke="#2a8a50" stroke-width=".85" rx="1"/>`;
+      [fecx,r(fecx+lw)].forEach(bx=>{h+=`<line x1="${bx}" y1="${foy}" x2="${bx}" y2="${fgy}" stroke="#555" stroke-width=".4" stroke-dasharray="4 3" opacity=".25"/>`;});[r(fecx+gp2),r(fecx+gp2+clw)].forEach(bx=>{h+=`<line x1="${bx}" y1="${foy}" x2="${bx}" y2="${fgy}" stroke="#2a7a2a" stroke-width=".4" stroke-dasharray="3 3" opacity=".25"/>`;});
+      if(pTy>F_DT+4)h+=`<text x="${r(fecx+lw/2)}" y="${r(pTy-5)}" text-anchor="middle" ${FM} font-size="6.5" fill="#2a8a50">↑${lf.topH}mm</text>`;
+      h+=`<text x="${r(fecx+lw/2)}" y="${r(fgy-24)}" text-anchor="middle" ${FM} font-size="7" fill="#1a5fa0" opacity=".7">C${i+1}</text>`;
+      if(gapPx_f>=6){const gx0f=r(fecx+lw/2-gapPx_f/2),gx1f=r(fecx+lw/2+gapPx_f/2),gAY=r(armY-14);if(gAY>F_DT+10&&gAY<fgy-10){h+=`<line x1="${gx0f}" y1="${r(gAY-3)}" x2="${gx0f}" y2="${r(gAY+3)}" stroke="#8a6800" stroke-width=".9"/>`;h+=`<line x1="${gx1f}" y1="${r(gAY-3)}" x2="${gx1f}" y2="${r(gAY+3)}" stroke="#8a6800" stroke-width=".9"/>`;h+=`<line x1="${gx0f}" y1="${gAY}" x2="${gx1f}" y2="${gAY}" stroke="#8a6800" stroke-width=".7" marker-start="url(#da)" marker-end="url(#da)"/>`;h+=`<text x="${r((gx0f+gx1f)/2)}" y="${r(gAY-5)}" text-anchor="middle" ${FM} font-size="5.5" fill="#8a6800" font-weight="600">GAP ${GAP_MM}mm</text>`;h+=`<text x="${r((gx0f+gx1f)/2)}" y="${r(gAY+12)}" text-anchor="middle" ${FM} font-size="4.5" fill="#8a6800" opacity=".65">(${T('gapNote')})</text>`;}}
+      fecx=r(fecx+lw);
+    }
+  }
+  h+=`</g>`;
+  h+=gnd(r(fox-fLWpx),r(fox+fdw+fRWpx),fgy);
+
+  // ── Height dimensions — staggered to avoid overlaps ──────────
+  // Cabinet height: just left of gate (not of accessories)
+  h+=DV(r(fox-18),foy,fgy,`${sp.H} mm`,false,'#1a5fa0');
+
+  // Leaf/blade heights: just right of gate (before accessories)
+  if(N()>0){
+    const{lf:lf0}=getLane(0);
+    const lb0=r(fgy-(lf0.topH-lf0.pH)*fsc);
+    const lt0=r(fgy-lf0.topH*fsc);
+    // Place leaf dims at fox+fdw+18 and fox+fdw+36 (inside the acc zone or just right)
+    const leafDimX=r(fox+fdw+18);
+    const leafDimX2=r(fox+fdw+36);
+    if(leafDimX+38<FXR-4||(fRWpx>0)){
+      h+=DV(leafDimX,lt0,fgy,`${lf0.topH} mm`,true,'#2a7a2a');
+      h+=DV(leafDimX2,lt0,lb0,`${lf0.pH}mm`,true,'#2a9a50');
+      h+=`<line x1="${r(fox+fdw+2)}" y1="${lt0}" x2="${r(leafDimX+4)}" y2="${lt0}" stroke="#2a7a2a" stroke-width=".4" opacity=".5"/>`;
+      h+=`<line x1="${r(fox+fdw+2)}" y1="${lb0}" x2="${r(leafDimX2+4)}" y2="${lb0}" stroke="#2a9a50" stroke-width=".4" opacity=".5"/>`;
+    }
+    const armY0=r(fgy-sp.armBase*fsc);
+    if(armY0>lb0+4&&armY0<r(fgy-4)){
+      h+=`<line x1="${r(fox-fLWpx)}" y1="${armY0}" x2="${r(fox+fdw+fRWpx)}" y2="${armY0}" stroke="#c08800" stroke-width=".5" stroke-dasharray="4 2" opacity=".4"/>`;
+      h+=`<text x="${r(fox-18)}" y="${r(armY0-4)}" text-anchor="end" ${FM} font-size="6" fill="#a07800">↑${sp.armBase}</text>`;
+    }
+  }
+
+  // Accessory height dims — outermost edge, stacked OUTSIDE the gate dims
+  // LEFT side: place at fox - fLWpx - 20 (outermost left)
+  if(accLeft.length>0){
+    const outL=accLeft[accLeft.length-1];
+    const oaL=ACC_BY_CODE[outL.code];
+    if(oaL){
+      const accHpxL=r(oaL.H*fsc);
+      const dimXL=r(fox-fLWpx-20);
+      h+=DV(dimXL,r(fgy-accHpxL),fgy,`${oaL.H}mm`,false,'#c08800');
+      // Extension line from accessory outer edge to dim
+      h+=`<line x1="${r(fox-fLWpx)}" y1="${r(fgy-accHpxL)}" x2="${r(dimXL+4)}" y2="${r(fgy-accHpxL)}" stroke="#c08800" stroke-width=".4" opacity=".5"/>`;
+    }
+  }
+  // RIGHT side: place at fox + fdw + fRWpx + 20 (outermost right)
+  if(accRight.length>0){
+    const outR=accRight[accRight.length-1];
+    const oaR=ACC_BY_CODE[outR.code];
+    if(oaR){
+      const accHpxR=r(oaR.H*fsc);
+      const dimXR=r(fox+fdw+fRWpx+20);
+      h+=DV(dimXR,r(fgy-accHpxR),fgy,`${oaR.H}mm`,true,'#c08800');
+      h+=`<line x1="${r(fox+fdw+fRWpx)}" y1="${r(fgy-accHpxR)}" x2="${r(dimXR-4)}" y2="${r(fgy-accHpxR)}" stroke="#c08800" stroke-width=".4" opacity=".5"/>`;
+    }
+  }
+  const wly=r(fgy+8);if(wly<BOT_BOT-72){h+=`<line x1="${r(fox-fLWpx)}" y1="${wly}" x2="${r(fox+fdw+fRWpx)}" y2="${wly}" stroke="#b07800" stroke-width=".9" stroke-dasharray="5 2.5"/>`;h+=`<text x="${r(fox+fdw/2)}" y="${r(wly+8)}" text-anchor="middle" ${FM} font-size="6.5" fill="#926400">${T('awaiting')}</text>`;}
+  h+=`<g clip-path="url(#ug-clip)">${drawUG(fox,fgy,fsc,sp,pvc)}</g>`;
+  document.getElementById('cv').setAttribute('viewBox','0 0 720 700');
+  document.getElementById('cv').innerHTML=h;
+}
+
+// ══ WIRING (unchanged from v31) ═══════════════════════════════
+function drawWiring(){
+  const sp=MODELS[M],n=N(),pvc=pvcSize(n),totalUnits=n+1,totalCables=2+4*n;
+  const cables=T('cables'),pvcRanges=T('pvcRanges');
+  const MC='#c04000',SC='#1a5fa0';
+  const IW=688,MG=16,SW=74,SH=50,SG=12;
+  const rcW=Math.floor((IW-SW-SG)/totalUnits*.85);
+  const cabW=Math.max(64,Math.min(106,rcW));
+  const spc=Math.max(10,Math.floor(((IW-SW-SG)-totalUnits*cabW)/Math.max(n,1)));
+  const sX=MG+SW+SG,uX=i=>sX+i*(cabW+spc),tSpan=totalUnits*cabW+n*spc;
+  const rX1=sX-8,rX2=sX+tSpan+8;
+  const acY=54,uTY=acY+16,cabH=86,connY=uTY+52,dTY=uTY+cabH,pvcCY=dTY+36;
+  const pvcTk=pvc.d<=50?12:pvc.d<=63?15:18;
+  const pvcBY=pvcCY+pvcTk/2,cnY=uTY+cabH+12,pvcLY=pvcBY+13,pvcNY=pvcLY+13,IT=pvcNY+18;
+  const LX=MG,LW=216,TW2=218,TX=720-MG-TW2;
+  const LEG=[...cables.map((lbl,k)=>({col:['#cc1111','#1a5fa0','#e8a020','#2a7a2a'][k],lbl,dash:k===3?'5 3.5':'',thick:false})),{col:'#1a7a30',lbl:T('chainNote'),dash:'6 3.5',thick:true}];
+  const LH=16+LEG.length*13+4,vH=IT+Math.max(LH,50)+20;
+  const wsvg=document.getElementById('wsvg');wsvg.setAttribute('viewBox',`0 0 720 ${vH}`);
+  let h=`<rect width="720" height="${vH}" fill="#eeede5"/><rect x="8" y="8" width="704" height="${vH-16}" fill="none" stroke="#111" stroke-width="1.4"/>`;
+  h+=`<text x="${MG}" y="22" text-anchor="start" ${FM} font-size="9.5" font-weight="bold" fill="#14304f" letter-spacing=".8">${T('wiringTitle')}</text>`;
+  h+=`<text x="${MG}" y="34" text-anchor="start" ${FM} font-size="6.5" fill="#888">${sp.label} · ${n} ${n>1?T('lanes'):T('lane')} · ${unitsShort()}</text>`;
+  h+=`<line x1="${rX1}" y1="${acY}" x2="${rX2}" y2="${acY}" stroke="#cc1111" stroke-width="2.4" stroke-linecap="round"/>`;h+=`<text x="${rX1-4}" y="${acY-5}" text-anchor="end" ${FM} font-size="7" fill="#cc1111" font-weight="bold">AC 110/220V</text>`;
+  const swX=MG,swY=uTY+4;h+=`<rect x="${swX+2}" y="${swY+2}" width="${SW}" height="${SH}" fill="rgba(0,0,0,.07)" rx="4"/>`;h+=`<rect x="${swX}" y="${swY}" width="${SW}" height="${SH}" fill="#f8f8f0" stroke="#555" stroke-width="1" rx="4"/>`;h+=`<rect x="${swX}" y="${swY}" width="${SW}" height="17" fill="#444" rx="4"/>`;h+=`<rect x="${swX}" y="${swY+11}" width="${SW}" height="6" fill="#444"/>`;h+=`<text x="${r(swX+SW/2)}" y="${swY+12}" text-anchor="middle" ${FM} font-size="7" fill="#fff" font-weight="bold">${T('switchLbl')}</text>`;h+=`<text x="${r(swX+SW/2)}" y="${swY+31}" text-anchor="middle" ${FM} font-size="5.5" fill="#444">${T('accessCtrl')}</text>`;h+=`<line x1="${swX+SW}" y1="${r(swY+SH/2)}" x2="${sX}" y2="${r(connY)}" stroke="#1a5fa0" stroke-width="1.3"/>`;h+=`<circle cx="${swX+SW}" cy="${r(swY+SH/2)}" r="2.5" fill="#1a5fa0"/>`;
+  for(let i=0;i<n;i++){const x0=r(uX(i)+cabW),x1=uX(i+1),mx=r((x0+x1)/2);h+=`<line x1="${x0}" y1="${connY}" x2="${x1}" y2="${connY}" stroke="#1a7a30" stroke-width="2.2" stroke-dasharray="6 3.5" marker-end="url(#ms-arr)"/>`;h+=`<rect x="${mx-13}" y="${connY-12}" width="26" height="11" fill="#eeede5" stroke="#1a7a3040" stroke-width=".5" rx="5"/>`;h+=`<text x="${mx}" y="${connY-4}" text-anchor="middle" ${FM} font-size="6.5" font-weight="bold" fill="#1a7a30">M→S</text>`;}
+  for(let i=0;i<=n;i++){
+    const dx=uX(i),dy=uTY,type=cabType(i),isEnd=(type==='left'||type==='right');
+    const mRef=isEnd?sp.labelEnd:sp.labelCentral,tLbl=type==='left'?T('unitLeftEnd'):type==='right'?T('unitRightEnd'):T('unitCentral');
+    const hdrCol=isEnd?'#14304f':'#1a4a28';
+    h+=`<rect x="${dx+2}" y="${dy+2}" width="${cabW}" height="${cabH}" fill="rgba(0,0,0,.07)" rx="4"/>`;h+=`<rect x="${dx}" y="${dy}" width="${cabW}" height="${cabH}" fill="${isEnd?'#f8fafd':'#f0f8f4'}" stroke="${hdrCol}" stroke-width="1.2" rx="4"/>`;h+=`<rect x="${dx}" y="${dy}" width="${cabW}" height="18" fill="${hdrCol}" rx="4"/>`;h+=`<rect x="${dx}" y="${dy+12}" width="${cabW}" height="6" fill="${hdrCol}"/>`;
+    h+=`<text x="${r(dx+cabW/2)}" y="${dy+12}" text-anchor="middle" ${FM} font-size="${cabW>82?8:7}" font-weight="bold" fill="#fff">${mRef}</text>`;h+=`<text x="${r(dx+cabW/2)}" y="${dy+27}" text-anchor="middle" ${FM} font-size="${cabW>80?6:5.5}" fill="#666">${tLbl}</text>`;
+    const ctY=dy+31,ctH=28;
+    if(type==='central'){const hw=r(cabW/2-4);h+=`<rect x="${dx+3}" y="${ctY}" width="${hw}" height="${ctH}" fill="#e8f0ff" stroke="${SC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+3+hw/2)}" cy="${ctY+9}" r="5.5" fill="${SC}"/>`;h+=`<text x="${r(dx+3+hw/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">S</text>`;h+=`<text x="${r(dx+3+hw/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${hw>30?5:4.5}" fill="${SC}">${T('ctrlSlave')}</text>`;h+=`<rect x="${dx+cabW/2+1}" y="${ctY}" width="${hw}" height="${ctH}" fill="#fff0e8" stroke="${MC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+cabW/2+1+hw/2)}" cy="${ctY+9}" r="5.5" fill="${MC}"/>`;h+=`<text x="${r(dx+cabW/2+1+hw/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">M</text>`;h+=`<text x="${r(dx+cabW/2+1+hw/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${hw>30?5:4.5}" fill="${MC}">${T('ctrlMaster')}</text>`;h+=`<line x1="${dx+3+hw}" y1="${ctY+ctH/2}" x2="${dx+cabW/2+1}" y2="${ctY+ctH/2}" stroke="#bbb" stroke-width=".8" stroke-dasharray="2 1.5"/>`;h+=`<circle cx="${dx}" cy="${connY}" r="4.5" fill="${SC}" stroke="#fff" stroke-width="1.2"/>`;h+=`<circle cx="${dx+cabW}" cy="${connY}" r="4.5" fill="${MC}" stroke="#fff" stroke-width="1.2"/>`;}
+    else if(type==='left'){h+=`<rect x="${dx+8}" y="${ctY}" width="${cabW-16}" height="${ctH}" fill="#fff0e8" stroke="${MC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+cabW/2)}" cy="${ctY+9}" r="5.5" fill="${MC}"/>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">M</text>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${cabW>80?5:4.5}" fill="${MC}">${T('ctrlMaster')}</text>`;h+=`<circle cx="${dx+cabW}" cy="${connY}" r="4.5" fill="${MC}" stroke="#fff" stroke-width="1.2"/>`;}
+    else{h+=`<rect x="${dx+8}" y="${ctY}" width="${cabW-16}" height="${ctH}" fill="#e8f0ff" stroke="${SC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+cabW/2)}" cy="${ctY+9}" r="5.5" fill="${SC}"/>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">S</text>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${cabW>80?5:4.5}" fill="${SC}">${T('ctrlSlave')}</text>`;h+=`<circle cx="${dx}" cy="${connY}" r="4.5" fill="${SC}" stroke="#fff" stroke-width="1.2"/>`;}
+    h+=`<text x="${r(dx+cabW/2)}" y="${dy+cabH-5}" text-anchor="middle" ${FM} font-size="6" fill="#999">E${i+1}</text>`;
+    h+=`<line x1="${r(dx+cabW/2)}" y1="${acY}" x2="${r(dx+cabW/2)}" y2="${uTY}" stroke="#cc1111" stroke-width="1.4" stroke-dasharray="4 2"/>`;h+=`<circle cx="${r(dx+cabW/2)}" cy="${acY}" r="3" fill="#cc1111"/>`;
+    const dxL=r(dx+cabW*.38),dxR=r(dx+cabW*.62),pvcTop=pvcCY-pvcTk/2;
+    h+=`<line x1="${dxL}" y1="${dTY}" x2="${dxL}" y2="${pvcTop}" stroke="#2a7a2a" stroke-width="1.1" stroke-dasharray="5 3"/>`;h+=`<circle cx="${dxL}" cy="${pvcTop}" r="2.2" fill="#2a7a2a"/>`;h+=`<line x1="${dxR}" y1="${dTY}" x2="${dxR}" y2="${pvcTop}" stroke="#e8a020" stroke-width="1.1"/>`;h+=`<circle cx="${dxR}" cy="${pvcTop}" r="2.2" fill="#e8a020"/>`;
+  }
+  h+=`<text x="360" y="${cnY}" text-anchor="middle" ${FM} font-size="6.5" fill="#1a7a30" letter-spacing=".3">── ${T('chainNote')} ──</text>`;
+  const pvcRad=r(pvcTk/2);h+=`<rect x="${rX1}" y="${pvcCY-pvcTk/2}" width="${rX2-rX1}" height="${pvcTk}" fill="${pvc.color}22" stroke="${pvc.color}" stroke-width="1.4" rx="${pvcRad}"/>`;
+  const nL=Math.min(totalCables,9),piW=rX2-rX1-12;for(let k=0;k<nL;k++){const lx=r(rX1+6+k*(piW/(nL-1||1)));h+=`<line x1="${lx}" y1="${pvcCY-pvcTk/2+2}" x2="${lx}" y2="${pvcCY+pvcTk/2-2}" stroke="${pvc.color}" stroke-width=".9" opacity=".5"/>`;}
+  h+=`<text x="360" y="${pvcLY}" text-anchor="middle" ${FM} font-size="7.5" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label} · ${totalCables} cables · IEC 61386 40%</text>`;
+  h+=`<text x="360" y="${pvcNY}" text-anchor="middle" ${FM} font-size="6" fill="#888">${T('pvcNote')}</text>`;
+  h+=`<rect x="${LX}" y="${IT}" width="${LW}" height="${LH}" fill="#eeede5" stroke="#ccc" stroke-width=".5" rx="3"/>`;h+=`<text x="${LX+6}" y="${IT+11}" ${FM} font-size="7" fill="#14304f" font-weight="bold">${T('legend')}</text>`;
+  LEG.forEach(({col,lbl,dash,thick},k)=>{const ly=IT+18+k*13;h+=`<line x1="${LX+8}" y1="${ly+3}" x2="${LX+30}" y2="${ly+3}" stroke="${col}" stroke-width="${thick?2.4:1.8}" stroke-dasharray="${dash}"/>`;h+=`<text x="${LX+36}" y="${ly+7}" ${FM} font-size="6.5" fill="#333">${lbl}</text>`;});
+  h+=`<rect x="${TX}" y="${IT}" width="${TW2}" height="50" fill="#f0f8ff" stroke="#aac4e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${TX+6}" y="${IT+11}" ${FM} font-size="7" font-weight="bold" fill="#14304f">${T('pvcSizing')}</text>`;
+  [{range:pvcRanges[0],diam:'Ø50 mm',color:'#2a7a2a'},{range:pvcRanges[1],diam:'Ø63 mm',color:'#c08800'},{range:pvcRanges[2],diam:'Ø75 mm',color:'#cc4400'}].forEach(({range,diam,color},k)=>{const isA=(k===0&&n<=2)||(k===1&&n>=3&&n<=4)||(k===2&&n>=5);const tly=IT+19+k*11;if(isA)h+=`<rect x="${TX+2}" y="${tly-6}" width="${TW2-4}" height="11" fill="${color}22" rx="2"/>`;h+=`<text x="${TX+6}" y="${tly}" ${FM} font-size="6.5" fill="${isA?color:'#666'}" font-weight="${isA?'bold':'normal'}">${range} → ${diam}</text>`;if(isA)h+=`<text x="${TX+TW2-6}" y="${tly}" text-anchor="end" ${FM} font-size="6.5" fill="${color}" font-weight="bold">◀ activo</text>`;});
+  const badge=document.getElementById('pvc-badge');if(badge){badge.style.cssText=`border-color:${pvc.color};color:${pvc.color};background:${pvc.color}14;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1.5px solid;font-family:monospace`;badge.innerHTML=`<span style="font-size:12px;font-weight:800">PVC ${pvc.label}</span><span style="font-size:8px;opacity:.7">${totalCables} cables · IEC 61386</span>`;}
+  document.getElementById('w-title').textContent=`${sp.label} · ${n} ${n>1?T('lanes'):T('lane')}`;
+  wsvg.innerHTML=h;
+}
+
+// ══ FICHA ═════════════════════════════════════════════════════
+function accSideHtml(list,sideLabel){
+  if(list.length===0)return`<div class="ac-none-note">${T('accNone')}</div>`;
+  return list.map((item,idx)=>{
+    const a=ACC_BY_CODE[item.code];if(!a)return'';
+    const gO=getAccGlass(item);
+    return`<div style="margin-bottom:6px;padding:6px 8px;border:1px solid rgba(200,136,0,.3);border-radius:6px;background:rgba(200,136,0,.05)">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px"><span class="afbadge">${a.code}</span><span style="font-size:8.5px;color:#c08800">${accDsc(a)}</span></div>
+      <div class="adr"><span class="adk">${T('ficAccW')}</span><span class="adv">${a.W} mm</span></div>
+      <div class="adr"><span class="adk">${T('ficAccH')}</span><span class="adv">${a.H} mm</span></div>
+      ${gO?`<div class="adr"><span class="adk">${T('ficAccGW')}</span><span class="adv">${gO.gW} mm</span></div><div class="adr"><span class="adk">${T('ficAccGH')}</span><span class="adv">${gO.gH} mm</span></div>`:''}
+      ${a.glassOpts&&gO?`<div class="adr"><span class="adk">${T('ficAccOpt')}</span><span class="adv" style="font-size:8px">${goLbl(gO)}</span></div>`:''}
+    </div>`;
+  }).join('');
+}
+function drawFicha(){
+  const sp=MODELS[M],TWg=TWgate(),pvc=pvcSize(N()),state=getAlertState(),totalCables=2+4*N();
+  const aC=state==='over'?'#cc1111':state==='near'?'#c08800':null;
+  const tB=(N()+1)*sp.bolts.length,nC=Math.max(0,N()-1);
+  const slack=siteLimit>0?rnd(siteLimit-TWfull()):null;
+  const TWL=accTotalW(accLeft),TWR=accTotalW(accRight),TWtotal=TWL+TWg+TWR;
+  const row=(k,v,u='',col='')=>`<div class="fr2"><span class="fk">${k}</span><span class="fv" style="${col?'color:'+col:''}"> ${v}<span class="u">${u}</span></span></div>`;
+
+  let c1=`<div class="fc"><div class="fh fhd">${T('ficGab')}</div>`;
+  c1+=row(T('ficType'),T('swingBarrier'));c1+=row(T('ficLargo'),sp.D,'mm');c1+=row(T('ficAncho'),sp.W,'mm');c1+=row(T('ficAlto'),sp.H,'mm');c1+=row(T('ficArm'),sp.armBase,'mm');c1+=row(T('ficTemp'),sp.tempRange);c1+=row(T('ficVel'),sp.openSpeed);c1+=row(T('ficElec'),sp.power);c1+=row(T('ficPow'),sp.consumption);c1+=row(T('ficGap'),GAP_MM+' mm','','#8a6800');
+  c1+=`<div class="fh fhb">${T('ficComm')}</div>`;c1+=row(T('ficProto'),T('ficRS485'));c1+=row(T('ficBaud'),T('ficBaud9'));c1+=row(T('ficMaster'),sp.labelEnd+' ×1','','#c04000');if(nC>0)c1+=row(T('ficSlave'),sp.labelCentral+' ×'+nC,'','#1a5fa0');c1+=`</div>`;
+
+  let c2=`<div class="fc"><div class="fh fhg">${T('ficProj')}</div>`;
+  c2+=row(T('ficLanes'),N());c2+=row(T('ficCabs'),N()+1,T('uiGabinets'));c2+=`<div class="fr2"><span class="fk">${T('ficCabDetail')}</span><span class="fv" style="font-size:9px;font-weight:500;text-align:right">${unitsInfo()}</span></div>`;c2+=`</div>`;
+  c2+=`<div class="fkpi" style="${aC?`border:2px solid ${aC};background:${aC}12`:''}"><span class="fkl" style="color:${aC||'#0a3070'}">${T('ficTW')}${aC?' ⚠':''}</span><span class="fkv" style="color:${aC||'#0a3070'}">${rnd(TWg).toLocaleString()} <span style="font-size:12px;font-weight:600">mm</span></span></div>`;
+  if(TWtotal!==TWg){c2+=`<div class="fkpi" style="background:rgba(200,136,0,.12);border:1px solid rgba(200,136,0,.4)"><span class="fkl" style="color:#c08800">${T('ficTWfull')}</span><span class="fkv" style="color:#c08800">${rnd(TWtotal).toLocaleString()} <span style="font-size:12px;font-weight:600">mm</span></span></div>`;}
+  if(siteLimit>0){const bc=aC||'#1a7a30';c2+=`<div class="fr2" style="background:${bc}08"><span class="fk" style="color:${bc}">${T('ficLimit')} · ${T('maxLbl')}</span><span class="fv" style="color:${bc};font-size:14px;font-weight:900">${siteLimit} mm</span></div>`;c2+=`<div class="fr2"><span class="fk" style="color:${bc}">${state==='over'?T('alertOverBadge'):state==='near'?T('alertNearBadge'):T('limOk')}</span><span class="fv" style="color:${bc}">${state==='over'?'+'+rnd(TWfull()-siteLimit)+' mm':rnd(slack)+' mm libres'}</span></div>`;}
+  c2+=`<div class="fh fhr">${T('ficAnc')}</div>`;c2+=row(T('ficPernos'),tB,'pcs');c2+=`<div class="bpr"><span class="fk" style="font-size:8px;margin-right:4px">${T('ficPos')}:</span>${sp.bolts.map(b=>`<span class="bp">${b}</span>`).join('')}<span class="fk" style="margin-left:4px;font-size:7px">mm</span></div>`;c2+=row(T('ficProf'),'60','mm');c2+=row(T('ficDiam'),'Ø16','mm');c2+=row(T('ficHolg'),sp.wallCl,'mm');
+  c2+=`<div class="fh fhd">${T('ficCond')}</div>`;c2+=`<div class="fr2"><span class="fk">${T('ficPVC')}</span><span class="pvcc" style="background:${pvc.color}18;color:${pvc.color};border:1.5px solid ${pvc.color}">${pvc.label}</span></div>`;c2+=row(T('ficCables'),totalCables,'cables');c2+=row(T('ficFill'),'40%','(IEC 61386)');c2+=`</div>`;
+
+  let lanesHtml=`<div class="fc" style="grid-column:1/-1"><div class="fh fhg">${T('ficLeaves')}</div><div class="flg">`;
+  lanes.forEach((_,i)=>{const{pg,lf}=getLane(i);lanesHtml+=`<div class="fli"><div class="flinum">C${i+1}</div><div class="flipass">${T('ficStep')}: ${pg.l} mm</div><div class="fligmp">${T('ficSlot')}: ${rnd(pg.s)} mm · GAP: ${GAP_MM} mm</div><div class="flileaf">${lf.label}</div><div class="fligmp">${lf.gmp}</div><div class="flidims">${lf.topH}H · ${lf.pH}B · ${lf.pW}W mm</div></div>`;});
+  lanesHtml+=`</div></div>`;
+
+  // Accessories card — two-column layout per side
+  let accHtml='';
+  if(accLeft.length>0||accRight.length>0){
+    accHtml=`<div class="afc" style="grid-column:1/-1">
+      <div class="afh">◀ <span class="afbadge">${T('ficAcc')}</span> ▶ &nbsp;${T('ficAccL')} &amp; ${T('ficAccR')}</div>
+      <div class="afsides">
+        <div class="afside">
+          <div class="afside-lbl">◀ ${T('accLeftSide').toUpperCase()}${TWL>0?' — '+TWL+' mm':''}</div>
+          ${accSideHtml(accLeft,'left')}
+        </div>
+        <div class="afside">
+          <div class="afside-lbl">▶ ${T('accRightSide').toUpperCase()}${TWR>0?' — '+TWR+' mm':''}</div>
+          ${accSideHtml(accRight,'right')}
+        </div>
+      </div>
+    </div>`;
+  }
+  document.getElementById('ficha-outer').innerHTML=`<div class="fhr2">${sp.label} — ${sp.sub}</div><div class="fg">${c1}${c2}${lanesHtml}${accHtml}<div class="fft">ZKTeco Corp. © 2025 — www.zkteco.com</div></div>`;
+  drawFichaSVG();
+}
+
+function drawFichaSVG(){
+  const sp=MODELS[M],TWg=TWgate(),pvc=pvcSize(N()),state=getAlertState(),totalCables=2+4*N();
+  const W=680,P=18,tB=(N()+1)*sp.bolts.length,nC=Math.max(0,N()-1);
+  const ac=state==='over'?'#cc1111':state==='near'?'#c08800':null;
+  const C1W=r(W/2-10),C2X=r(W/2+8);
+  const TWL=accTotalW(accLeft),TWR=accTotalW(accRight),TWtotal=TWL+TWg+TWR;
+  const rows1=[
+    {sec:T('ficGab'),col:'#14304f',items:[{k:T('ficType'),v:T('swingBarrier')},{k:T('ficLargo'),v:sp.D,u:'mm'},{k:T('ficAncho'),v:sp.W,u:'mm'},{k:T('ficAlto'),v:sp.H,u:'mm'},{k:T('ficArm'),v:sp.armBase,u:'mm'},{k:T('ficTemp'),v:sp.tempRange},{k:T('ficVel'),v:sp.openSpeed},{k:T('ficElec'),v:sp.power},{k:T('ficPow'),v:sp.consumption},{k:T('ficGap'),v:`${GAP_MM} mm`,col:'#8a6800'}]},
+    {sec:T('ficComm'),col:'#0a2a50',items:[{k:T('ficProto'),v:T('ficRS485')},{k:T('ficBaud'),v:T('ficBaud9')},{k:T('ficMaster'),v:`${sp.labelEnd} ×1`,col:'#c04000'},{k:T('ficSlave'),v:nC>0?`${sp.labelCentral} ×${nC}`:'N/A',col:nC>0?'#1a5fa0':'#aaa'}]},
+  ];
+  const RH=16,SH=20,KH=28,AH=30,HDR=40,FTR=22;
+  const cH1=rows1.reduce((s,x)=>s+SH+x.items.length*RH,0);
+  const hasAcc=accLeft.length>0||accRight.length>0;
+  const cH2=SH+3*RH+KH+8+(TWtotal!==TWg?KH+4:0)+(siteLimit>0?RH*2:0)+SH+5*RH+SH+3*RH;
+  const lanesH=SH+Math.ceil(N()/4)*AH+8;
+  const accH=hasAcc?SH+(Math.max(accLeft.length,accRight.length))*40+8:0;
+  const maxCH=Math.max(cH1,cH2),tot=HDR+maxCH+lanesH+accH+FTR+16;
+  document.getElementById('ficha-svg').setAttribute('viewBox',`0 0 ${W} ${tot}`);
+  let h=`<rect width="${W}" height="${tot}" fill="#f8f8f6"/>`;
+  h+=`<rect x="0" y="0" width="${W}" height="${HDR}" fill="#14304f"/>`;h+=`<text x="${W/2}" y="16" text-anchor="middle" ${FM} font-size="12" font-weight="bold" fill="#7dd87a" letter-spacing="1">${sp.label}</text>`;h+=`<text x="${W/2}" y="30" text-anchor="middle" ${FM} font-size="8" fill="#aaa">${sp.sub}</text>`;
+  h+=`<line x1="${C2X-P}" y1="${HDR+4}" x2="${C2X-P}" y2="${HDR+maxCH+4}" stroke="#e0e8f0" stroke-width=".7"/>`;
+  let y=HDR+6;
+  rows1.forEach(({sec,col,items})=>{h+=`<rect x="${P}" y="${r(y)}" width="${C1W-P}" height="${SH}" fill="${col}" rx="2"/>`;h+=`<text x="${r(P+6)}" y="${r(y+13)}" ${FM} font-size="7" font-weight="bold" fill="#7dd87a" letter-spacing="1">${sec.toUpperCase()}</text>`;y+=SH;items.forEach(({k,v,u,col:ic})=>{h+=`<text x="${r(P+6)}" y="${r(y+RH/2+3)}" ${FM} font-size="7" fill="#57606a">${k}</text>`;const val=u?`${v} ${u}`:v;h+=`<text x="${r(P+C1W-P-5)}" y="${r(y+RH/2+4)}" text-anchor="end" ${FM} font-size="${String(val).length>20?7:8}" font-weight="600" fill="${ic||'#1a1a2e'}">${val}</text>`;h+=`<line x1="${P}" y1="${r(y+RH)}" x2="${P+C1W-P}" y2="${r(y+RH)}" stroke="#e8ecf0" stroke-width=".4"/>`;y+=RH;});});
+  let y2=HDR+6;
+  h+=`<rect x="${C2X}" y="${r(y2)}" width="${W-C2X-P}" height="${SH}" fill="#1a4a28" rx="2"/>`;h+=`<text x="${r(C2X+6)}" y="${r(y2+13)}" ${FM} font-size="7" font-weight="bold" fill="#7dd87a" letter-spacing="1">${T('ficProj').toUpperCase()}</text>`;y2+=SH;
+  [{k:T('ficLanes'),v:N()},{k:T('ficCabs'),v:N()+1,u:T('uiGabinets')},{k:T('ficCabDetail'),v:unitsShort()}].forEach(({k,v,u})=>{h+=`<text x="${r(C2X+6)}" y="${r(y2+RH/2+3)}" ${FM} font-size="7" fill="#57606a">${k}</text>`;const val=u?`${v} ${u}`:v;h+=`<text x="${W-P-5}" y="${r(y2+RH/2+4)}" text-anchor="end" ${FM} font-size="${String(val).length>22?7:8}" font-weight="600" fill="#1a1a2e">${val}</text>`;h+=`<line x1="${C2X}" y1="${r(y2+RH)}" x2="${W-P}" y2="${r(y2+RH)}" stroke="#e8ecf0" stroke-width=".4"/>`;y2+=RH;});
+  y2+=3;const kC=ac||'#0a3070';h+=`<rect x="${C2X}" y="${y2}" width="${W-C2X-P}" height="${KH}" fill="${kC}14" rx="3"/>`;h+=`<text x="${r(C2X+6)}" y="${r(y2+KH/2+3)}" ${FM} font-size="8" font-weight="bold" fill="${kC}">${T('ficTW')}${ac?' ⚠':''}</text>`;h+=`<text x="${W-P-5}" y="${r(y2+KH/2+6)}" text-anchor="end" ${FM} font-size="16" font-weight="900" fill="${kC}">${rnd(TWg)} mm</text>`;y2+=KH+5;
+  if(TWtotal!==TWg){h+=`<rect x="${C2X}" y="${y2}" width="${W-C2X-P}" height="${KH}" fill="rgba(200,136,0,.12)" rx="3" style="border:1px solid rgba(200,136,0,.4)"/>`;h+=`<text x="${r(C2X+6)}" y="${r(y2+KH/2+3)}" ${FM} font-size="8" font-weight="bold" fill="#c08800">${T('ficTWfull')}</text>`;h+=`<text x="${W-P-5}" y="${r(y2+KH/2+6)}" text-anchor="end" ${FM} font-size="16" font-weight="900" fill="#c08800">${rnd(TWtotal)} mm</text>`;y2+=KH+4;}
+  if(siteLimit>0){const bc=ac||'#1a7a30',sl=siteLimit-TWfull();h+=`<rect x="${C2X}" y="${y2}" width="${W-C2X-P}" height="${RH*2}" fill="${bc}10" rx="2"/>`;h+=`<text x="${r(C2X+6)}" y="${r(y2+RH/2+3)}" ${FM} font-size="7" fill="${bc}">${T('ficLimit')}: ${siteLimit} mm</text>`;h+=`<text x="${r(C2X+6)}" y="${r(y2+RH+RH/2+3)}" ${FM} font-size="7" fill="${bc}">${state==='over'?T('alertOverBadge')+' +'+rnd(TWfull()-siteLimit)+'mm':state==='near'?T('alertNearBadge')+' '+rnd(sl)+'mm':T('limOk')+' '+rnd(sl)+'mm'}</text>`;y2+=RH*2;}
+  [{sec:T('ficAnc'),col:'#5a1010',sc:'#ffaaaa',items:[{k:T('ficPernos'),v:tB,u:'pcs'},{k:T('ficPos'),v:sp.bolts.join(', '),u:'mm'},{k:T('ficProf'),v:'60',u:'mm'},{k:T('ficDiam'),v:'Ø16',u:'mm'},{k:T('ficHolg'),v:sp.wallCl,u:'mm'}]},{sec:T('ficCond'),col:'#14304f',sc:'#7dd87a',items:[{k:T('ficPVC'),v:pvc.label,col:pvc.color},{k:T('ficCables'),v:totalCables,u:'cables'},{k:T('ficFill'),v:'40%',u:'IEC 61386'}]}].forEach(({sec,col,sc,items})=>{h+=`<rect x="${C2X}" y="${r(y2)}" width="${W-C2X-P}" height="${SH}" fill="${col}" rx="2"/>`;h+=`<text x="${r(C2X+6)}" y="${r(y2+13)}" ${FM} font-size="7" font-weight="bold" fill="${sc}" letter-spacing="1">${sec.toUpperCase()}</text>`;y2+=SH;items.forEach(({k,v,u,col:ic})=>{if(!v&&!u)return;h+=`<text x="${r(C2X+6)}" y="${r(y2+RH/2+3)}" ${FM} font-size="7" fill="#57606a">${k}</text>`;const val=u?`${v} ${u}`:v;h+=`<text x="${W-P-5}" y="${r(y2+RH/2+4)}" text-anchor="end" ${FM} font-size="${String(val).length>22?7:8}" font-weight="600" fill="${ic||'#1a1a2e'}">${val}</text>`;h+=`<line x1="${C2X}" y1="${r(y2+RH)}" x2="${W-P}" y2="${r(y2+RH)}" stroke="#e8ecf0" stroke-width=".4"/>`;y2+=RH;});});
+  // Lanes
+  const lY=HDR+maxCH+6;h+=`<rect x="${P}" y="${lY}" width="${W-2*P}" height="${SH}" fill="#1a4a28" rx="2"/>`;h+=`<text x="${r(P+6)}" y="${r(lY+13)}" ${FM} font-size="7" font-weight="bold" fill="#7dd87a" letter-spacing="1">${T('ficLeaves').toUpperCase()}</text>`;
+  const liW=r((W-2*P)/Math.min(N(),4)-4);
+  lanes.forEach((_,i)=>{const{pg,lf}=getLane(i),cc=i%4,rr=Math.floor(i/4),lx=r(P+2+cc*(liW+4)),ly=r(lY+SH+rr*AH+2);h+=`<rect x="${lx}" y="${ly}" width="${liW}" height="${AH-4}" fill="#fff" stroke="#d0e8d8" stroke-width=".7" rx="3"/>`;h+=`<text x="${r(lx+6)}" y="${r(ly+10)}" ${FM} font-size="7" font-weight="bold" fill="#2a7a2a">C${i+1} · ${pg.l}mm · GAP ${GAP_MM}mm</text>`;h+=`<text x="${r(lx+6)}" y="${r(ly+20)}" ${FM} font-size="6.5" fill="#555">${lf.label} · ${lf.gmp}</text>`;h+=`<text x="${r(lx+6)}" y="${r(ly+28)}" ${FM} font-size="6" fill="#888">${lf.topH}H · ${lf.pH}B · ${lf.pW}W mm</text>`;});
+  // Accessories
+  if(hasAcc){
+    const aY=lY+lanesH+4;h+=`<rect x="${P}" y="${aY}" width="${W-2*P}" height="${SH}" fill="#3a2400" rx="2"/>`;h+=`<text x="${r(P+6)}" y="${r(aY+13)}" ${FM} font-size="7" font-weight="bold" fill="#f0c060" letter-spacing="1">${T('ficAccL').split(' ').slice(-2).join(' ').toUpperCase()} + ${T('ficAccR').split(' ').slice(-2).join(' ').toUpperCase()}</text>`;
+    const aMidX=r(W/2);let aLy=aY+SH+4,aRy=aY+SH+4;
+    h+=`<line x1="${aMidX}" y1="${aY+SH}" x2="${aMidX}" y2="${aY+accH}" stroke="#c08800" stroke-width=".5" opacity=".4"/>`;
+    h+=`<text x="${r(P+6)}" y="${r(aY+SH+12)}" ${FM} font-size="6.5" font-weight="bold" fill="#c08800">◀ ${T('accLeftSide').toUpperCase()}${TWL>0?' — '+TWL+' mm':''}</text>`;
+    h+=`<text x="${r(aMidX+8)}" y="${r(aY+SH+12)}" ${FM} font-size="6.5" font-weight="bold" fill="#c08800">${T('accRightSide').toUpperCase()} ▶${TWR>0?' — '+TWR+' mm':''}</text>`;
+    aLy+=16;aRy+=16;
+    const drawAccListSVG=(list,xStart,xEnd)=>{
+      if(list.length===0){h+=`<text x="${r((xStart+xEnd)/2)}" y="${r(aLy+8)}" text-anchor="middle" ${FM} font-size="7" fill="#aaa" font-style="italic">${T('accNone')}</text>`;return;}
+      let ay=aLy;list.forEach((item)=>{
+        const a=ACC_BY_CODE[item.code];if(!a)return;const gO=getAccGlass(item);
+        h+=`<rect x="${xStart}" y="${ay}" width="${xEnd-xStart-4}" height="32" fill="rgba(200,136,0,.06)" stroke="rgba(200,136,0,.25)" stroke-width=".7" rx="3"/>`;
+        h+=`<rect x="${r(xStart+4)}" y="${r(ay+4)}" width="28" height="12" fill="#c08800" rx="3"/>`;h+=`<text x="${r(xStart+18)}" y="${r(ay+14)}" text-anchor="middle" ${FM} font-size="8" font-weight="bold" fill="#fff">${a.code}</text>`;
+        h+=`<text x="${r(xStart+38)}" y="${r(ay+11)}" ${FM} font-size="7" fill="#c08800">${a.W}×${a.H}mm</text>`;
+        if(gO)h+=`<text x="${r(xStart+38)}" y="${r(ay+22)}" ${FM} font-size="6.5" fill="#5ab0d8">${T('glass')} ${gO.gW}×${gO.gH}mm</text>`;
+        ay+=36;
+      });
+    };
+    drawAccListSVG(accLeft,P+2,aMidX-4);
+    drawAccListSVG(accRight,aMidX+4,W-P-2);
+  }
+  h+=`<rect x="0" y="${tot-FTR}" width="${W}" height="${FTR}" fill="#14304f"/>`;h+=`<text x="${W/2}" y="${tot-8}" text-anchor="middle" ${FM} font-size="7" fill="#7dd87a" letter-spacing=".8">ZKTeco Corp. © 2025 — www.zkteco.com</text>`;
+  document.getElementById('ficha-svg').setAttribute('viewBox',`0 0 ${W} ${tot}`);document.getElementById('ficha-svg').innerHTML=h;
+}
+
+// ══ COVER ═════════════════════════════════════════════════════
+function drawCover(){
+  const sp=MODELS[M],TWg=TWgate(),state=getAlertState(),aC=state==='over'?'#cc1111':state==='near'?'#c08800':null;
+  const TWL=accTotalW(accLeft),TWR=accTotalW(accRight),TWtotal=TWL+TWg+TWR;
+  const gv=id=>{const el=document.getElementById(id);return el?el.value.trim()||'—':'—';};
+  const client=gv('f-client'),project=gv('f-project'),addr=gv('f-addr'),refn=gv('f-ref'),author=gv('f-author'),rev=gv('f-rev');
+  const dateRaw=gv('f-date'),version=gv('f-version')||'Rev. A';
+  let dateStr='—';if(dateRaw&&dateRaw!=='—'){const d=new Date(dateRaw);if(!isNaN(d.getTime()))dateStr=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;}
+  const W=720,H=560;
+  let h=`<rect width="${W}" height="${H}" fill="#eeede5"/><rect x="10" y="10" width="${W-20}" height="${H-20}" fill="none" stroke="#14304f" stroke-width="2"/>`;
+  h+=`<rect x="10" y="10" width="${W-20}" height="72" fill="#14304f"/>`;h+=`<text x="40" y="52" ${FM} font-size="30" font-weight="bold" fill="#fff" letter-spacing="2">ZK<tspan fill="#7dd87a">Teco</tspan></text>`;h+=`<text x="40" y="70" ${FM} font-size="9" fill="#7dd87a" letter-spacing="4">SECURITY · ACCESS CONTROL</text>`;
+  h+=`<text x="${W-30}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-30}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-30}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
+  h+=`<text x="40" y="112" ${FM} font-size="8" fill="#888" letter-spacing="2">${T('covProject')}</text>`;h+=`<text x="40" y="135" ${FM} font-size="18" font-weight="bold" fill="#14304f">${project}</text>`;h+=`<line x1="40" y1="145" x2="${W-40}" y2="145" stroke="#14304f" stroke-width=".5"/>`;
+  const c2x=390,rH=28;let ry=168;
+  const rows=[[T('fldClient').toUpperCase(),client,false,''],[T('fldAddr').toUpperCase(),addr,false,''],['MODELO',sp.label,false,''],['',unitsShort(),false,'sub'],[T('uiLanes').toUpperCase(),`${N()} ${N()>1?T('lanes'):T('lane')} · ${N()+1} ${T('nCabs').toLowerCase()}`,false,''],[T('covGates'),`${rnd(TWg)} mm`,aC!==null,''],[T('twLabel').toUpperCase(),`${rnd(TWtotal)} mm`,false,'acc']];
+  rows.forEach(([lbl,val,alert,type])=>{const y=ry,isSub=type==='sub',isAlt=alert&&aC,isAcc=type==='acc';if(isSub){h+=`<text x="40" y="${y}" ${FM} font-size="8.5" font-weight="500" fill="#555">${val}</text>`;h+=`<line x1="40" y1="${r(y+4)}" x2="${r(c2x-20)}" y2="${r(y+4)}" stroke="#eee" stroke-width=".5"/>`;ry+=15;return;}if(isAlt)h+=`<rect x="36" y="${r(y-14)}" width="${r(c2x-56)}" height="${rH-2}" fill="${aC}12" rx="3"/>`;if(isAcc&&TWtotal!==TWg)h+=`<rect x="36" y="${r(y-14)}" width="${r(c2x-56)}" height="${rH-2}" fill="rgba(200,136,0,.08)" rx="3"/>`;if(lbl)h+=`<text x="40" y="${y}" ${FM} font-size="7" fill="${isAlt?aC:isAcc&&TWtotal!==TWg?'#c08800':'#888'}" letter-spacing="1">${lbl}</text>`;h+=`<text x="40" y="${r(y+13)}" ${FM} font-size="${isAlt||isAcc?12:11}" font-weight="bold" fill="${isAlt?aC:isAcc&&TWtotal!==TWg?'#c08800':'#14304f'}">${val}${isAlt?' ⚠':''}</text>`;h+=`<line x1="40" y1="${r(y+17)}" x2="${r(c2x-20)}" y2="${r(y+17)}" stroke="${isAlt?aC+'40':'#ccc'}" stroke-width=".5"/>`;ry+=rH;});
+  if(siteLimit>0){const sl=siteLimit-TWfull(),bc=aC||'#1a7a30';h+=`<rect x="36" y="${ry}" width="${r(c2x-56)}" height="24" fill="${bc}10" stroke="${bc}50" stroke-width=".8" rx="3"/>`;h+=`<text x="44" y="${r(ry+9)}" ${FM} font-size="7" fill="${bc}" letter-spacing="1">${T('covLimit')}</text>`;h+=`<text x="44" y="${r(ry+20)}" ${FM} font-size="11" font-weight="bold" fill="${bc}">${siteLimit} mm — ${state==='over'?T('alertOverBadge')+' +'+rnd(TWfull()-siteLimit)+'mm':state==='near'?T('alertNearBadge')+' '+rnd(sl)+'mm':T('limOk')+' '+rnd(sl)+'mm'}</text>`;}
+  // Accessories summary in cover
+  if(accLeft.length>0||accRight.length>0){
+    h+=`<text x="40" y="${ry+30}" ${FM} font-size="7" fill="#c08800" letter-spacing="1">${T('accLabel')}</text>`;
+    const accSummary=[...accLeft.map(it=>`◀${it.code}`),...accRight.map(it=>`${it.code}▶`)].join('  ');
+    h+=`<text x="40" y="${ry+42}" ${FM} font-size="9.5" font-weight="bold" fill="#c08800">${accSummary}</text>`;
+  }
+  h+=`<text x="${c2x}" y="168" ${FM} font-size="7" fill="#888" letter-spacing="1">${T('covLeaves')}</text>`;
+  lanes.forEach((_,i)=>{const{pg,lf}=getLane(i),y=182+i*26;h+=`<rect x="${c2x}" y="${r(y-10)}" width="${W-c2x-40}" height="22" fill="#fff" stroke="#e0e0e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${r(c2x+8)}" y="${r(y+1)}" ${FM} font-size="7.5" fill="#14304f" font-weight="bold">C${i+1} · ${pg.l}mm libre</text>`;h+=`<text x="${r(c2x+8)}" y="${r(y+10)}" ${FM} font-size="6.5" fill="#555">${lf.label} · ${lf.gmp}</text>`;});
+  h+=`<line x1="40" y1="${H-130}" x2="${W-40}" y2="${H-130}" stroke="#14304f" stroke-width=".5"/>`;
+  const fbY=H-118,fbH=80,fcW=r((W-20)/4);h+=`<rect x="10" y="${fbY}" width="${W-20}" height="${fbH+28}" fill="#fff" stroke="#14304f" stroke-width=".5"/>`;
+  [[T('covBy'),author],[T('covCheck'),rev==='—'?'—':rev],[T('covDate'),dateStr],[T('covRev'),version]].forEach(([tx,v],k)=>{const fx=10+k*fcW;if(k>0)h+=`<line x1="${fx}" y1="${fbY}" x2="${fx}" y2="${fbY+fbH+28}" stroke="#14304f" stroke-width=".5"/>`;h+=`<text x="${r(fx+8)}" y="${r(fbY+12)}" ${FM} font-size="7" fill="#888" letter-spacing=".8">${tx}</text>`;h+=`<text x="${r(fx+8)}" y="${r(fbY+30)}" ${FM} font-size="11" font-weight="bold" fill="#14304f">${v}</text>`;});
+  h+=`<rect x="10" y="${H-30}" width="${W-20}" height="20" fill="#14304f"/>`;h+=`<text x="360" y="${H-16}" text-anchor="middle" ${FM} font-size="7" fill="#7dd87a" letter-spacing="1">ZKTeco Corp. © 2025 — www.zkteco.com</text>`;
+  document.getElementById('covsvg').innerHTML=h;
+}
+
+// ══ UI ════════════════════════════════════════════════════════
+function ui(){
+  const sp=MODELS[M];
+  document.getElementById('mtabs').innerHTML=MK.map(k=>`<button class="mbt${k===M?' on':''}" onclick="M='${k}';lanes=lanes.map(()=>({pgIdx:0,lfIdx:0}));ui();drawCAD();if(PAGE==='ficha')drawFicha();"><span class="mn">${MODELS[k].label}</span><span class="ms">${MODELS[k].sub}</span></button>`).join('');
+  document.getElementById('nv').textContent=N();
+  document.getElementById('dm').disabled=N()<=1;
+  document.getElementById('ip').disabled=N()>=6;
+  document.getElementById('lr').innerHTML=lanes.map((l,i)=>{
+    const pgI=Math.min(l.pgIdx,sp.pg.length-1),pg=sp.pg[pgI],lfI=Math.min(l.lfIdx,pg.leaves.length-1);
+    return`<div class="lc"><div class="ln">Pasillo ${i+1}</div>
+    <div class="lch">${sp.pg.map((p,j)=>`<button class="ch ${j===pgI?'op':''}" onclick="lanes[${i}]={pgIdx:${j},lfIdx:0};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${p.l}mm</button>`).join('')}</div>
+    <div class="lch" style="margin-top:2px">${pg.leaves.length>1?pg.leaves.map((lv,j)=>`<button class="ch ${j===lfI?'ol':''}" onclick="lanes[${i}].lfIdx=${j};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${lv.label}</button>`).join(''):`<span style="font-size:8px;font-family:monospace;color:rgba(168,189,212,.4)">${pg.leaves[0].label}</span>`}</div>
+    </div>`;
+  }).join('');
+  const TWg=TWgate(),pvc=pvcSize(N()),st=getAlertState(),TWtotal=TWfull();
+  const tc=st==='over'?'over':st==='near'?'near':'';
+  const slack=siteLimit>0?rnd(siteLimit-TWtotal):null;
+  document.getElementById('sk').innerHTML=`
+    <div class="sc"><span class="sl">Puertas</span><span class="sv">${rnd(TWg).toLocaleString()} mm</span></div>
+    ${TWtotal!==TWg?`<div class="sc"><span class="sl">${T('twLabel')}</span><span class="sv ${tc}" style="${tc?'':'color:#c08800'}">${rnd(TWtotal).toLocaleString()} mm${st==='over'?' ⚠':''}</span></div>`:''}
+    <div class="sc"><span class="sl">${T('nCabs')}</span><span class="sv">${N()+1} ${T('uiGabinets')}</span></div>
+    <div class="sc"><span class="sl">PVC</span><span class="sv" style="color:${pvc.color}">${pvc.label}</span></div>
+    ${siteLimit>0?`<div class="sc"><span class="sl">${T('maxLbl')}</span><span class="sv ${tc}">${st==='over'?T('alertOverBadge'):st==='near'?T('alertNearBadge'):'✓ '+slack+'mm'}</span></div>`:''}`;
+  updateAlerts();updateI18nDOM();renderAccBar();
+}
+document.getElementById('dm').onclick=()=>{if(N()>1){lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
+document.getElementById('ip').onclick=()=>{if(N()<6){lanes.push({pgIdx:0,lfIdx:0});ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
+document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+ui();drawCAD();
+</script>
+</body>
+</html>
