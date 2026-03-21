@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><title>ZKTeco SpeedGate CAD v35</title>
+<html><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="manifest.json"><title>ZKTeco SpeedGate CAD v35</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#1a2a3a}
@@ -13,7 +13,7 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 .lb.on{background:var(--ac);color:#0d1f30}.lb:hover:not(.on){background:var(--hv);color:#fff}
 .pt{background:var(--nv);display:flex;align-items:stretch;border-bottom:1px solid var(--br);padding:0 8px;gap:2px}
 .ptb{display:flex;align-items:center;gap:6px;padding:10px 16px 8px;font-size:11px;font-weight:600;color:var(--t2);border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;border-radius:6px 6px 0 0;margin-bottom:-1px}
-.ptb:hover:not(.on){background:var(--hv);color:#fff}.ptb.on{color:var(--ac);border-bottom-color:var(--ac);background:rgba(125,216,122,.08)}
+.ptb:hover:not(.on){background:var(--hv);color:#fff}.ptb.on{color:var(--ac);border-bottom-color:var(--ac);background:rgba(125,216,122,.08)}.ptb:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .xb{background:var(--d);border-bottom:1px solid var(--br);display:flex;align-items:center;gap:6px;padding:8px 14px;flex-wrap:wrap}
 .xlbl{font-size:9px;font-family:monospace;color:var(--t2);letter-spacing:1px;text-transform:uppercase;flex-shrink:0}
 .bf{display:flex;align-items:center;gap:5px;padding:6px 12px;border-radius:6px;border:1.5px solid;font-size:10px;font-family:monospace;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap}
@@ -24,78 +24,80 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 .be:last-child{border-right:none}.be:hover{background:rgba(42,107,176,.3);color:#c8e0ff}
 .bpdf{background:rgba(139,0,0,.12);color:#f08080}.bpdf:hover{background:rgba(139,0,0,.28)}
 .bpe{display:flex;align-items:center;gap:4px;padding:5px 10px;border-radius:5px;border:1px solid rgba(255,255,255,.12);font-size:9px;font-family:monospace;cursor:pointer;transition:all .15s;background:transparent;color:var(--t2)}
-.bpe:hover{background:var(--hv);color:#fff;border-color:rgba(255,255,255,.25)}.bpe:disabled{opacity:.35;cursor:default;pointer-events:none}
-.ab{display:none;padding:8px 16px;font-family:monospace;font-size:9.5px;align-items:center;gap:10px;border-bottom:2px solid;flex-wrap:wrap}
-.ab.on{display:flex}.ab.over{background:#2a0505;border-color:var(--rd);color:#ff9090}.ab.near{background:#2a1f00;border-color:var(--am);color:#f0c060}
+.bpe:hover{background:var(--hv);color:#fff;border-color:rgba(255,255,255,.25)}.bpe:disabled{opacity:.35;cursor:default;pointer-events:none}.bpe:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.ab{display:none;padding:8px 16px;font-family:monospace;font-size:10.5px;align-items:center;gap:10px;border-bottom:2px solid;flex-wrap:wrap}
+.ab.on{display:flex}.ab.over{background:rgba(180,30,30,.12);border-color:rgba(204,17,17,.6);color:#ff9090}.ab.near{background:rgba(160,100,0,.12);border-color:rgba(192,136,0,.6);color:#f0c060}
 .abody{flex:1;line-height:1.5}.abadge{padding:3px 10px;border-radius:20px;font-size:8px;font-weight:700;flex-shrink:0}
 .ab.over .abadge{background:var(--rd);color:#fff}.ab.near .abadge{background:var(--am);color:#fff}
 .pb{display:none;background:var(--nv2);padding:7px 16px;font-family:monospace;font-size:9px;color:#90d0ff;align-items:center;gap:10px}.pb.on{display:flex}
 .pbf{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.pbi{height:100%;background:var(--ac);border-radius:4px;transition:width .3s}
-.mb{background:var(--d);border-bottom:1px solid var(--br);display:flex;overflow-x:auto;padding:0 8px;gap:2px}
+.mb{background:var(--d);border-bottom:1px solid var(--br);display:flex;overflow-x:auto;padding:0 8px;gap:2px;position:relative}
+.mb::after{content:'';position:absolute;right:0;top:0;bottom:0;width:24px;background:linear-gradient(to right,transparent,var(--d));pointer-events:none;z-index:1}
 .mbt{display:flex;flex-direction:column;gap:2px;padding:8px 14px;border:none;background:transparent;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;flex-shrink:0;border-radius:6px 6px 0 0;margin-bottom:-1px}
 .mbt:hover:not(.on){background:var(--hv)}.mbt.on{background:rgba(125,216,122,.08);border-bottom-color:var(--ac)}
 .mn{font-size:10px;font-weight:600;font-family:monospace;color:var(--t2)}.mbt.on .mn{color:var(--ac)}
-.ms{font-size:7.5px;color:rgba(168,189,212,.6);font-family:monospace}.mbt.on .ms{color:rgba(125,216,122,.6)}
+.ms{font-size:9px;color:rgba(168,189,212,.6);font-family:monospace}.mbt.on .ms{color:rgba(125,216,122,.6)}
 .cb{background:var(--nv);display:flex;align-items:stretch;border-bottom:1px solid var(--br);flex-wrap:wrap}
 .cg{padding:8px 14px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 .cg.str{flex:1;border-right:none;align-items:flex-end;justify-content:center;padding-right:16px}
-.cl{font-size:8px;font-weight:600;color:var(--t2);letter-spacing:.12em;text-transform:uppercase;font-family:monospace}
+.cl{font-size:10px;font-weight:600;color:var(--t2);letter-spacing:.12em;text-transform:uppercase;font-family:monospace}
 .cr{display:flex;gap:4px;align-items:center}
-.nb{width:26px;height:26px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.05);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;font-family:monospace;user-select:none}
-.nb:hover{background:rgba(255,255,255,.12)}.nb:disabled{opacity:.3;cursor:default;pointer-events:none}
+.nb{width:32px;height:32px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.05);color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s;font-family:monospace;user-select:none}
+.nb:hover{background:rgba(255,255,255,.12)}.nb:disabled{opacity:.3;cursor:default;pointer-events:none}.nb:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
 .nv{font-size:22px;font-weight:700;font-family:monospace;min-width:28px;text-align:center;color:#fff}
-.lf{width:84px;padding:5px 8px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.05);color:#fff;font-family:monospace;font-size:12px;text-align:right}
-.lf:focus{outline:none;border-color:var(--bl)}.lf.over{border-color:var(--rd);color:#ff9090}.lf.near{border-color:var(--am);color:#f0c060}
+.lf{width:84px;padding:5px 8px;border:1.5px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.05);color:#fff;font-family:monospace;font-size:12px;text-align:right;transition:border-color .15s}
+.lf:focus{outline:none;border-color:var(--bl)}.lf:focus-visible{outline:2px solid var(--bl);outline-offset:1px}.lf:hover:not(:focus){border-color:rgba(255,255,255,.28)}.lf.over{border-color:var(--rd);color:#ff9090}.lf.near{border-color:var(--am);color:#f0c060}
 .lu{font-size:10px;color:var(--t2);font-family:monospace}
 .sr{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .sc{display:flex;flex-direction:column;background:rgba(255,255,255,.05);border:1px solid var(--br);border-radius:8px;padding:4px 10px}
-.sl{font-size:7.5px;color:var(--t2);font-family:monospace;letter-spacing:.3px}.sv{font-size:13px;font-weight:700;font-family:monospace;color:#fff}
+.sl{font-size:9px;color:var(--t2);font-family:monospace;letter-spacing:.3px}.sv{font-size:13px;font-weight:700;font-family:monospace;color:#fff}
 .sv.over{color:#ff9090}.sv.near{color:#f0c060}
 .lr{background:rgba(255,255,255,.02);border-bottom:1px solid var(--br);display:flex;overflow-x:auto;padding:4px 10px;gap:4px}
 .lc{padding:4px 10px;border-right:1px solid var(--br);display:flex;flex-direction:column;gap:3px;flex-shrink:0}.lc:last-child{border-right:none}
-.ln{font-size:8px;font-weight:600;color:var(--t2);letter-spacing:.1em;text-transform:uppercase;font-family:monospace}
+.ln{font-size:10px;font-weight:600;color:var(--t2);letter-spacing:.1em;text-transform:uppercase;font-family:monospace}
 .lch{display:flex;gap:3px;flex-wrap:wrap}
-.ch{padding:2px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);cursor:pointer;font-size:9px;font-family:monospace;color:var(--t2);transition:all .1s;white-space:nowrap;line-height:1.5}
+.ch{padding:2px 8px;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);cursor:pointer;font-size:10px;font-family:monospace;color:var(--t2);transition:all .1s;white-space:nowrap;line-height:1.5}
 .ch.op{border-color:var(--bl);background:rgba(42,107,176,.2);color:#7ab8f0;font-weight:700}
 .ch.ol{border-color:var(--gn);background:rgba(26,122,48,.2);color:var(--ac);font-weight:700}
 .ch:hover:not(.op):not(.ol){background:var(--hv);color:#fff}
 
 /* ── ACCESSORY SIDE CONFIG — green high-contrast ── */
-.acbar{background:#152010;border-top:2px solid #2e5018;border-bottom:2px solid #2e5018}
+.acbar{background:#0e1a0a;border-top:1px solid rgba(125,216,122,.2);border-bottom:1px solid rgba(125,216,122,.2)}
 .acbar-inner{display:grid;grid-template-columns:1fr 1fr;gap:0}
-@media(max-width:700px){.acbar-inner{grid-template-columns:1fr}}
+@media(max-width:700px){.acbar-inner{grid-template-columns:1fr}.xb{gap:4px;padding:6px 10px}}
+@media(max-width:480px){.sc{padding:3px 7px}.sv{font-size:11px}.ptb{padding:8px 10px 6px;font-size:10px}}
 .ac-side{padding:8px 12px;border-right:1px solid rgba(125,216,122,.15)}
 .ac-side:last-child{border-right:none}
 .ac-side-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.ac-side-lbl{font-size:8px;font-weight:700;color:#a8e080;letter-spacing:.15em;text-transform:uppercase;font-family:monospace}
+.ac-side-lbl{font-size:9px;font-weight:700;color:#a8e080;letter-spacing:.15em;text-transform:uppercase;font-family:monospace}
 .ac-dir{font-size:11px;color:#7dd87a;font-family:monospace;font-weight:900}
 .ac-items{display:flex;flex-direction:column;gap:5px;min-height:28px}
 .ac-item{display:flex;align-items:center;gap:6px;background:rgba(125,216,122,.09);border:1.5px solid rgba(125,216,122,.3);border-radius:7px;padding:5px 8px;flex-wrap:wrap}
 .ac-item-badge{background:#3d7a20;color:#c8f090;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:800;font-family:monospace;flex-shrink:0;border:1px solid rgba(125,216,122,.4)}
-.ac-item-desc{font-size:8.5px;color:#a8d888;font-family:monospace;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ac-item-desc{font-size:10px;color:#a8d888;font-family:monospace;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* R50 custom dim inputs */
 .ac-r50-row{width:100%;display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:4px;padding-top:4px;border-top:1px solid rgba(125,216,122,.15)}
-.ac-r50-lbl{font-size:8px;color:#90c860;font-family:monospace;white-space:nowrap;font-weight:600}
-.ac-r50-inp{width:68px;padding:3px 6px;border-radius:5px;border:1.5px solid rgba(125,216,122,.4);background:rgba(0,0,0,.35);color:#d8f4b8;font-family:monospace;font-size:11px;font-weight:700;text-align:right}
-.ac-r50-inp:focus{outline:none;border-color:#7dd87a;background:rgba(0,0,0,.5)}
+.ac-r50-lbl{font-size:9px;color:#90c860;font-family:monospace;white-space:nowrap;font-weight:600}
+.ac-r50-inp{width:68px;padding:3px 6px;border-radius:5px;border:1.5px solid rgba(125,216,122,.4);background:rgba(0,0,0,.2);color:#d8f4b8;font-family:monospace;font-size:11px;font-weight:700;text-align:right;transition:border-color .15s,background .15s}
+.ac-r50-inp:focus{outline:none;border-color:#7dd87a;background:rgba(0,0,0,.5)}.ac-r50-inp:hover:not(:focus){border-color:rgba(125,216,122,.65)}
 .ac-r50-unit{font-size:8px;color:#6aaa40;font-family:monospace}
 .ac-r50-range{font-size:7px;color:rgba(125,216,122,.45);font-family:monospace;white-space:nowrap}
 .ac-rm{background:rgba(255,70,70,.15);border:1.5px solid rgba(255,70,70,.4);border-radius:5px;color:#ff9090;font-size:14px;cursor:pointer;padding:0 7px;flex-shrink:0;transition:all .12s;line-height:1.8}
 .ac-rm:hover{background:rgba(255,70,70,.4);color:#fff;border-color:#ff4040}
 .ac-add-row{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap;align-items:center}
-.ac-add-lbl{font-size:8px;color:#7dd87a;font-family:monospace;text-transform:uppercase;letter-spacing:.8px;margin-right:2px;font-weight:600}
+.ac-add-lbl{font-size:9px;color:#7dd87a;font-family:monospace;text-transform:uppercase;letter-spacing:.8px;margin-right:2px;font-weight:600}
 .ac-add-btn{padding:4px 12px;border-radius:20px;border:2px solid rgba(125,216,122,.55);background:rgba(125,216,122,.1);cursor:pointer;font-size:10px;font-family:monospace;font-weight:700;color:#a8e880;transition:all .12s;white-space:nowrap}
 .ac-add-btn:hover{background:rgba(125,216,122,.28);color:#d0ffb0;border-color:#7dd87a;box-shadow:0 0 8px rgba(125,216,122,.2)}
-.ac-add-btn:disabled{opacity:.22;cursor:default;pointer-events:none}
-.ac-none{font-size:8px;color:rgba(125,216,122,.35);font-family:monospace;font-style:italic;padding:2px 0}
+.ac-add-btn:disabled{opacity:.22;cursor:default;pointer-events:none}.ac-add-btn:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.ac-none{font-size:9px;color:rgba(125,216,122,.35);font-family:monospace;font-style:italic;padding:2px 0}
 
 .dw{background:#eeede5;line-height:0;width:100%}.dw svg{display:block;width:100%;height:auto}
 .cvw{background:var(--d);padding:16px;display:flex;gap:14px;flex-wrap:wrap}
 .cvc{flex:1;min-width:210px;display:flex;flex-direction:column;gap:10px}
 .fr{display:flex;flex-direction:column;gap:4px}
-.fr label{font-size:8px;font-weight:600;color:var(--t2);letter-spacing:.12em;text-transform:uppercase;font-family:monospace}
-.fr input{padding:6px 10px;border:1.5px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(255,255,255,.06);color:#fff;font-family:monospace;font-size:11px;width:100%}
-.fr input:focus{outline:none;border-color:var(--bl)}
+.fr label{font-size:9px;font-weight:600;color:var(--t2);letter-spacing:.12em;text-transform:uppercase;font-family:monospace}
+.fr input{padding:6px 10px;border:1.5px solid rgba(255,255,255,.12);border-radius:6px;background:rgba(255,255,255,.06);color:#fff;font-family:monospace;font-size:11px;width:100%;transition:border-color .15s}
+.fr input:focus{outline:none;border-color:var(--bl)}.fr input:focus-visible{outline:2px solid var(--bl);outline-offset:1px}.fr input:hover:not(:focus){border-color:rgba(255,255,255,.25)}
 .whb{background:var(--d);padding:8px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--br);flex-wrap:wrap}
 /* ficha */
 #pf{background:#f8f8f6}
@@ -130,6 +132,30 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 .adr{display:flex;justify-content:space-between;padding:3px 0;border-bottom:.5px solid rgba(200,136,0,.1);gap:8px}.adr:last-child{border-bottom:none}
 .adk{font-size:8.5px;color:#666}.adv{font-size:10px;font-weight:700;color:#c08800;font-family:monospace}
 .ac-none-note{font-size:8px;color:#aaa;font-style:italic;padding:4px 0}
+/* ── MODAL MIS PROYECTOS ── */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#1a2a3a;border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:20px;width:100%;max-width:720px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.modal-box h2{font-family:monospace;font-size:13px;color:#7dd87a;margin:0;font-weight:700;letter-spacing:.5px}
+.pj-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:8px;margin-top:4px}
+.pj-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:12px;transition:all .15s}
+.pj-card:hover{background:rgba(125,216,122,.08);border-color:rgba(125,216,122,.35)}
+.pj-name{font-size:11px;font-weight:700;color:#fff;font-family:monospace;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pj-meta{font-size:9px;color:#6a8aaa;font-family:monospace;line-height:1.5}
+.pj-actions{display:flex;gap:4px;margin-top:8px}
+.pj-load{flex:1;padding:4px 0;border-radius:5px;border:1px solid rgba(125,216,122,.45);background:rgba(125,216,122,.1);color:#7dd87a;font-size:9px;cursor:pointer;font-family:monospace;font-weight:700;transition:all .12s}
+.pj-load:hover{background:rgba(125,216,122,.28)}
+.pj-del{padding:4px 10px;border-radius:5px;border:1px solid rgba(204,68,68,.4);background:transparent;color:#cc6666;font-size:9px;cursor:pointer;font-family:monospace;transition:all .12s}
+.pj-del:hover{background:rgba(204,68,68,.2)}
+.pj-empty{text-align:center;color:#4a6a8a;font-family:monospace;font-size:11px;padding:32px 0}
+.pj-active-dot{display:inline-block;width:6px;height:6px;background:#7dd87a;border-radius:50%;margin-right:4px;vertical-align:middle}
+@media print{
+  body{background:#fff!important;color:#000!important}
+  .tb,.pt,.cb,.lr,.acbar,.whb,.xb,.pb,.mb{display:none!important}
+  .dw{page-break-inside:avoid;break-inside:avoid}
+  svg{max-width:100%!important}
+  #cad,#wsvg,#ficha-svg,#covsvg{display:block!important;border:none!important;background:#fff!important}
+  .pf{background:#fff!important;color:#000!important}
+}
 </style>
 </head>
 <body>
@@ -143,15 +169,18 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   </div>
 </div>
 <div class="pt">
-  <button class="ptb on" id="tab-cad" onclick="setPage('cad')">📐 <span data-t="tabCad">Plano CAD</span></button>
-  <button class="ptb" id="tab-wiring" onclick="setPage('wiring')">🔌 <span data-t="tabWiring">Cableado</span></button>
-  <button class="ptb" id="tab-ficha" onclick="setPage('ficha')">📋 <span data-t="tabFicha">Ficha técnica</span></button>
-  <button class="ptb" id="tab-cover" onclick="setPage('cover')">📄 <span data-t="tabCover">Portada</span></button>
+  <button class="ptb on" id="tab-cad" onclick="setPage('cad')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> <span data-t="tabCad">Plano CAD</span></button>
+  <button class="ptb" id="tab-wiring" onclick="setPage('wiring')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="3" cy="8" r="2"/><circle cx="13" cy="8" r="2"/><path d="M5 8h1.5l1-3h1l1 3H11"/></svg> <span data-t="tabWiring">Cableado</span></button>
+  <button class="ptb" id="tab-ficha" onclick="setPage('ficha')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/></svg> <span data-t="tabFicha">Ficha técnica</span></button>
+  <button class="ptb" id="tab-cover" onclick="setPage('cover')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M3 1h7l3 3v11H3z"/><path d="M10 1v3h3"/></svg> <span data-t="tabCover">Portada</span></button>
+  <button class="ptb" id="tab-iso" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button>
+  <button class="ptb" id="tab-comp" onclick="setPage('comp')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/><line x1="4" y1="6" x2="4" y2="10"/><line x1="12" y1="6" x2="12" y2="10"/></svg> <span data-t="tabComp">Comparar</span></button>
+  <button class="ptb" style="margin-left:auto;border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
 </div>
 <div class="xb">
   <span class="xlbl" data-t="expProject">Proyecto</span>
-  <button class="bf bsv" onclick="saveProject()">💾 <span data-t="btnSave">Guardar</span></button>
-  <button class="bf bld" onclick="document.getElementById('fi-load').click()">📂 <span data-t="btnLoad">Cargar</span></button>
+  <button class="bf bsv" onclick="saveProject()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="btnSave">Guardar</span></button>
+  <button class="bf bld" onclick="document.getElementById('fi-load').click()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="btnLoad">Cargar</span></button>
   <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
   <div class="eg">
     <button class="be" onclick="exportProject('png')" id="btn-all-png">⬇ PNG</button>
@@ -166,7 +195,7 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   <div class="mb" id="mtabs"></div>
   <div class="cb">
     <div class="cg"><div class="cl" id="lbl-lanes">Nº Pasillos</div>
-      <div class="cr"><button class="nb" id="dm">−</button><div class="nv" id="nv">2</div><button class="nb" id="ip">+</button></div></div>
+      <div class="cr"><button class="nb" id="dm" aria-label="Reducir pasillos">−</button><div class="nv" id="nv">2</div><button class="nb" id="ip" aria-label="Añadir pasillo">+</button></div></div>
     <div class="cg"><div class="cl" id="lbl-limit">Hueco disponible obra</div>
       <div class="cr"><input class="lf" id="limit-input" type="number" min="0" step="10" placeholder="∞" oninput="onLimitChange()"><span class="lu">mm</span></div></div>
     <div class="cg"><div class="cl" id="lbl-page">Esta página</div>
@@ -195,12 +224,12 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
       </div>
     </div>
   </div>
-  <div class="dw"><svg id="cv" viewBox="0 0 720 700"></svg></div>
+  <div class="dw"><svg id="cv" viewBox="0 0 720 700" role="img" data-ta="tabCad"></svg></div>
 </div>
 
 <div id="page-wiring" style="display:none">
   <div class="whb"><div style="font-size:11px;font-weight:600;color:#fff;font-family:monospace" id="w-title">—</div><div id="pvc-badge"></div><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('wsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('wsvg','png')">PNG</button></div></div>
-  <div class="dw"><svg id="wsvg" viewBox="0 0 720 400"></svg></div>
+  <div class="dw"><svg id="wsvg" viewBox="0 0 720 400" role="img" data-ta="tabWiring"></svg></div>
 </div>
 
 <div id="page-ficha" style="display:none">
@@ -212,20 +241,44 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 <div id="page-cover" style="display:none">
   <div class="cvw">
     <div class="cvc">
-      <div class="fr"><label id="lbl-client">Cliente</label><input id="f-client" value="Cliente S.A." oninput="drawCover()"></div>
-      <div class="fr"><label id="lbl-project">Obra / Proyecto</label><input id="f-project" value="Acceso Principal — Torre Norte" oninput="drawCover()"></div>
-      <div class="fr"><label id="lbl-addr">Dirección</label><input id="f-addr" value="Calle Gran Vía 28, Madrid" oninput="drawCover()"></div>
-      <div class="fr"><label id="lbl-ref">Referencia</label><input id="f-ref" value="ZK-2025-001" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-client" for="f-client">Cliente</label><input id="f-client" value="Cliente S.A." maxlength="80" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-project" for="f-project">Obra / Proyecto</label><input id="f-project" value="Acceso Principal — Torre Norte" maxlength="80" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-addr" for="f-addr">Dirección</label><input id="f-addr" value="Calle Gran Vía 28, Madrid" maxlength="80" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-ref" for="f-ref">Referencia</label><input id="f-ref" value="ZK-2025-001" maxlength="40" oninput="drawCover()"></div>
     </div>
     <div class="cvc">
-      <div class="fr"><label id="lbl-author">Elaborado por</label><input id="f-author" value="Ingeniería ZKTeco España" oninput="drawCover()"></div>
-      <div class="fr"><label id="lbl-revby">Revisado por</label><input id="f-rev" value="" oninput="drawCover()"></div>
-      <div class="fr"><label id="lbl-date">Fecha</label><input id="f-date" type="date" oninput="drawCover()"></div>
-      <div class="fr"><label id="lbl-version">Revisión</label><input id="f-version" value="Rev. A" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-author" for="f-author">Elaborado por</label><input id="f-author" value="Ingeniería ZKTeco España" maxlength="60" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-revby" for="f-rev">Revisado por</label><input id="f-rev" value="" maxlength="60" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-date" for="f-date">Fecha</label><input id="f-date" type="date" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-version" for="f-version">Revisión</label><input id="f-version" value="Rev. A" maxlength="20" oninput="drawCover()"></div>
     </div>
   </div>
   <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabCover">Portada</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('covsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('covsvg','png')">PNG</button></div></div>
-  <div class="dw"><svg id="covsvg" viewBox="0 0 720 560"></svg></div>
+  <div class="dw"><svg id="covsvg" viewBox="0 0 720 560" role="img" data-ta="tabCover"></svg></div>
+</div>
+
+<div id="page-iso" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabIso">Vista 3D</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('isosvg','svg')">SVG</button><button class="bpe" onclick="exportPage('isosvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="isosvg" viewBox="0 0 720 480" role="img" data-ta="tabIso"></svg></div>
+</div>
+
+<div id="page-comp" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabComp">Comparar</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('cmpsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('cmpsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="cmpsvg" viewBox="0 0 720 520" role="img" data-ta="tabComp"></svg></div>
+</div>
+
+<!-- Modal Mis Proyectos -->
+<div id="proj-modal" class="modal-ov" style="display:none" onclick="if(event.target===this)closeProjects()">
+  <div class="modal-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2 data-t="projTitle">Mis Proyectos</h2>
+      <button onclick="closeProjects()" style="background:none;border:none;color:var(--t2);font-size:22px;cursor:pointer;line-height:1;padding:0 4px;transition:color .1s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">×</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08)">
+      <button class="bf bsv" style="font-size:10px;padding:5px 14px" onclick="saveToProjects()"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="projSave">Guardar proyecto actual</span></button>
+    </div>
+    <div id="proj-list"></div>
+  </div>
 </div>
 </div>
 
@@ -330,6 +383,15 @@ es:{tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'
   alertOverBadge:'NO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',r50Width:'Ancho',r50Height:'Alto',
   accRemove:'Eliminar',loadingPDF:'Cargando PDF…',modelLbl:'Modelo',sessionRestored:'Sesión restaurada',sessionClear:'Limpiar sesión guardada',
+  msgPerSide:'por lado',lblCables:'cables',lblPortada:'portada',
+  ttipMinLanes:'mín. 1 pasillo',ttipMaxLanes:'máx. 6 pasillos',
+  btnDecLanes:'Reducir pasillos',btnIncLanes:'Añadir pasillo',
+  errorLoad:'Error al cargar el proyecto',
+  planTopView:'VISTA SUPERIOR',ficGapCentral:'GAP central',coverSecurityTag:'SEGURIDAD · CONTROL DE ACCESO',
+  fldAuthorLbl:'Elaborado por',fldRevByLbl:'Revisado por',
+  tabIso:'Vista 3D',tabComp:'Comparar',tabProj:'Proyectos',
+  projSave:'Guardar proyecto actual',projLoad:'Cargar',projDel:'Eliminar',projEmpty:'No hay proyectos guardados.',projTitle:'Mis Proyectos',projMax:'Límite de 10 proyectos alcanzado',
+  compW:'Ancho gab.',compD:'Profundidad',compH:'Altura gab.',compCons:'Consumo',compSpeed:'Apertura',compTemp:'Temperatura',compPower:'Alimentación',compBolts:'Pernos/gab.',compLanes:'Pasillos',compActive:'activo',
 },
 en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
@@ -366,6 +428,15 @@ en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   alertOverBadge:'DOES NOT FIT',alertNearBadge:'TIGHT FIT',pdfPage:'Page',uiGabinets:'units',
   ficAcc:'ACCESSORIES',glass:'glass',accLabel:'ACCESSORIES:',lane:'lane',lanes:'lanes',covClient:'Client',covGates:'GATES',r50Width:'Width',r50Height:'Height',
   accRemove:'Remove',loadingPDF:'Loading PDF…',modelLbl:'Model',sessionRestored:'Session restored',sessionClear:'Clear saved session',
+  msgPerSide:'per side',lblCables:'cables',lblPortada:'cover',
+  ttipMinLanes:'min. 1 lane',ttipMaxLanes:'max. 6 lanes',
+  btnDecLanes:'Decrease lanes',btnIncLanes:'Add lane',
+  errorLoad:'Error loading project',
+  planTopView:'TOP VIEW',ficGapCentral:'Central GAP',coverSecurityTag:'SECURITY · ACCESS CONTROL',
+  fldAuthorLbl:'Prepared by',fldRevByLbl:'Checked by',
+  tabIso:'ISO View',tabComp:'Compare',tabProj:'Projects',
+  projSave:'Save current project',projLoad:'Load',projDel:'Delete',projEmpty:'No saved projects.',projTitle:'My Projects',projMax:'10 project limit reached',
+  compW:'Cab. width',compD:'Depth',compH:'Cab. height',compCons:'Power',compSpeed:'Opening',compTemp:'Temperature',compPower:'Supply',compBolts:'Bolts/cab.',compLanes:'Lanes',compActive:'active',
 },
 pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
@@ -402,6 +473,15 @@ pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'
   alertOverBadge:'NÃO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACESSÓRIOS',glass:'vidro',accLabel:'ACESSÓRIOS:',lane:'corredor',lanes:'corredores',covClient:'Cliente',covGates:'PORTÕES',r50Width:'Largura',r50Height:'Altura',
   accRemove:'Remover',loadingPDF:'A carregar PDF…',modelLbl:'Modelo',sessionRestored:'Sessão restaurada',sessionClear:'Limpar sessão guardada',
+  msgPerSide:'por lado',lblCables:'cabos',lblPortada:'capa',
+  ttipMinLanes:'mín. 1 corredor',ttipMaxLanes:'máx. 6 corredores',
+  btnDecLanes:'Reduzir corredores',btnIncLanes:'Adicionar corredor',
+  errorLoad:'Erro ao carregar o projecto',
+  planTopView:'VISTA SUPERIOR',ficGapCentral:'GAP central',coverSecurityTag:'SEGURANÇA · CONTROLO DE ACESSO',
+  fldAuthorLbl:'Elaborado por',fldRevByLbl:'Revisto por',
+  tabIso:'Vista 3D',tabComp:'Comparar',tabProj:'Projetos',
+  projSave:'Guardar projeto atual',projLoad:'Carregar',projDel:'Eliminar',projEmpty:'Sem projetos guardados.',projTitle:'Os Meus Projetos',projMax:'Limite de 10 projetos atingido',
+  compW:'Larg. gab.',compD:'Profundidade',compH:'Altura gab.',compCons:'Consumo',compSpeed:'Abertura',compTemp:'Temperatura',compPower:'Alimentação',compBolts:'Parafusos/gab.',compLanes:'Corredores',compActive:'ativo',
 }};
 let LANG='es';
 const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
@@ -410,6 +490,7 @@ function updateI18nDOM(){
   const ids={'lbl-lanes':'uiLanes','lbl-limit':'uiLimit','lbl-page':'uiPage','lbl-client':'fldClient','lbl-project':'fldProject','lbl-addr':'fldAddr','lbl-ref':'fldRef','lbl-author':'fldAuthor','lbl-revby':'fldRevBy','lbl-date':'fldDate','lbl-version':'fldVersion'};
   Object.entries(ids).forEach(([id,k])=>{const el=document.getElementById(id);if(el)el.textContent=T(k);});
   document.querySelectorAll('[data-t]').forEach(el=>{const v=T(el.dataset.t);if(typeof v==='string')el.textContent=v;});
+  document.querySelectorAll('[data-ta]').forEach(el=>{const v=T(el.dataset.ta);if(typeof v==='string')el.setAttribute('aria-label',v);});
   renderAccBar();
 }
 function redrawPage(){drawCAD();if(PAGE==='wiring')drawWiring();else if(PAGE==='ficha')drawFicha();else if(PAGE==='cover')drawCover();}
@@ -483,8 +564,9 @@ function renderAccSide(side,list,itemsId,addId){
     }).join('');
   }
   const canAdd=list.length<MAX_ACC_PER_SIDE;
+  const maxMsg=!canAdd?`<span style="font-size:9px;color:rgba(125,216,122,.4);font-family:monospace;margin-left:4px">max ${MAX_ACC_PER_SIDE}</span>`:'';
   addEl.innerHTML=`<span class="ac-add-lbl">${T('accAdd')}:</span>`+
-    ACC_CAT.map(a=>`<button class="ac-add-btn" ${canAdd?'':'disabled'} onclick="addAcc('${side}','${a.code}')">${a.code}</button>`).join('');
+    ACC_CAT.map(a=>`<button class="ac-add-btn" ${canAdd?'':'disabled'} onclick="addAcc('${side}','${a.code}')" title="${canAdd?a.code+' · '+accDsc(a)+' · '+a.W+'×'+a.H+'mm':'Max '+MAX_ACC_PER_SIDE+' '+T('msgPerSide')}">${a.code}</button>`).join('')+maxMsg;
 }
 function addAcc(side,code){
   const a=ACC_BY_CODE[code];if(!a)return;
@@ -514,8 +596,8 @@ function updateAlerts(){
   else if(state==='near'){document.getElementById('alert-body').innerHTML=T('alertNear')(tw,siteLimit);document.getElementById('alert-badge').textContent=T('alertNearBadge');}
   const inp=document.getElementById('limit-input');inp.className='lf'+(state?' '+state:'');
 }
-function onLimitChange(){siteLimit=parseInt(document.getElementById('limit-input').value)||0;updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();autoSave();}
-function setPage(p){PAGE=p;['cad','wiring','ficha','cover'].forEach(id=>{document.getElementById('page-'+id).style.display=id===p?'':'none';document.getElementById('tab-'+id).classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();}
+function onLimitChange(){const val=parseInt(document.getElementById('limit-input').value,10)||0;siteLimit=Math.max(0,val);updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();autoSave();}
+function setPage(p){PAGE=p;['cad','wiring','ficha','cover','iso','comp'].forEach(id=>{const pg=document.getElementById('page-'+id);if(pg)pg.style.display=id===p?'':'none';const tb=document.getElementById('tab-'+id);if(tb)tb.classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();else if(p==='iso')drawISO();else if(p==='comp')drawComparator();}
 
 // ══ AUTO-SAVE (LocalStorage) ══════════════════════════════════
 const LS_KEY='zkteco-cad-v35';
@@ -524,8 +606,7 @@ function autoSave(){
   try{
     const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
     localStorage.setItem(LS_KEY,JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
-  }catch(e){}
-}
+  }catch(e){console.warn('autoSave failed:',e);const b=document.getElementById('btn-save-badge');if(b){b.title=e.message;b.style.opacity='1';}}
 function autoLoad(){
   try{
     const raw=localStorage.getItem(LS_KEY);if(!raw)return false;
@@ -555,14 +636,14 @@ function loadProject(e){
     try{
       const d=JSON.parse(ev.target.result);
       if(d.model&&MODELS[d.model])M=d.model;
-      if(Array.isArray(d.lanes))lanes=d.lanes.map(l=>({pgIdx:+(l.pgIdx)||0,lfIdx:+(l.lfIdx)||0}));
+      if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const maxPg=sp2?sp2.pg.length-1:0,maxLf=sp2?sp2.lf.length-1:0;return{pgIdx:Math.min(pg,maxPg),lfIdx:Math.min(lf,maxLf)};});}
       if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
       if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
       accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
       accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
       if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
       ui();redrawPage();autoSave();
-    }catch(err){alert('Error: '+err.message);}
+    }catch(err){alert(T('errorLoad')+': '+err.message);}
     e.target.value='';
   };reader.readAsText(file);
 }
@@ -573,7 +654,7 @@ function s2c(str,W,H,sc){return new Promise((res,rej)=>{const b=new Blob([str],{
 function dlB(b,n){const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(a.href),500);}
 function showP(p,txt){const pb=document.getElementById('pbar');pb.classList.add('on');document.getElementById('pbar-txt').textContent=txt;document.getElementById('pbar-inner').style.width=p+'%';document.getElementById('pbar-pct').textContent=p+'%';}
 function hideP(){document.getElementById('pbar').classList.remove('on');}
-async function exportPage(id,fmt){const el=document.getElementById(id),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-${id==='cv'?'cad':id==='wsvg'?'wiring':'portada'}`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
+async function exportPage(id,fmt){const el=document.getElementById(id),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-${id==='cv'?'cad':id==='wsvg'?'wiring':T('lblPortada')}`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
 async function exportFicha(fmt){drawFichaSVG();const el=document.getElementById('ficha-svg'),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-ficha`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
 async function exportProject(fmt){
   const bP=document.getElementById('btn-all-png'),bS=document.getElementById('btn-all-svg');bP.disabled=true;bS.disabled=true;showP(0,'…');drawWiring();drawCover();drawFichaSVG();
@@ -803,12 +884,13 @@ function drawAccListElev(list,side,fox,foy,fgy,fsc,fdw){
 
 // ══ MAIN CAD ══════════════════════════════════════════════════
 function drawCAD(){
-  const sp=MODELS[M],TWg=TWgate(),MAXH=maxH(),pvc=pvcSize(N());
+  const sp=MODELS[M];if(!sp)return;
+  const TWg=TWgate(),MAXH=maxH(),pvc=pvcSize(N());
   const TWL=accSideTotalW(accLeft),TWR=accSideTotalW(accRight),TWtotal=TWL+TWg+TWR;
 
   // Choose scale considering accessories in plan AND elevation
   const pW2=PX.r-PX.l,pH2=P_BOT-P_DT;
-  const psc_maxW=(pW2-14)/TWtotal,psc_maxD=(pH2-8)/sp.D;
+  const psc_maxW=TWtotal>0?(pW2-14)/TWtotal:0.05,psc_maxD=(pH2-8)/sp.D;
   const psc=Math.min(psc_maxW,psc_maxD)*.86;
   const pdw=TWg*psc,pdd=sp.D*psc;
   const pLWpx=r(TWL*psc),pRWpx=r(TWR*psc);
@@ -819,7 +901,7 @@ function drawCAD(){
 
   // Front elevation scale — also considers accessories
   const drawH=fgy-F_DT;
-  const fsc_maxW=(fW-64)/TWtotal,fsc_maxH=drawH/MAXH;
+  const fsc_maxW=TWtotal>0?(fW-64)/TWtotal:0.05,fsc_maxH=drawH/MAXH;
   const fsc=Math.min(fsc_maxW,fsc_maxH)*.85;
   const fdw=TWg*fsc,fLWpx=r(TWL*fsc),fRWpx=r(TWR*fsc);
   const totalFrontW=r(fLWpx+fdw+fRWpx);
@@ -831,7 +913,7 @@ function drawCAD(){
   let h=makeDefs()+`<rect width="720" height="700" fill="#eeede5"/><rect x="8" y="8" width="704" height="684" fill="none" stroke="#111" stroke-width="1.6"/><rect x="11" y="11" width="698" height="678" fill="none" stroke="#aaa" stroke-width=".3"/><line x1="14" y1="${BOT_TOP-1}" x2="706" y2="${BOT_TOP-1}" stroke="#444" stroke-width="1.2"/>`;
 
   // PLAN titles
-  h+=`<text x="${PX.l}" y="${P_TOP+12}" text-anchor="start" ${FM} font-size="9" font-weight="bold" fill="#111" letter-spacing="1.2">${T('planTitle')} — TOP VIEW</text>`;
+  h+=`<text x="${PX.l}" y="${P_TOP+12}" text-anchor="start" ${FM} font-size="9" font-weight="bold" fill="#111" letter-spacing="1.2">${T('planTitle')} — ${T('planTopView')}</text>`;
   h+=`<text x="${PX.l}" y="${P_TOP+24}" text-anchor="start" ${FM} font-size="6.5" fill="#777">${sp.label} · ${sp.sub} · ${T('cotas')}</text>`;
 
   // Section A-A
@@ -890,7 +972,7 @@ function drawCAD(){
 
   // Legend
   const lx2=PX.l+4,ly2=r(P_BOT-54);
-  const legItems=[{c:'#cc1111',v:`${T('pernoLbl')} ×${(N()+1)*sp.bolts.length}`},{c:'#1a5fa0',v:T('gabLbl')},{c:'#555',v:T('slotLbl')},{c:pvc.color,v:`PVC ${pvc.label}`},{c:'#8a6800',v:`GAP central ${GAP_MM} mm`},{c:'#c08800',v:`${T('twLabel')}: ${rnd(TWtotal)} mm`}];
+  const legItems=[{c:'#cc1111',v:`${T('pernoLbl')} ×${(N()+1)*sp.bolts.length}`},{c:'#1a5fa0',v:T('gabLbl')},{c:'#555',v:T('slotLbl')},{c:pvc.color,v:`PVC ${pvc.label}`},{c:'#8a6800',v:`${T('ficGapCentral')} ${GAP_MM} mm`},{c:'#c08800',v:`${T('twLabel')}: ${rnd(TWtotal)} mm`}];
   const lH=legItems.length*8+6;
   h+=`<rect x="${lx2}" y="${r(ly2)}" width="172" height="${lH}" fill="#eeede5" stroke="#ccc" stroke-width=".35" rx="2"/>`;
   legItems.forEach(({c,v},k)=>{const yy=r(ly2+5+k*8);h+=`<rect x="${r(lx2+5)}" y="${r(yy-4)}" width="6" height="5" fill="${c}" rx="1"/>`;h+=`<text x="${r(lx2+14)}" y="${r(yy)}" ${FM} font-size="5.5" fill="#333">${v}</text>`;});
@@ -1008,7 +1090,8 @@ function drawCAD(){
 
 // ══ WIRING (unchanged from v31) ═══════════════════════════════
 function drawWiring(){
-  const sp=MODELS[M],n=N(),pvc=pvcSize(n),totalUnits=n+1,totalCables=2+4*n;
+  const sp=MODELS[M];if(!sp)return;
+  const n=N(),pvc=pvcSize(n),totalUnits=n+1,totalCables=2+4*n;
   const cables=T('cables'),pvcRanges=T('pvcRanges');
   const MC='#c04000',SC='#1a5fa0';
   const IW=688,MG=16,SW=74,SH=50,SG=12;
@@ -1048,13 +1131,13 @@ function drawWiring(){
   h+=`<text x="360" y="${cnY}" text-anchor="middle" ${FM} font-size="6.5" fill="#1a7a30" letter-spacing=".3">── ${T('chainNote')} ──</text>`;
   const pvcRad=r(pvcTk/2);h+=`<rect x="${rX1}" y="${pvcCY-pvcTk/2}" width="${rX2-rX1}" height="${pvcTk}" fill="${pvc.color}22" stroke="${pvc.color}" stroke-width="1.4" rx="${pvcRad}"/>`;
   const nL=Math.min(totalCables,9),piW=rX2-rX1-12;for(let k=0;k<nL;k++){const lx=r(rX1+6+k*(piW/(nL-1||1)));h+=`<line x1="${lx}" y1="${pvcCY-pvcTk/2+2}" x2="${lx}" y2="${pvcCY+pvcTk/2-2}" stroke="${pvc.color}" stroke-width=".9" opacity=".5"/>`;}
-  h+=`<text x="360" y="${pvcLY}" text-anchor="middle" ${FM} font-size="7.5" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label} · ${totalCables} cables · IEC 61386 40%</text>`;
+  h+=`<text x="360" y="${pvcLY}" text-anchor="middle" ${FM} font-size="7.5" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label} · ${totalCables} ${T('lblCables')} · IEC 61386 40%</text>`;
   h+=`<text x="360" y="${pvcNY}" text-anchor="middle" ${FM} font-size="6" fill="#888">${T('pvcNote')}</text>`;
   h+=`<rect x="${LX}" y="${IT}" width="${LW}" height="${LH}" fill="#eeede5" stroke="#ccc" stroke-width=".5" rx="3"/>`;h+=`<text x="${LX+6}" y="${IT+11}" ${FM} font-size="7" fill="#14304f" font-weight="bold">${T('legend')}</text>`;
   LEG.forEach(({col,lbl,dash,thick},k)=>{const ly=IT+18+k*13;h+=`<line x1="${LX+8}" y1="${ly+3}" x2="${LX+30}" y2="${ly+3}" stroke="${col}" stroke-width="${thick?2.4:1.8}" stroke-dasharray="${dash}"/>`;h+=`<text x="${LX+36}" y="${ly+7}" ${FM} font-size="6.5" fill="#333">${lbl}</text>`;});
   h+=`<rect x="${TX}" y="${IT}" width="${TW2}" height="50" fill="#f0f8ff" stroke="#aac4e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${TX+6}" y="${IT+11}" ${FM} font-size="7" font-weight="bold" fill="#14304f">${T('pvcSizing')}</text>`;
   [{range:pvcRanges[0],diam:'Ø50 mm',color:'#2a7a2a'},{range:pvcRanges[1],diam:'Ø63 mm',color:'#c08800'},{range:pvcRanges[2],diam:'Ø75 mm',color:'#cc4400'}].forEach(({range,diam,color},k)=>{const isA=(k===0&&n<=2)||(k===1&&n>=3&&n<=4)||(k===2&&n>=5);const tly=IT+19+k*11;if(isA)h+=`<rect x="${TX+2}" y="${tly-6}" width="${TW2-4}" height="11" fill="${color}22" rx="2"/>`;h+=`<text x="${TX+6}" y="${tly}" ${FM} font-size="6.5" fill="${isA?color:'#666'}" font-weight="${isA?'bold':'normal'}">${range} → ${diam}</text>`;if(isA)h+=`<text x="${TX+TW2-6}" y="${tly}" text-anchor="end" ${FM} font-size="6.5" fill="${color}" font-weight="bold">◀ activo</text>`;});
-  const badge=document.getElementById('pvc-badge');if(badge){badge.style.cssText=`border-color:${pvc.color};color:${pvc.color};background:${pvc.color}14;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1.5px solid;font-family:monospace`;badge.innerHTML=`<span style="font-size:12px;font-weight:800">PVC ${pvc.label}</span><span style="font-size:8px;opacity:.7">${totalCables} cables · IEC 61386</span>`;}
+  const badge=document.getElementById('pvc-badge');if(badge){badge.style.cssText=`border-color:${pvc.color};color:${pvc.color};background:${pvc.color}14;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1.5px solid;font-family:monospace`;badge.innerHTML=`<span style="font-size:12px;font-weight:800">PVC ${pvc.label}</span><span style="font-size:8px;opacity:.7">${totalCables} ${T('lblCables')} · IEC 61386</span>`;}
   document.getElementById('w-title').textContent=`${sp.label} · ${n} ${n>1?T('lanes'):T('lane')}`;
   wsvg.innerHTML=h;
 }
@@ -1189,7 +1272,7 @@ function drawCover(){
   let dateStr='—';if(dateRaw&&dateRaw!=='—'){const d=new Date(dateRaw);if(!isNaN(d.getTime()))dateStr=`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;}
   const W=720,H=560;
   let h=`<rect width="${W}" height="${H}" fill="#eeede5"/><rect x="10" y="10" width="${W-20}" height="${H-20}" fill="none" stroke="#14304f" stroke-width="2"/>`;
-  h+=`<rect x="10" y="10" width="${W-20}" height="72" fill="#14304f"/>`;h+=`<text x="40" y="52" ${FM} font-size="30" font-weight="bold" fill="#fff" letter-spacing="2">ZK<tspan fill="#7dd87a">Teco</tspan></text>`;h+=`<text x="40" y="70" ${FM} font-size="9" fill="#7dd87a" letter-spacing="4">SECURITY · ACCESS CONTROL</text>`;
+  h+=`<rect x="10" y="10" width="${W-20}" height="72" fill="#14304f"/>`;h+=`<text x="40" y="52" ${FM} font-size="30" font-weight="bold" fill="#fff" letter-spacing="2">ZK<tspan fill="#7dd87a">Teco</tspan></text>`;h+=`<text x="40" y="70" ${FM} font-size="9" fill="#7dd87a" letter-spacing="4">${T('coverSecurityTag')}</text>`;
   h+=`<text x="${W-30}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-30}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-30}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
   h+=`<text x="40" y="112" ${FM} font-size="8" fill="#888" letter-spacing="2">${T('covProject')}</text>`;h+=`<text x="40" y="135" ${FM} font-size="18" font-weight="bold" fill="#14304f">${project}</text>`;h+=`<line x1="40" y1="145" x2="${W-40}" y2="145" stroke="#14304f" stroke-width=".5"/>`;
   const c2x=390,rH=28;let ry=168;
@@ -1217,8 +1300,9 @@ function ui(){
   const sp=MODELS[M];
   document.getElementById('mtabs').innerHTML=MK.map(k=>`<button class="mbt${k===M?' on':''}" onclick="M='${k}';lanes=lanes.map(()=>({pgIdx:0,lfIdx:0}));ui();drawCAD();if(PAGE==='ficha')drawFicha();"><span class="mn">${MODELS[k].label}</span><span class="ms">${MODELS[k].sub}</span></button>`).join('');
   document.getElementById('nv').textContent=N();
-  document.getElementById('dm').disabled=N()<=1;
-  document.getElementById('ip').disabled=N()>=6;
+  const dmBtn=document.getElementById('dm'),ipBtn=document.getElementById('ip');
+  dmBtn.disabled=N()<=1;dmBtn.title=N()<=1?T('ttipMinLanes'):'';dmBtn.setAttribute('aria-label',T('btnDecLanes'));
+  ipBtn.disabled=N()>=6;ipBtn.title=N()>=6?T('ttipMaxLanes'):'';ipBtn.setAttribute('aria-label',T('btnIncLanes'));
   document.getElementById('lr').innerHTML=lanes.map((l,i)=>{
     const pgI=Math.min(l.pgIdx,sp.pg.length-1),pg=sp.pg[pgI],lfI=Math.min(l.lfIdx,pg.leaves.length-1);
     return`<div class="lc"><div class="ln">${T('lane')} ${i+1}</div>
@@ -1241,6 +1325,190 @@ function ui(){
 document.getElementById('dm').onclick=()=>{if(N()>1){lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('ip').onclick=()=>{if(N()<6){lanes.push({pgIdx:0,lfIdx:0});ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
+
+// ══ MIS PROYECTOS ═════════════════════════════════════════════
+const PJ_KEY='zkteco-projects-v1';
+function getProjects(){try{return JSON.parse(localStorage.getItem(PJ_KEY)||'[]');}catch(e){return[];}}
+function _savePJStore(arr){try{localStorage.setItem(PJ_KEY,JSON.stringify(arr));}catch(e){console.error('Projects save error:',e);}}
+function saveToProjects(){
+  const name=prompt(T('projSave')+':',document.getElementById('f-project').value||'Proyecto');
+  if(!name||!name.trim())return;
+  const arr=getProjects();if(arr.length>=10){alert(T('projMax'));return;}
+  const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
+  arr.unshift({id:Date.now().toString(),name:name.trim(),model:M,nLanes:N(),date:new Date().toLocaleDateString(),tw:rnd(TWfull()),
+    data:JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,
+      cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}})});
+  _savePJStore(arr);renderProjectsModal();
+}
+function loadFromProjects(id){
+  const proj=getProjects().find(p=>p.id===id);if(!proj)return;
+  try{
+    const d=JSON.parse(proj.data);
+    if(d.model&&MODELS[d.model])M=d.model;
+    if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const mxP=sp2?sp2.pg.length-1:0,mxL=sp2?sp2.pg[Math.min(pg,mxP)].leaves.length-1:0;return{pgIdx:Math.min(pg,mxP),lfIdx:Math.min(lf,mxL)};});}
+    if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
+    if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
+    accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([eid,v])=>{const el=document.getElementById(eid);if(el&&v!=null)el.value=v;});}
+    closeProjects();ui();redrawPage();autoSave();
+  }catch(err){alert(T('errorLoad')+': '+err.message);}
+}
+function deleteProject(id){_savePJStore(getProjects().filter(p=>p.id!==id));renderProjectsModal();}
+function openProjects(){document.getElementById('proj-modal').style.display='flex';renderProjectsModal();}
+function closeProjects(){document.getElementById('proj-modal').style.display='none';}
+function renderProjectsModal(){
+  const arr=getProjects(),el=document.getElementById('proj-list');if(!el)return;
+  if(!arr.length){el.innerHTML=`<div class="pj-empty">${T('projEmpty')}</div>`;return;}
+  el.innerHTML='<div class="pj-grid">'+arr.map(p=>`<div class="pj-card">
+    <div class="pj-name">${p.model===M?`<span class="pj-active-dot"></span>`:''}${p.name}</div>
+    <div class="pj-meta">${(MODELS[p.model]||{labelEnd:p.model}).labelEnd} · ${p.nLanes} ${T('lanes')} · ${p.tw} mm</div>
+    <div class="pj-meta">${p.date}</div>
+    <div class="pj-actions">
+      <button class="pj-load" onclick="loadFromProjects('${p.id}')">${T('projLoad')}</button>
+      <button class="pj-del" onclick="if(confirm('${T('projDel')}?'))deleteProject('${p.id}')">${T('projDel')}</button>
+    </div></div>`).join('')+'</div>';
+}
+
+// ══ VISTA 3D ISOMÉTRICA ═══════════════════════════════════════
+function drawISO(){
+  const sp=MODELS[M];if(!sp)return;
+  const n=N(),TWg=TWgate(),TWL=accSideTotalW(accLeft),TWR=accSideTotalW(accRight),TWtotal=TWfull(),MAXH=maxH();
+  const depthZ=sp.D,accDepth=140,W=720,H=480;
+  const margin=20;
+  const projW=(TWtotal+depthZ)*0.866,projH=MAXH+(TWtotal+depthZ)*0.5;
+  const sc=Math.min((W-margin*2)/projW,(H-margin-60)/projH)*0.9;
+  const ox=r(margin+depthZ*0.866*sc);
+  const oy=r(margin+MAXH*sc);
+  const pt=(x,y,z)=>({sx:r(ox+(x-z)*0.866*sc),sy:r(oy+(x+z)*0.5*sc-y*sc)});
+  const pp=pts=>pts.map(q=>q.sx+','+q.sy).join(' ');
+  const box=(x0,z0,bw,bd,bh,col,al)=>{al=al||.92;
+    const f=[pt(x0,0,z0),pt(x0+bw,0,z0),pt(x0+bw,bh,z0),pt(x0,bh,z0)];
+    const t=[pt(x0,bh,z0),pt(x0+bw,bh,z0),pt(x0+bw,bh,z0+bd),pt(x0,bh,z0+bd)];
+    const s=[pt(x0+bw,0,z0),pt(x0+bw,0,z0+bd),pt(x0+bw,bh,z0+bd),pt(x0+bw,bh,z0)];
+    const sk='stroke="rgba(0,0,0,.28)" stroke-width=".5"';
+    return `<polygon points="${pp(f)}" fill="${col}" fill-opacity="${al}" ${sk}/>`+
+      `<polygon points="${pp(t)}" fill="${col}" fill-opacity="${r(al*.72)}" ${sk}/>`+
+      `<polygon points="${pp(t)}" fill="#fff" fill-opacity=".22" stroke="none"/>`+
+      `<polygon points="${pp(s)}" fill="${col}" fill-opacity="${r(al*.56)}" ${sk}/>`+
+      `<polygon points="${pp(s)}" fill="#000" fill-opacity=".16" stroke="none"/>`;};
+  let svg=`<rect width="${W}" height="${H}" fill="#eeede5"/>`;
+  svg+=`<rect x="8" y="8" width="${W-16}" height="${H-16}" fill="none" stroke="#14304f" stroke-width="1.2"/>`;
+  svg+=`<text x="18" y="24" ${FM} font-size="10" font-weight="bold" fill="#14304f" letter-spacing="1">${T('tabIso').toUpperCase()} — ${sp.label}</text>`;
+  svg+=`<text x="18" y="36" ${FM} font-size="7" fill="#777">${sp.sub} · ${n} ${n>1?T('lanes'):T('lane')} · ${rnd(TWtotal)} mm</text>`;
+  // Ground shadow
+  const gc=[pt(0,0,0),pt(TWtotal,0,0),pt(TWtotal,0,depthZ),pt(0,0,depthZ)];
+  svg+=`<polygon points="${pp(gc)}" fill="#bbb" fill-opacity=".25" stroke="#aaa" stroke-width=".4" stroke-dasharray="5 3"/>`;
+  // Accessories LEFT
+  let axL=0;
+  for(let i=0;i<accLeft.length;i++){
+    const itm=accLeft[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
+    axL+=ACC_GAP_MM;
+    svg+=box(axL,0,aW,accDepth,aH,'#c08800',.78);
+    if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
+      const gX=axL+(aW-gW)/2,gZ=20;
+      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
+      svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
+    axL+=aW;
+  }
+  // Gate cabinets + lanes
+  let cx=TWL;
+  for(let i=0;i<=n;i++){
+    svg+=box(cx,0,sp.W,depthZ,sp.H,sp.mc,1);
+    // Wire dot on front face
+    if(i===0||i===n){const wOff=i===0?sp.wireOff:sp.W-sp.wireOff;const wp=pt(cx+wOff,sp.H*.5,0);svg+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
+    cx+=sp.W;
+    if(i<n){
+      const{pg}=getLane(i),lW=pg.s;
+      const lf=[pt(cx,0,0),pt(cx+lW,0,0),pt(cx+lW,0,depthZ),pt(cx,0,depthZ)];
+      svg+=`<polygon points="${pp(lf)}" fill="#7dd87a" fill-opacity=".1" stroke="rgba(125,216,122,.4)" stroke-width=".6"/>`;
+      const lmid=pt(cx+lW/2,2,depthZ/2);
+      svg+=`<text x="${lmid.sx}" y="${lmid.sy}" text-anchor="middle" ${FM} font-size="7" fill="#1a7a30" font-weight="bold">${pg.l} mm</text>`;
+      cx+=lW;
+    }
+  }
+  // Accessories RIGHT
+  let axR=TWL+TWg;
+  for(let i=0;i<accRight.length;i++){
+    const itm=accRight[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
+    axR+=ACC_GAP_MM;
+    svg+=box(axR,0,aW,accDepth,aH,'#c08800',.78);
+    if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
+      const gX=axR+(aW-gW)/2,gZ=20;
+      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
+      svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
+    axR+=aW;
+  }
+  // Total width dimension line
+  const dL=pt(0,0,depthZ),dR=pt(TWtotal,0,depthZ);
+  const dY=12;
+  svg+=`<line x1="${dL.sx}" y1="${dL.sy+dY}" x2="${dR.sx}" y2="${dR.sy+dY}" stroke="#14304f" stroke-width=".8"/>`;
+  svg+=`<line x1="${dL.sx}" y1="${dL.sy+dY-5}" x2="${dL.sx}" y2="${dL.sy+dY+5}" stroke="#14304f" stroke-width=".8"/>`;
+  svg+=`<line x1="${dR.sx}" y1="${dR.sy+dY-5}" x2="${dR.sx}" y2="${dR.sy+dY+5}" stroke="#14304f" stroke-width=".8"/>`;
+  svg+=`<text x="${r((dL.sx+dR.sx)/2)}" y="${r((dL.sy+dR.sy)/2+dY+12)}" text-anchor="middle" ${FM} font-size="8" fill="#14304f" font-weight="bold">${rnd(TWtotal)} mm</text>`;
+  // Depth dimension
+  const dp1=pt(TWtotal,0,0),dp2=pt(TWtotal,0,depthZ);
+  const dx=10;
+  svg+=`<line x1="${dp1.sx+dx}" y1="${dp1.sy}" x2="${dp2.sx+dx}" y2="${dp2.sy}" stroke="#666" stroke-width=".6" stroke-dasharray="3 2"/>`;
+  svg+=`<text x="${dp2.sx+dx+5}" y="${r((dp1.sy+dp2.sy)/2+3)}" ${FM} font-size="6.5" fill="#666">${sp.D} mm</text>`;
+  // Height dimension
+  const hp1=pt(0,0,0),hp2=pt(0,sp.H,0);
+  const hx=-8;
+  svg+=`<line x1="${hp1.sx+hx}" y1="${hp1.sy}" x2="${hp2.sx+hx}" y2="${hp2.sy}" stroke="#666" stroke-width=".6" stroke-dasharray="3 2"/>`;
+  svg+=`<text x="${hp1.sx+hx-3}" y="${r((hp1.sy+hp2.sy)/2+3)}" text-anchor="end" ${FM} font-size="6.5" fill="#666">${rnd(sp.H)} mm</text>`;
+  document.getElementById('isosvg').innerHTML=svg;
+}
+
+// ══ COMPARADOR DE MODELOS ═════════════════════════════════════
+function drawComparator(){
+  const W=720,H=520,colX=94,colW=r((W-colX-14)/MK.length);
+  let svg=`<rect width="${W}" height="${H}" fill="#eeede5"/>`;
+  svg+=`<rect x="8" y="8" width="${W-16}" height="${H-16}" fill="none" stroke="#14304f" stroke-width="1.2"/>`;
+  svg+=`<text x="${W/2}" y="27" text-anchor="middle" ${FM} font-size="10" font-weight="bold" fill="#14304f" letter-spacing="2">${T('tabComp').toUpperCase()}</text>`;
+  // Model headers
+  MK.forEach((k,i)=>{
+    const sp=MODELS[k],cx=r(colX+i*colW+colW/2),isActive=k===M;
+    if(isActive)svg+=`<rect x="${r(colX+i*colW+3)}" y="32" width="${r(colW-6)}" height="56" fill="${sp.mc}" fill-opacity=".1" rx="4"/>`;
+    svg+=`<rect x="${r(colX+i*colW+8)}" y="33" width="${r(colW-16)}" height="2.5" fill="${sp.mc}" rx="1"/>`;
+    svg+=`<text x="${cx}" y="48" text-anchor="middle" ${FM} font-size="${isActive?9.5:9}" font-weight="bold" fill="${sp.mc}">${sp.labelEnd.split(/[\s/]/)[0]}</text>`;
+    svg+=`<text x="${cx}" y="59" text-anchor="middle" ${FM} font-size="6.5" fill="#888">${sp.sub.split('·')[0].trim()}</text>`;
+    svg+=`<text x="${cx}" y="70" text-anchor="middle" ${FM} font-size="8" font-weight="bold" fill="${isActive?sp.mc:'#555'}">${sp.consumption}</text>`;
+    if(isActive)svg+=`<text x="${cx}" y="82" text-anchor="middle" ${FM} font-size="6" fill="${sp.mc}">◀ ${T('compActive')} ▶</text>`;
+  });
+  const rowDefs=[
+    {lbl:T('compW'),vals:MK.map(k=>MODELS[k].W),unit:'mm',bar:true,max:155},
+    {lbl:T('compD'),vals:MK.map(k=>MODELS[k].D),unit:'mm',bar:true,max:1700},
+    {lbl:T('compH'),vals:MK.map(k=>r(MODELS[k].H)),unit:'mm',bar:true,max:1100},
+    {lbl:T('compCons'),vals:MK.map(k=>parseInt(MODELS[k].consumption)||0),unit:'W',bar:true,max:200},
+    {lbl:T('compSpeed'),vals:MK.map(k=>MODELS[k].openSpeed),unit:'',bar:false,max:0},
+    {lbl:T('compTemp'),vals:MK.map(k=>MODELS[k].tempRange),unit:'',bar:false,max:0},
+    {lbl:T('compPower'),vals:MK.map(k=>MODELS[k].power),unit:'',bar:false,max:0},
+    {lbl:T('compBolts'),vals:MK.map(k=>MODELS[k].bolts.length),unit:'',bar:false,max:0},
+    {lbl:T('compLanes'),vals:MK.map(k=>MODELS[k].pg.map(p=>p.l).join(' / ')),unit:'mm',bar:false,max:0},
+  ];
+  const rStart=88,rH=r((H-rStart-12)/rowDefs.length);
+  rowDefs.forEach((rd,ri)=>{
+    const ry=rStart+ri*rH;
+    if(ri%2===0)svg+=`<rect x="10" y="${ry}" width="${W-20}" height="${rH}" fill="rgba(0,0,0,.04)"/>`;
+    svg+=`<text x="${colX-5}" y="${r(ry+rH/2+3.5)}" text-anchor="end" ${FM} font-size="7.5" fill="#666">${rd.lbl}</text>`;
+    MK.forEach((k,i)=>{
+      const sp=MODELS[k],cx=r(colX+i*colW+colW/2),val=rd.vals[i],isActive=k===M,fc=isActive?sp.mc:'#333';
+      if(rd.bar&&typeof val==='number'){
+        const bx=r(colX+i*colW+8),bMaxW=colW-16,bW=r((val/rd.max)*bMaxW),barY=r(ry+rH-8);
+        svg+=`<rect x="${bx}" y="${barY}" width="${bMaxW}" height="4" fill="rgba(0,0,0,.1)" rx="2"/>`;
+        svg+=`<rect x="${bx}" y="${barY}" width="${bW}" height="4" fill="${sp.mc}" fill-opacity=".75" rx="2"/>`;
+        svg+=`<text x="${cx}" y="${r(ry+rH/2+2)}" text-anchor="middle" ${FM} font-size="${isActive?10:9}" font-weight="bold" fill="${fc}">${val} ${rd.unit}</text>`;
+      }else{
+        svg+=`<text x="${cx}" y="${r(ry+rH/2+3)}" text-anchor="middle" ${FM} font-size="7.5" fill="${fc}">${val}${rd.unit?' '+rd.unit:''}</text>`;
+      }
+    });
+  });
+  document.getElementById('cmpsvg').innerHTML=svg;
+}
+
+// ══ PWA SERVICE WORKER ════════════════════════════════════════
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+
 autoLoad();ui();drawCAD();
 </script>
 </body>
