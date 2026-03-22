@@ -794,7 +794,7 @@ function loadProject(e){
     try{
       const d=JSON.parse(ev.target.result);
       if(d.model&&MODELS[d.model])M=d.model;
-      if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const maxPg=sp2?sp2.pg.length-1:0,maxLf=sp2?sp2.lf.length-1:0;return{pgIdx:Math.min(pg,maxPg),lfIdx:Math.min(lf,maxLf)};});}
+      if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const maxPg=sp2.pg.length-1,pgC=Math.min(pg,maxPg),maxLf=sp2.pg[pgC].leaves.length-1;return{pgIdx:pgC,lfIdx:Math.min(lf,maxLf)};});}
       if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
       if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
       accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
