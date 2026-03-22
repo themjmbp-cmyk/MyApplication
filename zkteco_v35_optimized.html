@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="manifest.json"><title>ZKTeco SpeedGate CAD v35</title>
+<html><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22ZKTeco+SpeedGate+CAD%22%2C%22short_name%22%3A%22SpeedGate%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22theme_color%22%3A%22%2314304f%22%2C%22background_color%22%3A%22%231a2a3a%22%7D"><title>ZKTeco SpeedGate CAD v35</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#1a2a3a}
@@ -1506,8 +1506,8 @@ function drawComparator(){
   document.getElementById('cmpsvg').innerHTML=svg;
 }
 
-// ══ PWA SERVICE WORKER ════════════════════════════════════════
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+// ══ PWA SERVICE WORKER (solo con servidor HTTP) ═══════════════
+if('serviceWorker' in navigator && location.protocol!=='file:'){navigator.serviceWorker.register('sw.js').catch(()=>{});}
 
 autoLoad();ui();drawCAD();
 </script>
