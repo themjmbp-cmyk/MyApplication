@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22ZKTeco+SpeedGate+CAD%22%2C%22short_name%22%3A%22SpeedGate%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22theme_color%22%3A%22%2314304f%22%2C%22background_color%22%3A%22%231a2a3a%22%7D"><title>ZKTeco SpeedGate CAD v35</title>
+<html class="lt"><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22ZKTeco+SpeedGate+CAD%22%2C%22short_name%22%3A%22SpeedGate%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22theme_color%22%3A%22%2314304f%22%2C%22background_color%22%3A%22%231a2a3a%22%7D"><title>ZKTeco SpeedGate CAD v35</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#1a2a3a}
@@ -175,6 +175,17 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 .lt .ac-item-desc,.lt .ac-add-lbl{color:#1a5a18!important}.lt .ac-add-btn{background:rgba(30,120,30,.08)!important;color:#1a5a18!important;border-color:rgba(30,120,30,.4)!important}
 .lt .dw{background:#eeede5}.lt .ab.over{background:rgba(200,20,20,.08)!important}.lt .ab.near{background:rgba(180,100,0,.08)!important}
 .lt .lf,.lt .fr input{background:rgba(0,0,0,.04);color:#0a2040}.lt .nb,.lt .nv,.lt .sv{color:#0a2040}.lt .sc{background:rgba(0,0,0,.04)!important;border-color:var(--br)!important}
+.lt .whb{background:#d0d8e4}.lt .whb *{color:#0a2040!important}
+.lt #bom-content{color:#1a3050;background:#e0e8f2}
+.lt .bom-hdr{color:#2a4a6a!important}
+.lt .bom-qty{color:#1a6a20!important}
+.lt .bom-ref{color:#2a3a50!important}
+.lt .bom-desc{color:#1a2a3a!important}
+.lt .bom-sep{border-color:rgba(0,0,0,.10)!important}
+.lt .bom-foot{color:#1a6a20!important;border-color:rgba(0,0,0,.15)!important}
+.lt .pre-btn{border-color:rgba(0,0,0,.15);color:#2a4a6a}.lt .pre-btn:hover{background:rgba(0,0,0,.08);color:#0a2040}
+.lt .bsh{border-color:rgba(0,80,180,.3)!important;color:#1050b0!important;background:rgba(0,80,180,.06)!important}
+.lt .bdxf{color:#7a5000!important;background:rgba(120,80,0,.06)!important}
 </style>
 </head>
 <body>
@@ -1680,7 +1691,7 @@ function toggleTheme(){
   const isLight=document.documentElement.classList.contains('lt');
   try{localStorage.setItem('zkteco-theme',isLight?'light':'dark');}catch(e){}
 }
-(function(){try{if(localStorage.getItem('zkteco-theme')==='light')document.documentElement.classList.add('lt');}catch(e){}})();
+(function(){try{if(localStorage.getItem('zkteco-theme')==='dark')document.documentElement.classList.remove('lt');}catch(e){}})();
 
 // ══ UNDO / REDO ═══════════════════════════════════════════════
 const undoStack=[],redoStack=[];
@@ -1824,10 +1835,10 @@ function drawBOM(){
   if(Array.isArray(cables))cables.forEach((c,i)=>items.push({qty:n+1,ref:'CBL-'+(i+1),desc:c}));
   const el=document.getElementById('bom-content');if(!el)return;
   const grid='display:grid;grid-template-columns:40px 150px 1fr;gap:2px 8px;font-family:monospace;';
-  const hdr=`<div style="${grid}font-size:9px;font-weight:700;color:rgba(255,255,255,.45);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:2px"><span>${T('bomQty')}</span><span>${T('bomGMP')}</span><span>${T('bomDesc')}</span></div>`;
-  const rows=items.map(it=>`<div style="${grid}font-size:9.5px;padding:2.5px 0;border-bottom:1px solid rgba(255,255,255,.05);align-items:center"><span style="color:#7dd87a;font-weight:700">${it.qty}×</span><span style="color:#aaa">${it.ref}</span><span style="color:#ddd">${it.desc}</span></div>`).join('');
+  const hdr=`<div class="bom-hdr" style="${grid}font-size:9px;font-weight:700;color:rgba(255,255,255,.5);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:2px"><span>${T('bomQty')}</span><span>${T('bomGMP')}</span><span>${T('bomDesc')}</span></div>`;
+  const rows=items.map(it=>`<div class="bom-sep" style="${grid}font-size:9.5px;padding:2.5px 0;border-bottom:1px solid rgba(255,255,255,.06);align-items:center"><span class="bom-qty" style="color:#7dd87a;font-weight:700">${it.qty}×</span><span class="bom-ref" style="color:#b0b8c8">${it.ref}</span><span class="bom-desc" style="color:#d0d8e4">${it.desc}</span></div>`).join('');
   const total=items.reduce((s,it)=>s+it.qty,0);
-  const foot=`<div style="${grid}font-size:10px;font-weight:700;color:#7dd87a;padding:6px 0 2px;border-top:1px solid rgba(255,255,255,.2);margin-top:2px"><span>${total}×</span><span style="grid-column:2/4">${T('bomTotal')}</span><span></span></div>`;
+  const foot=`<div class="bom-foot" style="${grid}font-size:10px;font-weight:700;color:#7dd87a;padding:6px 0 2px;border-top:1px solid rgba(255,255,255,.2);margin-top:2px"><span>${total}×</span><span style="grid-column:2/4">${T('bomTotal')}</span><span></span></div>`;
   el.innerHTML=hdr+rows+foot;
 }
 function exportBOM(fmt){
