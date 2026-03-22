@@ -606,7 +606,7 @@ function autoSave(){
   try{
     const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
     localStorage.setItem(LS_KEY,JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
-  }catch(e){console.warn('autoSave failed:',e);const b=document.getElementById('btn-save-badge');if(b){b.title=e.message;b.style.opacity='1';}}
+  }catch(e){console.warn('autoSave failed:',e);const b=document.getElementById('btn-save-badge');if(b){b.title=e.message;b.style.opacity='1';}}}
 function autoLoad(){
   try{
     const raw=localStorage.getItem(LS_KEY);if(!raw)return false;
