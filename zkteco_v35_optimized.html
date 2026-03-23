@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="manifest.json"><title>ZKTeco SpeedGate CAD v35</title>
+<html class="lt"><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22ZKTeco+SpeedGate+CAD%22%2C%22short_name%22%3A%22SpeedGate%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22theme_color%22%3A%22%2314304f%22%2C%22background_color%22%3A%22%231a2a3a%22%7D"><title>ZKTeco SpeedGate CAD v35</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;background:#1a2a3a}
@@ -150,12 +150,55 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 .pj-active-dot{display:inline-block;width:6px;height:6px;background:#7dd87a;border-radius:50%;margin-right:4px;vertical-align:middle}
 @media print{
   body{background:#fff!important;color:#000!important}
-  .tb,.pt,.cb,.lr,.acbar,.whb,.xb,.pb,.mb{display:none!important}
+  .tb,.pt,.cb,.lr,.acbar,.whb,.xb,.pb,.mb,.preb{display:none!important}
   .dw{page-break-inside:avoid;break-inside:avoid}
   svg{max-width:100%!important}
   #cad,#wsvg,#ficha-svg,#covsvg{display:block!important;border:none!important;background:#fff!important}
   .pf{background:#fff!important;color:#000!important}
 }
+/* ── TOAST ── */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--bl);color:#fff;padding:8px 18px;border-radius:20px;font-family:monospace;font-size:11px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.35)}#toast.on{opacity:1}
+/* ── THEME BUTTON ── */
+.theme-btn{padding:5px 8px;border-radius:8px;border:1px solid var(--br);background:rgba(255,255,255,.06);cursor:pointer;display:flex;align-items:center;color:var(--t2);transition:all .15s;flex-shrink:0}.theme-btn:hover{background:var(--hv);color:#fff}
+/* ── SHARE / DXF BUTTONS ── */
+.bsh{border-color:rgba(100,180,255,.4)!important;color:#90d0ff!important;background:rgba(42,107,176,.08)!important}.bsh:hover{background:rgba(42,107,176,.28)!important}
+.bdxf{background:rgba(120,80,0,.12);color:#d4a860}.bdxf:hover{background:rgba(120,80,0,.3)}
+/* ── PRESET BAR ── */
+.preb{background:var(--d);border-bottom:1px solid var(--br);display:flex;align-items:center;gap:4px;padding:4px 10px;flex-wrap:wrap;overflow-x:auto}
+.pre-lbl{font-size:8px;color:rgba(168,189,212,.4);font-family:monospace;text-transform:uppercase;letter-spacing:.8px;flex-shrink:0;margin-right:2px}
+.pre-btn{padding:3px 10px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);cursor:pointer;font-size:9px;font-family:monospace;color:var(--t2);transition:all .1s;white-space:nowrap}.pre-btn:hover{background:var(--hv);color:#fff;border-color:rgba(255,255,255,.25)}
+/* ── LIGHT THEME ── */
+.lt{--d:#e8ecf0;--nv:#dce4ed;--nv2:#ccd6e4;--t2:#2a4a6a;--br:rgba(0,0,0,.10);--hv:rgba(0,0,0,.05);--ac:#1a7a30}
+.lt body{background:#f0f3f7}.lt .logo em{color:#1a7a30}.lt .vtag{background:var(--nv2);color:var(--t2)}
+.lt .acbar{background:#eaf5e4;border-color:rgba(30,120,30,.2)!important}.lt .ac-side-lbl,.lt .ac-dir{color:#1a6a20!important}
+.lt .ac-item{background:rgba(30,120,30,.06)!important;border-color:rgba(30,120,30,.25)!important}.lt .ac-item-badge{background:#2a8a20;color:#e8ffd8!important}
+.lt .ac-item-desc,.lt .ac-add-lbl{color:#1a5a18!important}.lt .ac-add-btn{background:rgba(30,120,30,.08)!important;color:#1a5a18!important;border-color:rgba(30,120,30,.4)!important}
+.lt .dw{background:#eeede5}.lt .ab.over{background:rgba(200,20,20,.08)!important}.lt .ab.near{background:rgba(180,100,0,.08)!important}
+.lt .lf,.lt .fr input{background:rgba(0,0,0,.04);color:#0a2040}.lt .nb,.lt .nv,.lt .sv{color:#0a2040}.lt .sc{background:rgba(0,0,0,.04)!important;border-color:var(--br)!important}
+.lt .whb{background:#d0d8e4}.lt .whb *{color:#0a2040!important}
+.lt #bom-content{color:#1a3050;background:#e0e8f2}
+.lt .bom-hdr{color:#2a4a6a!important}
+.lt .bom-qty{color:#1a6a20!important}
+.lt .bom-ref{color:#2a3a50!important}
+.lt .bom-desc{color:#1a2a3a!important}
+.lt .bom-sep{border-color:rgba(0,0,0,.10)!important}
+.lt .bom-foot{color:#1a6a20!important;border-color:rgba(0,0,0,.15)!important}
+.lt .pre-btn{border-color:rgba(0,0,0,.15);color:#2a4a6a}.lt .pre-btn:hover{background:rgba(0,0,0,.08);color:#0a2040}
+.lt .bsh{border-color:rgba(0,80,180,.3)!important;color:#1050b0!important;background:rgba(0,80,180,.06)!important}
+.lt .bdxf{color:#7a5000!important;background:rgba(120,80,0,.06)!important}
+/* ── ISO POSITION BUTTONS ── */
+.iso-pos-row{display:flex;align-items:center;gap:3px;margin-top:3px}
+.iso-pos-lbl{font-size:8px;font-family:monospace;color:rgba(255,255,255,.38);flex-shrink:0}
+.iso-pos-btn{padding:1px 7px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);cursor:pointer;font-size:9px;font-family:monospace;color:rgba(255,255,255,.45);transition:all .1s;line-height:1.5}
+.iso-pos-btn.on{border-color:#c08800;background:rgba(192,136,0,.18);color:#d4a840;font-weight:700}
+.iso-pos-btn:hover:not(.on){background:rgba(255,255,255,.08);color:#fff}
+.lt .iso-pos-lbl{color:rgba(0,0,0,.38)}.lt .iso-pos-btn{border-color:rgba(0,0,0,.12);background:rgba(0,0,0,.03);color:rgba(0,0,0,.38)}.lt .iso-pos-btn.on{border-color:#7a5000;background:rgba(120,80,0,.1);color:#7a5000}
+/* ── SITE LENGTH + CABLE ESTIMATE ── */
+#cable-est{font-size:9px;font-family:monospace;color:#7dd87a;white-space:nowrap}
+.lt #cable-est{color:#1a6a20}
+/* ── UNDO HISTORY PANEL ── */
+#undo-panel{padding:0 8px;overflow:hidden}
+.undo-hist-line{font-size:7.5px;font-family:monospace;color:var(--t2);opacity:.5;padding:1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 </style>
 </head>
 <body>
@@ -166,7 +209,10 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
     <button class="lb on" data-lang="es" onclick="setLang('es')">ES</button>
     <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="de" onclick="setLang('de')">DE</button>
   </div>
+  <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Modo claro/oscuro"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="2.9" y1="2.9" x2="4" y2="4"/><line x1="12" y1="12" x2="13.1" y2="13.1"/><line x1="13.1" y1="2.9" x2="12" y2="4"/><line x1="4" y1="12" x2="2.9" y2="13.1"/></svg></button>
 </div>
 <div class="pt">
   <button class="ptb on" id="tab-cad" onclick="setPage('cad')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> <span data-t="tabCad">Plano CAD</span></button>
@@ -175,16 +221,19 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   <button class="ptb" id="tab-cover" onclick="setPage('cover')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M3 1h7l3 3v11H3z"/><path d="M10 1v3h3"/></svg> <span data-t="tabCover">Portada</span></button>
   <button class="ptb" id="tab-iso" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button>
   <button class="ptb" id="tab-comp" onclick="setPage('comp')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/><line x1="4" y1="6" x2="4" y2="10"/><line x1="12" y1="6" x2="12" y2="10"/></svg> <span data-t="tabComp">Comparar</span></button>
+  <button class="ptb" id="tab-bom" onclick="setPage('bom')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M2 2h12v12H2z"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="8" y2="11"/><path d="M10 9l2 2 3-3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-t="tabBOM">Mat. &amp; BOM</span></button>
   <button class="ptb" style="margin-left:auto;border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
 </div>
 <div class="xb">
   <span class="xlbl" data-t="expProject">Proyecto</span>
   <button class="bf bsv" onclick="saveProject()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="btnSave">Guardar</span></button>
   <button class="bf bld" onclick="document.getElementById('fi-load').click()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="btnLoad">Cargar</span></button>
+  <button class="bf bsh" id="btn-share" onclick="shareURL()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="12" cy="3" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="13" r="2"/><line x1="5.8" y1="7.2" x2="10.2" y2="4.8"/><line x1="5.8" y1="8.8" x2="10.2" y2="11.2"/></svg> <span data-t="btnShare">Compartir</span></button>
   <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
   <div class="eg">
     <button class="be" onclick="exportProject('png')" id="btn-all-png">⬇ PNG</button>
     <button class="be" onclick="exportProject('svg')" id="btn-all-svg">⬇ SVG</button>
+    <button class="be bdxf" onclick="exportDXF()" id="btn-dxf">⬇ DXF</button>
     <button class="be bpdf" onclick="exportPDF()" id="btn-pdf">⬇ PDF A3</button>
   </div>
 </div>
@@ -192,15 +241,21 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 <div class="ab" id="alert-bar"><span style="font-size:16px;flex-shrink:0">⚠</span><span class="abody" id="alert-body"></span><span class="abadge" id="alert-badge"></span></div>
 
 <div id="page-cad">
+  <div class="preb" id="preset-bar"><span class="pre-lbl" data-t="presetLbl">Quick:</span><button class="pre-btn" onclick="applyPreset('std2')" data-t="preset_std2">2×660mm</button><button class="pre-btn" onclick="applyPreset('wide1')" data-t="preset_wide1">1×900mm</button><button class="pre-btn" onclick="applyPreset('mix3')" data-t="preset_mix3">660+900+660</button><button class="pre-btn" onclick="applyPreset('xl2')" data-t="preset_xl2">2×1200mm</button><button class="pre-btn" onclick="applyPreset('acc4')" data-t="preset_acc4">4×660mm</button></div>
   <div class="mb" id="mtabs"></div>
   <div class="cb">
     <div class="cg"><div class="cl" id="lbl-lanes">Nº Pasillos</div>
       <div class="cr"><button class="nb" id="dm" aria-label="Reducir pasillos">−</button><div class="nv" id="nv">2</div><button class="nb" id="ip" aria-label="Añadir pasillo">+</button></div></div>
     <div class="cg"><div class="cl" id="lbl-limit">Hueco disponible obra</div>
       <div class="cr"><input class="lf" id="limit-input" type="number" min="0" step="10" placeholder="∞" oninput="onLimitChange()"><span class="lu">mm</span></div></div>
+    <div class="cg"><div class="cl" data-t="siteLenLbl">Long. corredor</div>
+      <div class="cr" style="gap:4px"><input class="lf" id="site-len" type="number" min="0" step="0.5" style="width:56px" placeholder="—" oninput="onSiteLenChange()"><span class="lu">m</span><span id="cable-est"></span></div></div>
     <div class="cg"><div class="cl" id="lbl-page">Esta página</div>
       <div class="cr" style="gap:6px"><button class="bpe" onclick="exportPage('cv','svg')">SVG</button><button class="bpe" onclick="exportPage('cv','png')">PNG</button></div></div>
+    <div class="cg"><div class="cl" id="lbl-mirror" data-t="uiMirror">Espejo</div>
+      <div class="cr"><button class="bpe" id="btn-mirror" onclick="mirrorConfig()" title="Intercambiar accesorios izquierda/derecha"><span data-t="btnMirror">↔ Invertir</span></button></div></div>
     <div class="cg str"><div class="sr" id="sk"></div></div>
+    <div id="undo-panel"></div>
   </div>
   <div class="lr" id="lr"></div>
   <!-- Accessories side configurator -->
@@ -267,6 +322,11 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   <div class="dw"><svg id="cmpsvg" viewBox="0 0 720 520" role="img" data-ta="tabComp"></svg></div>
 </div>
 
+<div id="page-bom" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="bomTitle">Lista de materiales</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportBOM('csv')" id="btn-bom-csv">⬇ CSV</button><button class="bpe" onclick="exportBOMxls()" id="btn-bom-xls" data-t="exportXls">⬇ XLS</button><button class="bpe" onclick="printBOM()" id="btn-bom-print">🖨 Imprimir</button></div></div>
+  <div id="bom-content" style="padding:12px 16px;font-family:monospace;font-size:11px;color:#a8bdd4;background:var(--d);min-height:200px"></div>
+</div>
+
 <!-- Modal Mis Proyectos -->
 <div id="proj-modal" class="modal-ov" style="display:none" onclick="if(event.target===this)closeProjects()">
   <div class="modal-box">
@@ -330,6 +390,11 @@ function setR50Custom(side,idx,field,val){
   list[idx][field]=val;
   renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();autoSave();
 }
+function setAccIsoPos(side,idx,pos){
+  const list=side==='left'?accLeft:accRight;
+  if(list[idx])list[idx].isoZ=pos;
+  renderAccBar();if(PAGE==='iso')drawISO();autoSave();
+}
 // R50 total width = glass width + 100mm (50mm post on each side)
 // All other accessories have fixed W from catalog
 function getAccItemW(item){
@@ -392,6 +457,14 @@ es:{tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'
   tabIso:'Vista 3D',tabComp:'Comparar',tabProj:'Proyectos',
   projSave:'Guardar proyecto actual',projLoad:'Cargar',projDel:'Eliminar',projEmpty:'No hay proyectos guardados.',projTitle:'Mis Proyectos',projMax:'Límite de 10 proyectos alcanzado',
   compW:'Ancho gab.',compD:'Profundidad',compH:'Altura gab.',compCons:'Consumo',compSpeed:'Apertura',compTemp:'Temperatura',compPower:'Alimentación',compBolts:'Pernos/gab.',compLanes:'Pasillos',compActive:'activo',
+  btnShare:'Compartir',urlCopied:'URL copiada ✓',urlCopyManual:'Copia esta URL:',
+  isoPos:'3D pos.',isoPosF:'Frente',isoPosM:'Centro',isoPosB:'Fondo',
+  siteLenLbl:'Long. corredor',cableTotLbl:'cable est.',undoHistLbl:'cambios',
+  pmrTag:'PMR ♿',exportXls:'⬇ XLS',qrTitle:'QR',accValidWarn:'Ancho total supera el hueco disponible',
+  presetLbl:'Rápido:',preset_std2:'Estándar 2×660',preset_wide1:'Accesible 1×900',preset_mix3:'Mix 660+900+660',preset_xl2:'XL 2×1200',preset_acc4:'4×660 denso',presetApplied:'Configuración aplicada',
+  uiMirror:'Espejo',btnMirror:'↔ Invertir',mirrorApplied:'Accesorios invertidos',
+  lightTheme:'Modo oscuro',darkTheme:'Modo claro',accWarn:'Accesorio demasiado ancho',dxfExport:'Exportando DXF…',
+  tabBOM:'Mat. & BOM',bomTitle:'LISTA DE MATERIALES',bomModel:'Modelo',bomLanes:'Pasillos',bomCabs:'Gabinetes',bomGMP:'Ref. GMP',bomQty:'Cant.',bomDesc:'Descripción',bomLeaf:'Hoja',bomAcc:'Accesorios',bomPVC:'Conducto PVC',bomCables:'Cables',bomTotal:'TOTAL',
 },
 en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
@@ -437,6 +510,14 @@ en:{tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   tabIso:'ISO View',tabComp:'Compare',tabProj:'Projects',
   projSave:'Save current project',projLoad:'Load',projDel:'Delete',projEmpty:'No saved projects.',projTitle:'My Projects',projMax:'10 project limit reached',
   compW:'Cab. width',compD:'Depth',compH:'Cab. height',compCons:'Power',compSpeed:'Opening',compTemp:'Temperature',compPower:'Supply',compBolts:'Bolts/cab.',compLanes:'Lanes',compActive:'active',
+  btnShare:'Share',urlCopied:'URL copied ✓',urlCopyManual:'Copy this URL:',
+  isoPos:'3D pos.',isoPosF:'Front',isoPosM:'Mid',isoPosB:'Back',
+  siteLenLbl:'Corridor length',cableTotLbl:'cable est.',undoHistLbl:'changes',
+  pmrTag:'PMR ♿',exportXls:'⬇ XLS',qrTitle:'QR',accValidWarn:'Total width exceeds available gap',
+  presetLbl:'Quick:',preset_std2:'Standard 2×660',preset_wide1:'Accessible 1×900',preset_mix3:'Mix 660+900+660',preset_xl2:'XL 2×1200',preset_acc4:'Dense 4×660',presetApplied:'Configuration applied',
+  uiMirror:'Mirror',btnMirror:'↔ Flip',mirrorApplied:'Accessories flipped',
+  lightTheme:'Dark mode',darkTheme:'Light mode',accWarn:'Accessory too wide',dxfExport:'Exporting DXF…',
+  tabBOM:'Mat. & BOM',bomTitle:'BILL OF MATERIALS',bomModel:'Model',bomLanes:'Lanes',bomCabs:'Cabinets',bomGMP:'GMP Ref.',bomQty:'Qty',bomDesc:'Description',bomLeaf:'Barrier',bomAcc:'Accessories',bomPVC:'PVC Conduit',bomCables:'Cables',bomTotal:'TOTAL',
 },
 pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
@@ -482,6 +563,117 @@ pt:{tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'
   tabIso:'Vista 3D',tabComp:'Comparar',tabProj:'Projetos',
   projSave:'Guardar projeto atual',projLoad:'Carregar',projDel:'Eliminar',projEmpty:'Sem projetos guardados.',projTitle:'Os Meus Projetos',projMax:'Limite de 10 projetos atingido',
   compW:'Larg. gab.',compD:'Profundidade',compH:'Altura gab.',compCons:'Consumo',compSpeed:'Abertura',compTemp:'Temperatura',compPower:'Alimentação',compBolts:'Parafusos/gab.',compLanes:'Corredores',compActive:'ativo',
+  btnShare:'Partilhar',urlCopied:'URL copiado ✓',urlCopyManual:'Copia este URL:',
+  isoPos:'3D pos.',isoPosF:'Frente',isoPosM:'Centro',isoPosB:'Fundo',
+  siteLenLbl:'Comp. corredor',cableTotLbl:'cabo est.',undoHistLbl:'alterações',
+  pmrTag:'PMC ♿',exportXls:'⬇ XLS',qrTitle:'QR',accValidWarn:'Largura total excede vão disponível',
+  presetLbl:'Rápido:',preset_std2:'Standard 2×660',preset_wide1:'Acessível 1×900',preset_mix3:'Mix 660+900+660',preset_xl2:'XL 2×1200',preset_acc4:'4×660 denso',presetApplied:'Configuração aplicada',
+  uiMirror:'Espelho',btnMirror:'↔ Inverter',mirrorApplied:'Acessórios invertidos',
+  lightTheme:'Modo escuro',darkTheme:'Modo claro',accWarn:'Acessório demasiado largo',dxfExport:'A exportar DXF…',
+  tabBOM:'Mat. & BOM',bomTitle:'LISTA DE MATERIAIS',bomModel:'Modelo',bomLanes:'Corredores',bomCabs:'Gabinetes',bomGMP:'Ref. GMP',bomQty:'Qtd.',bomDesc:'Descrição',bomLeaf:'Paleta',bomAcc:'Acessórios',bomPVC:'Conduíte PVC',bomCables:'Cabos',bomTotal:'TOTAL',
+},
+fr:{tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche tech.',tabCover:'Couverture',
+  btnSave:'Enregistrer',btnLoad:'Charger',expProject:'Projet',
+  accLeftSide:'Côté gauche',accRightSide:'Côté droit',accAdd:'+ Ajouter',accNone:'Sans accessoire',
+  uiLanes:'Nb voies',uiLimit:'Ouverture site',uiPage:'Cette page',
+  planTitle:'VUE EN PLAN',frontTitle:'ÉLÉVATION FRONTALE  A—A',cotas:'Cotes en mm',scaleLbl:'500 mm',
+  ugSection:'SECTION CANALISATION SOUTERRAINE',slab:'Dalle béton',awaiting:'File d\'attente',
+  twLabel:'Largeur totale',nCabs:'Armoires',maxLbl:'OUVERTURE MAX',limOk:'✓ Rentre',
+  pernoLbl:'Boulon',gabLbl:'Armoire',slotLbl:'Slot moteur',totalLbl:'Total',slotDimLbl:'Slot',libreLbl:'Libre',gapNote:'inclus dans la cote',
+  wiringTitle:'SCHÉMA DE CÂBLAGE — CHAÎNE MAÎTRE/ESCLAVE',switchLbl:'SWITCH / ACCÈS',accessCtrl:'Contrôle d\'accès',
+  unitLeftEnd:'Extrémité gauche',unitRightEnd:'Extrémité droite',unitCentral:'Module central',
+  ctrlMaster:'MAÎTRE',ctrlSlave:'ESCLAVE',chainNote:'Chaîne Maître→Esclave',
+  pvcSizing:'DIMENSIONNEMENT PVC',legend:'LÉGENDE',pvcNote:'prof. 50 mm · long. 1000 mm',
+  cables:['AC 110/220V','Ethernet accès','Ethernet moteur','M-E 4 fils'],
+  pvcRanges:['1–2 voies','3–4 voies','5–6 voies'],
+  coverTitle:'PLAN D\'INSTALLATION',covProject:'PROJET',covTW:'LARGEUR TOTALE',covLimit:'OUVERTURE SITE',covLeaves:'BARRIÈRES',
+  covBy:'ÉTABLI PAR',covCheck:'VÉRIFIÉ PAR',covDate:'DATE',covRev:'RÉVISION',
+  ficGab:'ARMOIRE',ficType:'Type',ficLargo:'Longueur (prof.)',ficAncho:'Largeur',ficAlto:'Hauteur',ficArm:'Base bras',
+  ficTemp:'Temp. fonctionnement',ficVel:'Vitesse ouverture',ficElec:'Alimentation',ficPow:'Consommation/unit.',ficGap:'GAP central barrières',
+  ficComm:'COMMUNICATION',ficProto:'Protocole',ficRS485:'RS485 / TCP-IP',ficBaud:'Baudrate',ficBaud9:'9.600 bps',
+  ficMaster:'Maître (extrémités)',ficSlave:'Esclave (centraux)',
+  ficProj:'PROJET',ficLanes:'Voies',ficCabs:'Armoires (physiques)',ficCabDetail:'Composition (BOM)',
+  ficTW:'LARGEUR PORTILLONS',ficTWfull:'LARGEUR TOTALE (portillons + accessoires)',ficLimit:'OUVERTURE SITE',
+  ficAnc:'ANCRAGES',ficPernos:'Boulons totaux',ficPos:'Positions (depuis base)',ficProf:'Prof. forage',ficDiam:'Diam. forage',ficHolg:'Jeu au mur',
+  ficCond:'CONDUIT PVC (IEC 61386)',ficPVC:'Conduit',ficCables:'Câbles totaux',ficFill:'Facteur remplissage',
+  ficLeaves:'ACCESSOIRES — BARRIÈRES PAR VOIE',ficStep:'Passage libre',ficSlot:'Slot moteur',
+  ficAccL:'ACCESSOIRES CÔTÉ GAUCHE',ficAccR:'ACCESSOIRES CÔTÉ DROIT',
+  ficAccDesc:'Description',ficAccW:'Largeur ext.',ficAccH:'Hauteur',ficAccGW:'Largeur vitrage',ficAccGH:'Hauteur vitrage',ficAccOpt:'Option vitrage',ficAccQty:'Unités',ficAccTW:'Largeur totale accessoires côté',
+  swingBarrier:'Swing Barrier',
+  fldClient:'Client',fldProject:'Chantier / Projet',fldAddr:'Adresse',fldRef:'Référence',
+  fldAuthor:'Établi par',fldRevBy:'Vérifié par',fldDate:'Date',fldVersion:'Révision',
+  alertOver:(tw,lim)=>`Largeur totale <b>${tw} mm</b> dépasse l\'ouverture <b>${lim} mm</b> — dépassement <b>${tw-lim} mm</b>`,
+  alertNear:(tw,lim)=>`Largeur totale <b>${tw} mm</b> — <b>${lim-tw} mm</b> disponibles`,
+  alertOverBadge:'NE RENTRE PAS',alertNearBadge:'JUSTE',pdfPage:'Page',uiGabinets:'u.',
+  ficAcc:'ACCESSOIRES',glass:'vitrage',accLabel:'ACCESSOIRES:',lane:'voie',lanes:'voies',covClient:'Client',covGates:'PORTILLONS',r50Width:'Largeur',r50Height:'Hauteur',
+  accRemove:'Supprimer',loadingPDF:'Chargement PDF…',modelLbl:'Modèle',sessionRestored:'Session restaurée',sessionClear:'Effacer session sauvegardée',
+  msgPerSide:'par côté',lblCables:'câbles',lblPortada:'couverture',
+  ttipMinLanes:'min. 1 voie',ttipMaxLanes:'max. 6 voies',btnDecLanes:'Réduire voies',btnIncLanes:'Ajouter voie',errorLoad:'Erreur chargement projet',
+  planTopView:'VUE DE DESSUS',ficGapCentral:'GAP central',coverSecurityTag:'SÉCURITÉ · CONTRÔLE D\'ACCÈS',
+  fldAuthorLbl:'Établi par',fldRevByLbl:'Vérifié par',
+  tabIso:'Vue 3D',tabComp:'Comparer',tabProj:'Projets',
+  projSave:'Enregistrer projet actuel',projLoad:'Charger',projDel:'Supprimer',projEmpty:'Aucun projet enregistré.',projTitle:'Mes Projets',projMax:'Limite de 10 projets atteinte',
+  compW:'Larg. arm.',compD:'Profondeur',compH:'Haut. arm.',compCons:'Consommation',compSpeed:'Ouverture',compTemp:'Température',compPower:'Alimentation',compBolts:'Boulons/arm.',compLanes:'Voies',compActive:'actif',
+  btnShare:'Partager',urlCopied:'URL copiée ✓',urlCopyManual:'Copiez cette URL:',
+  isoPos:'Pos. 3D',isoPosF:'Avant',isoPosM:'Centre',isoPosB:'Arrière',
+  siteLenLbl:'Long. couloir',cableTotLbl:'câble est.',undoHistLbl:'modifications',
+  pmrTag:'PMR ♿',exportXls:'⬇ XLS',qrTitle:'QR',accValidWarn:'Largeur totale dépasse le vide disponible',
+  presetLbl:'Rapide:',preset_std2:'Standard 2×660',preset_wide1:'Accessible 1×900',preset_mix3:'Mix 660+900+660',preset_xl2:'XL 2×1200',preset_acc4:'4×660 dense',presetApplied:'Configuration appliquée',
+  uiMirror:'Miroir',btnMirror:'↔ Inverser',mirrorApplied:'Accessoires inversés',
+  lightTheme:'Mode sombre',darkTheme:'Mode clair',accWarn:'Accessoire trop large',dxfExport:'Export DXF…',
+  tabBOM:'Mat. & BOM',bomTitle:'NOMENCLATURE',bomModel:'Modèle',bomLanes:'Voies',bomCabs:'Armoires',bomGMP:'Réf. GMP',bomQty:'Qté',bomDesc:'Description',bomLeaf:'Barrière',bomAcc:'Accessoires',bomPVC:'Conduit PVC',bomCables:'Câbles',bomTotal:'TOTAL',
+  gapNote:'inclus dans la cote',awaiting:'File d\'attente',
+},
+de:{tabCad:'CAD-Plan',tabWiring:'Verkabelung',tabFicha:'Datenblatt',tabCover:'Titelseite',
+  btnSave:'Speichern',btnLoad:'Laden',expProject:'Projekt',
+  accLeftSide:'Linke Seite',accRightSide:'Rechte Seite',accAdd:'+ Hinzufügen',accNone:'Kein Zubehör',
+  uiLanes:'Anzahl Spuren',uiLimit:'Durchgangsbreite',uiPage:'Diese Seite',
+  planTitle:'GRUNDRISS',frontTitle:'VORDERANSICHT  A—A',cotas:'Maße in mm',scaleLbl:'500 mm',
+  ugSection:'UNTERFLUR-KANALSCHNITT',slab:'Stahlbetonplatte',awaiting:'Warteschlange',
+  twLabel:'Gesamtbreite',nCabs:'Gehäuse',maxLbl:'MAX. ÖFFNUNG',limOk:'✓ Passt',
+  pernoLbl:'Schraube',gabLbl:'Gehäuse',slotLbl:'Motor-Slot',totalLbl:'Gesamt',slotDimLbl:'Slot',libreLbl:'Frei',gapNote:'in Maß enthalten',
+  wiringTitle:'SCHALTPLAN — MASTER/SLAVE-KETTE',switchLbl:'SWITCH / ZUGANG',accessCtrl:'Zutrittskontrolle',
+  unitLeftEnd:'Linkes Endgerät',unitRightEnd:'Rechtes Endgerät',unitCentral:'Zentralgehäuse',
+  ctrlMaster:'MASTER',ctrlSlave:'SLAVE',chainNote:'Master→Slave-Kette',
+  pvcSizing:'PVC-DIMENSIONIERUNG',legend:'LEGENDE',pvcNote:'Tiefe 50 mm · Länge 1000 mm',
+  cables:['AC 110/220V','Ethernet Zugang','Ethernet Motor','M-S 4-adrig'],
+  pvcRanges:['1–2 Spuren','3–4 Spuren','5–6 Spuren'],
+  coverTitle:'INSTALLATIONSPLAN',covProject:'PROJEKT',covTW:'GESAMTBREITE',covLimit:'ÖFFNUNGSMASS',covLeaves:'BARRIEREN',
+  covBy:'ERSTELLT VON',covCheck:'GEPRÜFT VON',covDate:'DATUM',covRev:'REVISION',
+  ficGab:'GEHÄUSE',ficType:'Typ',ficLargo:'Tiefe',ficAncho:'Breite',ficAlto:'Höhe',ficArm:'Arm-Basis',
+  ficTemp:'Betriebstemp.',ficVel:'Öffnungsgeschw.',ficElec:'Stromversorgung',ficPow:'Verbrauch/Einh.',ficGap:'Zentralspalt Barrieren',
+  ficComm:'KOMMUNIKATION',ficProto:'Protokoll',ficRS485:'RS485 / TCP-IP',ficBaud:'Baudrate',ficBaud9:'9.600 bps',
+  ficMaster:'Master (Endgehäuse)',ficSlave:'Slave (Zentralgehäuse)',
+  ficProj:'PROJEKT',ficLanes:'Spuren',ficCabs:'Gehäuse (physisch)',ficCabDetail:'Zusammensetzung (BOM)',
+  ficTW:'TORBREITE',ficTWfull:'GESAMTBREITE (Tore + Zubehör)',ficLimit:'ÖFFNUNGSMASS',
+  ficAnc:'VERANKERUNGEN',ficPernos:'Schrauben gesamt',ficPos:'Positionen (ab Basis)',ficProf:'Bohrtiefe',ficDiam:'Bohrdurchmesser',ficHolg:'Wandabstand',
+  ficCond:'PVC-KANAL (IEC 61386)',ficPVC:'Kabelkanal',ficCables:'Kabel gesamt',ficFill:'Füllgrad',
+  ficLeaves:'ZUBEHÖR — BARRIEREN JE SPUR',ficStep:'Freie Durchfahrt',ficSlot:'Motor-Slot',
+  ficAccL:'ZUBEHÖR LINKE SEITE',ficAccR:'ZUBEHÖR RECHTE SEITE',
+  ficAccDesc:'Beschreibung',ficAccW:'Außenbreite',ficAccH:'Höhe',ficAccGW:'Glasbreite',ficAccGH:'Glashöhe',ficAccOpt:'Glasoption',ficAccQty:'Stück',ficAccTW:'Gesamtbreite Zubehör Seite',
+  swingBarrier:'Swing Barrier',
+  fldClient:'Kunde',fldProject:'Baustelle / Projekt',fldAddr:'Adresse',fldRef:'Referenz',
+  fldAuthor:'Erstellt von',fldRevBy:'Geprüft von',fldDate:'Datum',fldVersion:'Revision',
+  alertOver:(tw,lim)=>`Gesamtbreite <b>${tw} mm</b> überschreitet Öffnung <b>${lim} mm</b> — Überschuss <b>${tw-lim} mm</b>`,
+  alertNear:(tw,lim)=>`Gesamtbreite <b>${tw} mm</b> — noch <b>${lim-tw} mm</b> verfügbar`,
+  alertOverBadge:'PASST NICHT',alertNearBadge:'KNAPP',pdfPage:'Seite',uiGabinets:'St.',
+  ficAcc:'ZUBEHÖR',glass:'Glas',accLabel:'ZUBEHÖR:',lane:'Spur',lanes:'Spuren',covClient:'Kunde',covGates:'TORE',r50Width:'Breite',r50Height:'Höhe',
+  accRemove:'Entfernen',loadingPDF:'PDF wird geladen…',modelLbl:'Modell',sessionRestored:'Sitzung wiederhergestellt',sessionClear:'Gespeicherte Sitzung löschen',
+  msgPerSide:'je Seite',lblCables:'Kabel',lblPortada:'Titelseite',
+  ttipMinLanes:'min. 1 Spur',ttipMaxLanes:'max. 6 Spuren',btnDecLanes:'Spur verringern',btnIncLanes:'Spur hinzufügen',errorLoad:'Fehler beim Laden des Projekts',
+  planTopView:'DRAUFSICHT',ficGapCentral:'Zentralspalt',coverSecurityTag:'SICHERHEIT · ZUTRITTSKONTROLLE',
+  fldAuthorLbl:'Erstellt von',fldRevByLbl:'Geprüft von',
+  tabIso:'3D-Ansicht',tabComp:'Vergleich',tabProj:'Projekte',
+  projSave:'Aktuelles Projekt speichern',projLoad:'Laden',projDel:'Löschen',projEmpty:'Keine gespeicherten Projekte.',projTitle:'Meine Projekte',projMax:'Limit von 10 Projekten erreicht',
+  compW:'Geh.-Breite',compD:'Tiefe',compH:'Geh.-Höhe',compCons:'Verbrauch',compSpeed:'Öffnung',compTemp:'Temperatur',compPower:'Versorgung',compBolts:'Schrauben/Geh.',compLanes:'Spuren',compActive:'aktiv',
+  btnShare:'Teilen',urlCopied:'URL kopiert ✓',urlCopyManual:'Diese URL kopieren:',
+  isoPos:'3D Pos.',isoPosF:'Vorne',isoPosM:'Mitte',isoPosB:'Hinten',
+  siteLenLbl:'Gass.-Länge',cableTotLbl:'Kabel ca.',undoHistLbl:'Änderungen',
+  pmrTag:'BF ♿',exportXls:'⬇ XLS',qrTitle:'QR',accValidWarn:'Gesamtbreite überschreitet verfügbare Öffnung',
+  presetLbl:'Schnell:',preset_std2:'Standard 2×660',preset_wide1:'Barrierefrei 1×900',preset_mix3:'Mix 660+900+660',preset_xl2:'XL 2×1200',preset_acc4:'4×660 dicht',presetApplied:'Konfiguration angewendet',
+  uiMirror:'Spiegeln',btnMirror:'↔ Spiegeln',mirrorApplied:'Zubehör gespiegelt',
+  lightTheme:'Dunkelmodus',darkTheme:'Hellmodus',accWarn:'Zubehör zu breit',dxfExport:'DXF wird exportiert…',
+  tabBOM:'Mat. & BOM',bomTitle:'STÜCKLISTE',bomModel:'Modell',bomLanes:'Spuren',bomCabs:'Gehäuse',bomGMP:'GMP-Ref.',bomQty:'Anz.',bomDesc:'Beschreibung',bomLeaf:'Barriere',bomAcc:'Zubehör',bomPVC:'PVC-Kanal',bomCables:'Kabel',bomTotal:'GESAMT',
 }};
 let LANG='es';
 const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
@@ -508,7 +700,7 @@ const MODELS={
    pg:[{c:660,s:820,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:894},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1519}]},{c:900,s:1060,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:894},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1519}]},{c:1200,s:1360,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:894}]}]},
 };
 const MK=Object.keys(MODELS);
-let M='sbtl8000',lanes=[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}],PAGE='cad',siteLimit=0;
+let M='sbtl8000',lanes=[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}],PAGE='cad',siteLimit=0,siteLen=0;
 const N=()=>lanes.length;
 const r=n=>+(Math.round(n*10)/10);
 const rnd=n=>Math.round(n);
@@ -555,11 +747,13 @@ function renderAccSide(side,list,itemsId,addId){
       }
       const dynW=getAccItemW(item);
       const dimDesc=`${dynW}×${a.H}mm${gO?` · ${T('glass')} ${gO.gW}×${gO.gH}mm`:''}`;
+      const isoZ=+(item.isoZ)||1;
+      const posHtml=`<div class="iso-pos-row"><span class="iso-pos-lbl">${T('isoPos')}:</span>${[0,1,2].map(p=>`<button class="iso-pos-btn${isoZ===p?' on':''}" onclick="setAccIsoPos('${side}',${idx},${p})">${[T('isoPosF'),T('isoPosM'),T('isoPosB')][p]}</button>`).join('')}</div>`;
       return`<div class="ac-item">
         <span class="ac-item-badge">${a.code}</span>
         <span class="ac-item-desc">${accDsc(a)} · ${dimDesc}</span>
         <button class="ac-rm" onclick="removeAcc('${side}',${idx})" title="${T('accRemove')}">×</button>
-        ${extraHtml}
+        ${extraHtml}${posHtml}
       </div>`;
     }).join('');
   }
@@ -572,11 +766,13 @@ function addAcc(side,code){
   const a=ACC_BY_CODE[code];if(!a)return;
   const list=side==='left'?accLeft:accRight;
   if(list.length>=MAX_ACC_PER_SIDE)return;
-  list.push({code,r50gi:0,r50gW:920,r50gH:600});
+  if(typeof pushUndo==='function')pushUndo('+'+code);
+  list.push({code,r50gi:0,r50gW:920,r50gH:600,isoZ:1});
   renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();autoSave();
 }
 function removeAcc(side,idx){
   const list=side==='left'?accLeft:accRight;
+  if(typeof pushUndo==='function')pushUndo('-'+list[idx]?.code);
   list.splice(idx,1);
   renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();if(PAGE==='cover')drawCover();autoSave();
 }
@@ -597,7 +793,7 @@ function updateAlerts(){
   const inp=document.getElementById('limit-input');inp.className='lf'+(state?' '+state:'');
 }
 function onLimitChange(){const val=parseInt(document.getElementById('limit-input').value,10)||0;siteLimit=Math.max(0,val);updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();autoSave();}
-function setPage(p){PAGE=p;['cad','wiring','ficha','cover','iso','comp'].forEach(id=>{const pg=document.getElementById('page-'+id);if(pg)pg.style.display=id===p?'':'none';const tb=document.getElementById('tab-'+id);if(tb)tb.classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();else if(p==='iso')drawISO();else if(p==='comp')drawComparator();}
+function setPage(p){PAGE=p;['cad','wiring','ficha','cover','iso','comp','bom'].forEach(id=>{const pg=document.getElementById('page-'+id);if(pg)pg.style.display=id===p?'':'none';const tb=document.getElementById('tab-'+id);if(tb)tb.classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();else if(p==='iso')drawISO();else if(p==='comp')drawComparator();else if(p==='bom')drawBOM();}
 
 // ══ AUTO-SAVE (LocalStorage) ══════════════════════════════════
 const LS_KEY='zkteco-cad-v35';
@@ -605,8 +801,8 @@ let sessionRestored=false;
 function autoSave(){
   try{
     const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
-    localStorage.setItem(LS_KEY,JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
-  }catch(e){console.warn('autoSave failed:',e);const b=document.getElementById('btn-save-badge');if(b){b.title=e.message;b.style.opacity='1';}}
+    localStorage.setItem(LS_KEY,JSON.stringify({version:'3',ts:Date.now(),model:M,lanes:lanes.map(l=>({pgIdx:l.pgIdx,lfIdx:l.lfIdx})),siteLimit,siteLen,accLeft,accRight,cover:{client:gv('f-client'),project:gv('f-project'),addr:gv('f-addr'),ref:gv('f-ref'),author:gv('f-author'),revby:gv('f-rev'),date:gv('f-date'),version:gv('f-version')}}));
+  }catch(e){console.warn('autoSave failed:',e);const b=document.getElementById('btn-save-badge');if(b){b.title=e.message;b.style.opacity='1';}}}
 function autoLoad(){
   try{
     const raw=localStorage.getItem(LS_KEY);if(!raw)return false;
@@ -615,8 +811,9 @@ function autoLoad(){
     if(Array.isArray(d.lanes))lanes=d.lanes.map(l=>({pgIdx:+(l.pgIdx)||0,lfIdx:+(l.lfIdx)||0}));
     if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
     if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
-    accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
-    accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+    if(typeof d.siteLen==='number'){siteLen=d.siteLen;const sl=document.getElementById('site-len');if(sl)sl.value=siteLen||'';}
+    accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600,isoZ:+(a.isoZ)||1})):[];
+    accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600,isoZ:+(a.isoZ)||1})):[];
     if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
     sessionRestored=true;return true;
   }catch(e){return false;}
@@ -636,11 +833,12 @@ function loadProject(e){
     try{
       const d=JSON.parse(ev.target.result);
       if(d.model&&MODELS[d.model])M=d.model;
-      if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const maxPg=sp2?sp2.pg.length-1:0,maxLf=sp2?sp2.lf.length-1:0;return{pgIdx:Math.min(pg,maxPg),lfIdx:Math.min(lf,maxLf)};});}
+      if(Array.isArray(d.lanes)){const sp2=MODELS[M];lanes=d.lanes.map(l=>{const pg=+(l.pgIdx)||0,lf=+(l.lfIdx)||0;const maxPg=sp2.pg.length-1,pgC=Math.min(pg,maxPg),maxLf=sp2.pg[pgC].leaves.length-1;return{pgIdx:pgC,lfIdx:Math.min(lf,maxLf)};});}
       if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
       if(typeof d.siteLimit==='number'){siteLimit=d.siteLimit;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
-      accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
-      accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600})):[];
+      if(typeof d.siteLen==='number'){siteLen=d.siteLen;const sl=document.getElementById('site-len');if(sl)sl.value=siteLen||'';}
+      accLeft=Array.isArray(d.accLeft)?d.accLeft.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600,isoZ:+(a.isoZ)||1})):[];
+      accRight=Array.isArray(d.accRight)?d.accRight.filter(a=>ACC_BY_CODE[a.code]).map(a=>({...a,r50gW:+(a.r50gW)||920,r50gH:+(a.r50gH)||600,isoZ:+(a.isoZ)||1})):[];
       if(d.cover){const c=d.cover;[['f-client',c.client],['f-project',c.project],['f-addr',c.addr],['f-ref',c.ref],['f-author',c.author],['f-rev',c.revby],['f-date',c.date],['f-version',c.version]].forEach(([id,v])=>{const el=document.getElementById(id);if(el&&v!=null)el.value=v;});}
       ui();redrawPage();autoSave();
     }catch(err){alert(T('errorLoad')+': '+err.message);}
@@ -948,6 +1146,7 @@ function drawCAD(){
       h+=`<line x1="${r(pcx+lw-gap)}" y1="${pax}" x2="${r(pcx+lw-gap-al)}" y2="${pax}" stroke="${sp.mc}" stroke-width="${mn(2.2,r(psc*12))}" stroke-linecap="round"/>`;
       h+=`<circle cx="${r(pcx+gap)}" cy="${pax}" r="${pr}" fill="none" stroke="${sp.mc}" stroke-width=".9"/>`;h+=`<circle cx="${r(pcx+lw-gap)}" cy="${pax}" r="${pr}" fill="none" stroke="${sp.mc}" stroke-width=".9"/>`;
       h+=`<text x="${r(pcx+lw/2)}" y="${r(poy+pdd*.63)}" text-anchor="middle" ${FM} font-size="7.5" fill="#1a5fa0">C${i+1}</text>`;
+      if(pg.c>=900){h+=`<text x="${r(pcx+lw/2)}" y="${r(poy+pdd*.45)}" text-anchor="middle" ${FM} font-size="8" fill="#1a5fa0" opacity=".8">♿</text>`;}
       if(clw>28)h+=tickDim(r(pcx+gap),r(pcx+gap+clw),r(poy+pdd-5),`${pg.c}`,'#2a7a2a');
       h+=`<line x1="${pcx}" y1="${r(poy+pdd-3)}" x2="${r(pcx+lw)}" y2="${r(poy+pdd-3)}" stroke="${pvc.color}" stroke-width="1.5" stroke-dasharray="4 2" opacity=".6"/>`;
       if(gapPx_p>=6){const gx0=r(pcx+lw/2-gapPx_p/2),gx1=r(pcx+lw/2+gapPx_p/2),gy=r(poy+pdd*.26);h+=`<line x1="${gx0}" y1="${r(gy-3)}" x2="${gx0}" y2="${r(gy+3)}" stroke="#8a6800" stroke-width=".9"/>`;h+=`<line x1="${gx1}" y1="${r(gy-3)}" x2="${gx1}" y2="${r(gy+3)}" stroke="#8a6800" stroke-width=".9"/>`;h+=`<line x1="${gx0}" y1="${gy}" x2="${gx1}" y2="${gy}" stroke="#8a6800" stroke-width=".7" marker-start="url(#da)" marker-end="url(#da)"/>`;h+=`<text x="${r((gx0+gx1)/2)}" y="${r(gy-5)}" text-anchor="middle" ${FM} font-size="5.5" fill="#8a6800" font-weight="600">GAP ${GAP_MM}mm</text>`;}
@@ -979,6 +1178,19 @@ function drawCAD(){
 
   // Limit line (full footprint)
   if(siteLimit>0)h+=limitLine(r(pox-pLWpx),psc,poy-2,r(poy+pdd+4),r(poy+pdd/2));
+
+  // ── COTA HUECO DISPONIBLE en planta (Mejora 9) ───────────────
+  if(siteLimit>0){
+    const hPx=r(siteLimit*psc),hLeft=r(pox-pLWpx),hRight=r(hLeft+hPx);
+    const hCol=getAlertState()==='over'?'#cc1111':'#1a7a30';
+    if(hRight>hLeft+8&&hLeft>=PX.l-10&&hRight<=PX.r+20){
+      h+=tickDim(hLeft,hRight,DL_TOT-18,`${rnd(siteLimit)} mm`,hCol,poy,8.5);
+      h+=`<text x="${r((hLeft+hRight)/2)}" y="${DL_TOT-22}" text-anchor="middle" ${FM} font-size="6" fill="${hCol}" font-weight="600">${T('maxLbl')}</text>`;
+    }
+  }
+
+  // ── NORTH INDICATOR (Mejora 15) ───────────────────────────────
+  {const nox=r(PX.r-18),noy=r(P_TOP+20);h+=`<g opacity=".8"><circle cx="${nox}" cy="${noy}" r="13" fill="#eeede5" stroke="#888" stroke-width=".6"/><line x1="${nox}" y1="${r(noy+9)}" x2="${nox}" y2="${r(noy-11)}" stroke="#111" stroke-width="1.2" stroke-linecap="round"/><polygon points="${r(nox-3)},${r(noy-3)} ${nox},${r(noy-11)} ${r(nox+3)},${r(noy-3)}" fill="#333"/><polygon points="${r(nox-3)},${r(noy+3)} ${nox},${r(noy+9)} ${r(nox+3)},${r(noy+3)}" fill="#ddd" stroke="#888" stroke-width=".5"/><text x="${nox}" y="${r(noy-14)}" text-anchor="middle" ${FM} font-size="7" fill="#222" font-weight="bold">N</text></g>`;}
 
   // ── FRONT ELEVATION ──────────────────────────────────────────
   h+=`<text x="${FXL+4}" y="${BOT_TOP+13}" text-anchor="start" ${FM} font-size="9" font-weight="bold" fill="#222" letter-spacing="1">${T('frontTitle')}</text>`;
@@ -1273,7 +1485,10 @@ function drawCover(){
   const W=720,H=560;
   let h=`<rect width="${W}" height="${H}" fill="#eeede5"/><rect x="10" y="10" width="${W-20}" height="${H-20}" fill="none" stroke="#14304f" stroke-width="2"/>`;
   h+=`<rect x="10" y="10" width="${W-20}" height="72" fill="#14304f"/>`;h+=`<text x="40" y="52" ${FM} font-size="30" font-weight="bold" fill="#fff" letter-spacing="2">ZK<tspan fill="#7dd87a">Teco</tspan></text>`;h+=`<text x="40" y="70" ${FM} font-size="9" fill="#7dd87a" letter-spacing="4">${T('coverSecurityTag')}</text>`;
-  h+=`<text x="${W-30}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-30}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-30}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
+  h+=`<text x="${W-105}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-105}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-105}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
+  const qrData=encodeURIComponent((project!=='—'?project:M)+' '+refn+' '+version);
+  h+=`<image href="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${qrData}&bgcolor=14304f&color=7dd87a" x="${W-94}" y="12" width="64" height="64" rx="3" style="image-rendering:pixelated"/>`;
+  h+=`<text x="${r(W-62)}" y="82" text-anchor="middle" ${FM} font-size="6" fill="rgba(125,216,122,.6)">${T('qrTitle')}</text>`;
   h+=`<text x="40" y="112" ${FM} font-size="8" fill="#888" letter-spacing="2">${T('covProject')}</text>`;h+=`<text x="40" y="135" ${FM} font-size="18" font-weight="bold" fill="#14304f">${project}</text>`;h+=`<line x1="40" y1="145" x2="${W-40}" y2="145" stroke="#14304f" stroke-width=".5"/>`;
   const c2x=390,rH=28;let ry=168;
   const rows=[[T('fldClient').toUpperCase(),client,false,''],[T('fldAddr').toUpperCase(),addr,false,''],[T('modelLbl').toUpperCase(),sp.label,false,''],['',unitsShort(),false,'sub'],[T('uiLanes').toUpperCase(),`${N()} ${N()>1?T('lanes'):T('lane')} · ${N()+1} ${T('nCabs').toLowerCase()}`,false,''],[T('covGates'),`${rnd(TWg)} mm`,aC!==null,''],[T('twLabel').toUpperCase(),`${rnd(TWtotal)} mm`,false,'acc']];
@@ -1298,7 +1513,7 @@ function drawCover(){
 // ══ UI ════════════════════════════════════════════════════════
 function ui(){
   const sp=MODELS[M];
-  document.getElementById('mtabs').innerHTML=MK.map(k=>`<button class="mbt${k===M?' on':''}" onclick="M='${k}';lanes=lanes.map(()=>({pgIdx:0,lfIdx:0}));ui();drawCAD();if(PAGE==='ficha')drawFicha();"><span class="mn">${MODELS[k].label}</span><span class="ms">${MODELS[k].sub}</span></button>`).join('');
+  document.getElementById('mtabs').innerHTML=MK.map(k=>`<button class="mbt${k===M?' on':''}" onclick="pushUndo('modelo');M='${k}';lanes=lanes.map(()=>({pgIdx:0,lfIdx:0}));ui();drawCAD();if(PAGE==='ficha')drawFicha();"><span class="mn">${MODELS[k].label}</span><span class="ms">${MODELS[k].sub}</span></button>`).join('');
   document.getElementById('nv').textContent=N();
   const dmBtn=document.getElementById('dm'),ipBtn=document.getElementById('ip');
   dmBtn.disabled=N()<=1;dmBtn.title=N()<=1?T('ttipMinLanes'):'';dmBtn.setAttribute('aria-label',T('btnDecLanes'));
@@ -1306,8 +1521,8 @@ function ui(){
   document.getElementById('lr').innerHTML=lanes.map((l,i)=>{
     const pgI=Math.min(l.pgIdx,sp.pg.length-1),pg=sp.pg[pgI],lfI=Math.min(l.lfIdx,pg.leaves.length-1);
     return`<div class="lc"><div class="ln">${T('lane')} ${i+1}</div>
-    <div class="lch">${sp.pg.map((p,j)=>`<button class="ch ${j===pgI?'op':''}" onclick="lanes[${i}]={pgIdx:${j},lfIdx:0};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${p.l}mm</button>`).join('')}</div>
-    <div class="lch" style="margin-top:2px">${pg.leaves.length>1?pg.leaves.map((lv,j)=>`<button class="ch ${j===lfI?'ol':''}" onclick="lanes[${i}].lfIdx=${j};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${lv.label}</button>`).join(''):`<span style="font-size:8px;font-family:monospace;color:rgba(168,189,212,.4)">${pg.leaves[0].label}</span>`}</div>
+    <div class="lch">${sp.pg.map((p,j)=>`<button class="ch ${j===pgI?'op':''}" onclick="pushUndo('anchura');lanes[${i}]={pgIdx:${j},lfIdx:0};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${p.l}mm</button>`).join('')}</div>
+    <div class="lch" style="margin-top:2px">${pg.leaves.length>1?pg.leaves.map((lv,j)=>`<button class="ch ${j===lfI?'ol':''}" onclick="pushUndo('hoja');lanes[${i}].lfIdx=${j};ui();drawCAD();if(PAGE==='ficha')drawFicha();">${lv.label}</button>`).join(''):`<span style="font-size:8px;font-family:monospace;color:rgba(168,189,212,.4)">${pg.leaves[0].label}</span>`}</div>
     </div>`;
   }).join('');
   const TWg=TWgate(),pvc=pvcSize(N()),st=getAlertState(),TWtotal=TWfull();
@@ -1322,8 +1537,8 @@ function ui(){
     ${sessionRestored?`<div class="sc" style="margin-left:auto"><span style="font-size:9px;color:#2a7a2a;opacity:.75">↺ ${T('sessionRestored')}</span><button onclick="clearSession()" style="margin-left:4px;font-size:10px;line-height:1;background:none;border:none;color:#888;cursor:pointer;padding:0" title="${T('sessionClear')}">×</button></div>`:''}`;
   updateAlerts();updateI18nDOM();renderAccBar();autoSave();
 }
-document.getElementById('dm').onclick=()=>{if(N()>1){lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
-document.getElementById('ip').onclick=()=>{if(N()<6){lanes.push({pgIdx:0,lfIdx:0});ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
+document.getElementById('dm').onclick=()=>{if(N()>1){pushUndo('-pasillo');lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
+document.getElementById('ip').onclick=()=>{if(N()<6){pushUndo('+pasillo');lanes.push({pgIdx:0,lfIdx:0});ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
 document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
 
 // ══ MIS PROYECTOS ═════════════════════════════════════════════
@@ -1362,6 +1577,7 @@ function renderProjectsModal(){
   if(!arr.length){el.innerHTML=`<div class="pj-empty">${T('projEmpty')}</div>`;return;}
   el.innerHTML='<div class="pj-grid">'+arr.map(p=>`<div class="pj-card">
     <div class="pj-name">${p.model===M?`<span class="pj-active-dot"></span>`:''}${p.name}</div>
+    ${_projectMiniSVG(p.model,p.nLanes)}
     <div class="pj-meta">${(MODELS[p.model]||{labelEnd:p.model}).labelEnd} · ${p.nLanes} ${T('lanes')} · ${p.tw} mm</div>
     <div class="pj-meta">${p.date}</div>
     <div class="pj-actions">
@@ -1403,10 +1619,11 @@ function drawISO(){
   let axL=0;
   for(let i=0;i<accLeft.length;i++){
     const itm=accLeft[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
+    const izv=+(itm.isoZ)||1,accZ=izv===0?0:izv===2?depthZ-accDepth:(depthZ-accDepth)/2;
     axL+=ACC_GAP_MM;
-    svg+=box(axL,0,aW,accDepth,aH,'#c08800',.78);
+    svg+=box(axL,accZ,aW,accDepth,aH,'#c08800',.78);
     if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
-      const gX=axL+(aW-gW)/2,gZ=20;
+      const gX=axL+(aW-gW)/2,gZ=accZ+20;
       const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
       svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
     axL+=aW;
@@ -1431,10 +1648,11 @@ function drawISO(){
   let axR=TWL+TWg;
   for(let i=0;i<accRight.length;i++){
     const itm=accRight[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
+    const izv=+(itm.isoZ)||1,accZ=izv===0?0:izv===2?depthZ-accDepth:(depthZ-accDepth)/2;
     axR+=ACC_GAP_MM;
-    svg+=box(axR,0,aW,accDepth,aH,'#c08800',.78);
+    svg+=box(axR,accZ,aW,accDepth,aH,'#c08800',.78);
     if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
-      const gX=axR+(aW-gW)/2,gZ=20;
+      const gX=axR+(aW-gW)/2,gZ=accZ+20;
       const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
       svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
     axR+=aW;
@@ -1506,10 +1724,257 @@ function drawComparator(){
   document.getElementById('cmpsvg').innerHTML=svg;
 }
 
-// ══ PWA SERVICE WORKER ════════════════════════════════════════
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+// ══ TOAST ═════════════════════════════════════════════════════
+function showToast(msg,dur){
+  let t=document.getElementById('toast');
+  if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t);}
+  t.textContent=msg;t.classList.add('on');
+  clearTimeout(t._tid);t._tid=setTimeout(()=>t.classList.remove('on'),dur||2200);
+}
 
-autoLoad();ui();drawCAD();
+// ══ THEME TOGGLE ══════════════════════════════════════════════
+function toggleTheme(){
+  document.documentElement.classList.toggle('lt');
+  const isLight=document.documentElement.classList.contains('lt');
+  try{localStorage.setItem('zkteco-theme',isLight?'light':'dark');}catch(e){}
+}
+(function(){try{if(localStorage.getItem('zkteco-theme')==='dark')document.documentElement.classList.remove('lt');}catch(e){}})();
+
+// ══ UNDO / REDO ═══════════════════════════════════════════════
+const undoStack=[],redoStack=[];
+function _stateSnap(){return JSON.stringify({M,lanes:lanes.map(l=>({...l})),siteLimit,siteLen,accLeft:accLeft.map(a=>({...a})),accRight:accRight.map(a=>({...a}))});}
+function pushUndo(label){undoStack.push({snap:_stateSnap(),lbl:label||'—'});if(undoStack.length>30)undoStack.shift();redoStack.length=0;_updateUndoUI();}
+function _applySnap(entry){
+  const d=JSON.parse(typeof entry==='string'?entry:entry.snap);
+  if(MODELS[d.M])M=d.M;
+  lanes=d.lanes.map(l=>({...l}));
+  siteLimit=d.siteLimit;siteLen=d.siteLen||0;
+  const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';
+  const sl=document.getElementById('site-len');if(sl)sl.value=siteLen||'';
+  accLeft=d.accLeft.map(a=>({...a}));
+  accRight=d.accRight.map(a=>({...a}));
+}
+function undo(){if(!undoStack.length)return;redoStack.push({snap:_stateSnap(),lbl:'↩'});_applySnap(undoStack.pop());ui();redrawPage();autoSave();_updateUndoUI();}
+function redo(){if(!redoStack.length)return;undoStack.push({snap:_stateSnap(),lbl:'↪'});_applySnap(redoStack.pop());ui();redrawPage();autoSave();_updateUndoUI();}
+function _updateUndoUI(){
+  const bu=document.getElementById('btn-undo'),br=document.getElementById('btn-redo');
+  if(bu)bu.disabled=!undoStack.length;if(br)br.disabled=!redoStack.length;
+  const panel=document.getElementById('undo-panel');if(!panel)return;
+  if(!undoStack.length){panel.innerHTML='';return;}
+  const labels=[...undoStack].reverse().slice(0,6).map(e=>e.lbl||'—');
+  panel.innerHTML=`<div class="undo-hist-line">↺ ${undoStack.length} ${T('undoHistLbl')}: ${labels.join(' · ')}</div>`;
+}
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&!e.shiftKey&&e.key==='z'&&!e.target.matches('input,textarea')){e.preventDefault();undo();}
+  if((e.ctrlKey||e.metaKey)&&((e.shiftKey&&e.key==='z')||e.key==='y')&&!e.target.matches('input,textarea')){e.preventDefault();redo();}
+});
+
+// ══ SHARE URL ═════════════════════════════════════════════════
+function shareURL(){
+  const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
+  const state={v:3,m:M,l:lanes.map(l=>({p:l.pgIdx,f:l.lfIdx})),sl:siteLimit,
+    al:accLeft.map(a=>({c:a.code,g:a.r50gW,h:a.r50gH})),
+    ar:accRight.map(a=>({c:a.code,g:a.r50gW,h:a.r50gH})),
+    cv:{cl:gv('f-client'),pr:gv('f-project'),ad:gv('f-addr'),rf:gv('f-ref'),au:gv('f-author'),rv:gv('f-rev'),dt:gv('f-date'),vr:gv('f-version')}};
+  const hash='#s='+btoa(encodeURIComponent(JSON.stringify(state)));
+  const url=location.href.replace(/#.*/,'')+hash;
+  history.replaceState(null,'',hash);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>showToast(T('urlCopied'))).catch(()=>showToast(T('urlCopyManual')));
+  } else {
+    try{const ta=document.createElement('textarea');ta.value=url;ta.style.cssText='position:fixed;opacity:0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();showToast(T('urlCopied'));}
+    catch(e){showToast(T('urlCopyManual'));}
+  }
+}
+function loadFromHash(){
+  try{
+    const m=location.hash.match(/[#&]s=([^&]+)/);
+    if(!m)return false;
+    const d=JSON.parse(decodeURIComponent(atob(m[1])));
+    if(d.m&&MODELS[d.m])M=d.m;
+    if(Array.isArray(d.l)){const sp=MODELS[M];lanes=d.l.map(l=>{const pgC=Math.min(+(l.p)||0,sp.pg.length-1),mxL=sp.pg[pgC].leaves.length-1;return{pgIdx:pgC,lfIdx:Math.min(+(l.f)||0,mxL)};});}
+    if(lanes.length<1)lanes=[{pgIdx:0,lfIdx:0}];
+    if(typeof d.sl==='number'){siteLimit=d.sl;const li=document.getElementById('limit-input');if(li)li.value=siteLimit||'';}
+    accLeft=Array.isArray(d.al)?d.al.filter(a=>ACC_BY_CODE[a.c]).map(a=>({code:a.c,r50gW:+(a.g)||920,r50gH:+(a.h)||600})):[];
+    accRight=Array.isArray(d.ar)?d.ar.filter(a=>ACC_BY_CODE[a.c]).map(a=>({code:a.c,r50gW:+(a.g)||920,r50gH:+(a.h)||600})):[];
+    if(d.cv){const c=d.cv;[['f-client',c.cl],['f-project',c.pr],['f-addr',c.ad],['f-ref',c.rf],['f-author',c.au],['f-rev',c.rv],['f-date',c.dt],['f-version',c.vr]].forEach(([eid,v])=>{const el=document.getElementById(eid);if(el&&v!=null)el.value=v;});}
+    return true;
+  }catch(e){return false;}
+}
+
+// ══ PRESETS ═══════════════════════════════════════════════════
+const PRESETS={
+  std2: {m:'sbtl8000',l:[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}]},
+  wide1:{m:'sbtl8000',l:[{pgIdx:1,lfIdx:0}]},
+  mix3: {m:'sbtl8000',l:[{pgIdx:0,lfIdx:0},{pgIdx:1,lfIdx:0},{pgIdx:0,lfIdx:0}]},
+  xl2:  {m:'sbtl8000',l:[{pgIdx:2,lfIdx:0},{pgIdx:2,lfIdx:0}]},
+  acc4: {m:'sbtl8000',l:[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}]},
+};
+function applyPreset(key){
+  const p=PRESETS[key];if(!p)return;
+  pushUndo();
+  if(MODELS[p.m])M=p.m;
+  const sp=MODELS[M];
+  lanes=p.l.map(l=>{const mxP=sp.pg.length-1,pg=Math.min(l.pgIdx,mxP),mxL=sp.pg[pg].leaves.length-1;return{pgIdx:pg,lfIdx:Math.min(l.lfIdx,mxL)};});
+  ui();redrawPage();autoSave();showToast(T('presetApplied'));
+}
+
+// ══ MIRROR CONFIG ═════════════════════════════════════════════
+function mirrorConfig(){
+  pushUndo();
+  const tmp=accLeft;accLeft=accRight;accRight=tmp;
+  ui();redrawPage();autoSave();showToast(T('mirrorApplied'));
+}
+
+// ══ DXF EXPORT ════════════════════════════════════════════════
+function _dxfLine(x1,y1,x2,y2,layer){return'0\nLINE\n8\n'+(layer||'0')+'\n10\n'+r(x1)+'\n20\n'+r(y1)+'\n11\n'+r(x2)+'\n21\n'+r(y2)+'\n';}
+function _dxfRect(x,y,w,h,layer){const l=layer||'0';return _dxfLine(x,y,x+w,y,l)+_dxfLine(x+w,y,x+w,y+h,l)+_dxfLine(x+w,y+h,x,y+h,l)+_dxfLine(x,y+h,x,y,l);}
+function _dxfText(x,y,txt,ht,layer){return'0\nTEXT\n8\n'+(layer||'ANNO')+'\n10\n'+r(x)+'\n20\n'+r(y)+'\n40\n'+(ht||80)+'\n1\n'+String(txt).replace(/\n/g,' ')+'\n72\n1\n11\n'+r(x)+'\n21\n'+r(y)+'\n';}
+function exportDXF(){
+  const sp=MODELS[M],n=N();
+  let dxf='',x=0;
+  // Left accessories
+  accLeft.forEach(item=>{
+    const aw=getAccItemW(item),ah=item.H||950;
+    dxf+=_dxfRect(x,0,aw,ah,'ACC');
+    dxf+=_dxfText(x+aw/2,ah/2,item.code,80,'ANNO');
+    x+=aw+ACC_GAP_MM;
+  });
+  if(accLeft.length)x+=ACC_GAP_MM;
+  // Cabinets + lanes
+  for(let i=0;i<=n;i++){
+    dxf+=_dxfRect(x,0,sp.W,sp.D,'CABS');
+    dxf+=_dxfText(x+sp.W/2,sp.D/2,(i===0?sp.labelEnd:sp.labelCentral),60,'ANNO');
+    x+=sp.W;
+    if(i<n)x+=getLane(i).pg.s;
+  }
+  // Right accessories
+  if(accRight.length)x+=ACC_GAP_MM;
+  accRight.forEach(item=>{
+    const aw=getAccItemW(item),ah=item.H||950;
+    dxf+=_dxfRect(x,0,aw,ah,'ACC');
+    dxf+=_dxfText(x+aw/2,ah/2,item.code,80,'ANNO');
+    x+=aw+ACC_GAP_MM;
+  });
+  const tw=TWfull();
+  dxf+=_dxfLine(0,-200,tw,-200,'DIM');
+  dxf+=_dxfLine(0,-180,0,-220,'DIM')+_dxfLine(tw,-180,tw,-220,'DIM');
+  dxf+=_dxfText(tw/2,-300,'TW='+rnd(tw)+' mm',120,'DIM');
+  if(siteLimit>0){
+    dxf+=_dxfLine(0,-380,siteLimit,-380,'LIMIT');
+    dxf+=_dxfLine(0,-360,0,-400,'LIMIT')+_dxfLine(siteLimit,-360,siteLimit,-400,'LIMIT');
+    dxf+=_dxfText(siteLimit/2,-450,T('maxLbl')+' '+rnd(siteLimit)+' mm',100,'LIMIT');
+  }
+  const hdr='0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1014\n9\n$EXTMIN\n10\n-100\n20\n-500\n9\n$EXTMAX\n10\n'+r(tw+200)+'\n20\n'+r(sp.D+100)+'\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n';
+  const blob=new Blob([hdr+dxf+'0\nENDSEC\n0\nEOF\n'],{type:'application/dxf'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='ZKTeco_'+M+'_'+n+'L.dxf';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  showToast('DXF exportado ✓');
+}
+
+// ══ BILL OF MATERIALS ═════════════════════════════════════════
+function drawBOM(){
+  const sp=MODELS[M],n=N(),nCentral=Math.max(0,n-1);
+  const pvc=pvcSize(n),cables=T('cables');
+  const items=[];
+  items.push({qty:1,ref:sp.labelEnd,desc:sp.label+' · '+sp.sub});
+  if(nCentral>0)items.push({qty:nCentral,ref:sp.labelCentral,desc:sp.label+' · Central'});
+  const leafG={};
+  Array.from({length:n},(_,i)=>{const lf=getLane(i).lf;if(!leafG[lf.gmp])leafG[lf.gmp]={qty:0,ref:lf.gmp,desc:lf.label};leafG[lf.gmp].qty+=2;});
+  Object.values(leafG).forEach(g=>items.push(g));
+  const accG={};
+  [...accLeft,...accRight].forEach(a=>{if(!accG[a.code])accG[a.code]={qty:0,ref:a.code,desc:accLbl(ACC_BY_CODE[a.code])};accG[a.code].qty++;});
+  Object.values(accG).forEach(g=>items.push(g));
+  items.push({qty:1,ref:'PVC-Ø'+pvc.d,desc:T('bomPVC')+' '+pvc.label});
+  if(Array.isArray(cables))cables.forEach((c,i)=>items.push({qty:n+1,ref:'CBL-'+(i+1),desc:c}));
+  const el=document.getElementById('bom-content');if(!el)return;
+  const grid='display:grid;grid-template-columns:40px 150px 1fr;gap:2px 8px;font-family:monospace;';
+  const hdr=`<div class="bom-hdr" style="${grid}font-size:9px;font-weight:700;color:rgba(255,255,255,.5);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.15);margin-bottom:2px"><span>${T('bomQty')}</span><span>${T('bomGMP')}</span><span>${T('bomDesc')}</span></div>`;
+  const rows=items.map(it=>`<div class="bom-sep" style="${grid}font-size:9.5px;padding:2.5px 0;border-bottom:1px solid rgba(255,255,255,.06);align-items:center"><span class="bom-qty" style="color:#7dd87a;font-weight:700">${it.qty}×</span><span class="bom-ref" style="color:#b0b8c8">${it.ref}</span><span class="bom-desc" style="color:#d0d8e4">${it.desc}</span></div>`).join('');
+  const total=items.reduce((s,it)=>s+it.qty,0);
+  const foot=`<div class="bom-foot" style="${grid}font-size:10px;font-weight:700;color:#7dd87a;padding:6px 0 2px;border-top:1px solid rgba(255,255,255,.2);margin-top:2px"><span>${total}×</span><span style="grid-column:2/4">${T('bomTotal')}</span><span></span></div>`;
+  el.innerHTML=hdr+rows+foot;
+}
+function exportBOM(fmt){
+  if(fmt!=='csv')return;
+  const sp=MODELS[M],n=N(),nCentral=Math.max(0,n-1);
+  const pvc=pvcSize(n),cables=T('cables');
+  const rows=[[T('bomQty'),T('bomGMP'),T('bomDesc')]];
+  rows.push([1,sp.labelEnd,sp.label]);
+  if(nCentral>0)rows.push([nCentral,sp.labelCentral,sp.label+' Central']);
+  const leafG={};
+  Array.from({length:n},(_,i)=>{const lf=getLane(i).lf;if(!leafG[lf.gmp])leafG[lf.gmp]={qty:0,gmp:lf.gmp,lbl:lf.label};leafG[lf.gmp].qty+=2;});
+  Object.values(leafG).forEach(g=>rows.push([g.qty,g.gmp,g.lbl]));
+  [...accLeft,...accRight].forEach(a=>rows.push([1,a.code,accLbl(ACC_BY_CODE[a.code])]));
+  rows.push([1,'PVC-Ø'+pvc.d,T('bomPVC')+' '+pvc.label]);
+  if(Array.isArray(cables))cables.forEach((c,i)=>rows.push([n+1,'CBL-'+(i+1),c]));
+  const csv=rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='BOM_ZKTeco_'+M+'.csv';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  showToast('CSV exportado ✓');
+}
+function printBOM(){drawBOM();window.print();}
+
+// ══ BOM → EXCEL (XML Spreadsheet 2003) ═══════════════════════
+function exportBOMxls(){
+  const sp=MODELS[M],n=N(),nCentral=Math.max(0,n-1);
+  const pvc=pvcSize(n),cables=T('cables');
+  const rows=[[T('bomQty'),T('bomGMP'),T('bomDesc')]];
+  rows.push([1,sp.labelEnd,sp.label]);
+  if(nCentral>0)rows.push([nCentral,sp.labelCentral,sp.label+' Central']);
+  const leafG={};
+  Array.from({length:n},(_,i)=>{const lf=getLane(i).lf;if(!leafG[lf.gmp])leafG[lf.gmp]={qty:0,gmp:lf.gmp,lbl:lf.label};leafG[lf.gmp].qty+=2;});
+  Object.values(leafG).forEach(g=>rows.push([g.qty,g.gmp,g.lbl]));
+  [...accLeft,...accRight].forEach(a=>rows.push([1,a.code,accLbl(ACC_BY_CODE[a.code])]));
+  rows.push([1,'PVC-Ø'+pvc.d,T('bomPVC')+' '+pvc.label]);
+  if(Array.isArray(cables))cables.forEach((c,i)=>rows.push([n+1,'CBL-'+(i+1),c]));
+  const esc=v=>String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const xmlRows=rows.map(row=>`<Row>${row.map(c=>`<Cell><Data ss:Type="String">${esc(c)}</Data></Cell>`).join('')}</Row>`).join('');
+  const xls='<?xml version="1.0"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="BOM"><Table>'+xmlRows+'</Table></Worksheet></Workbook>';
+  const blob=new Blob([xls],{type:'application/vnd.ms-excel;charset=utf-8'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='BOM_ZKTeco_'+M+'.xls';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),5000);
+  showToast('XLS exportado ✓');
+}
+
+// ══ SITE LENGTH + CABLE ESTIMATE ══════════════════════════════
+function onSiteLenChange(){
+  const val=parseFloat(document.getElementById('site-len').value)||0;
+  siteLen=Math.max(0,val);_updateCableEst();autoSave();
+}
+function _updateCableEst(){
+  const el=document.getElementById('cable-est');if(!el)return;
+  if(!siteLen){el.textContent='';return;}
+  const nCab=N()+1,cbl=T('cables');
+  const nTypes=Array.isArray(cbl)?cbl.length:4;
+  const totalM=Math.round(siteLen*nCab*nTypes*1.15);
+  el.textContent=`≈${totalM}m ${T('cableTotLbl')||''}`;
+}
+
+// ══ PROJECTS MINI THUMBNAIL ════════════════════════════════════
+function _projectMiniSVG(model,nLanes){
+  const sp=MODELS[model];if(!sp)return'';
+  const n=nLanes||1,cw=14,lw=22,W=150,H=36;
+  const totalW=(n+1)*cw+n*lw,sc=Math.min((W-16)/totalW,(H-8)/44);
+  let x=(W-totalW*sc)/2,my=H/2;
+  let svg=`<svg viewBox="0 0 ${W} ${H}" style="width:150px;height:36px;display:block;border-radius:3px;overflow:hidden">`;
+  svg+=`<rect width="${W}" height="${H}" fill="rgba(20,48,79,.06)" rx="3"/>`;
+  for(let i=0;i<=n;i++){
+    svg+=`<rect x="${r(x)}" y="${r(my-9)}" width="${r(cw*sc)}" height="18" fill="${sp.mc}" rx="1" opacity=".85"/>`;
+    x+=cw*sc;
+    if(i<n){svg+=`<rect x="${r(x)}" y="${r(my-6)}" width="${r(lw*sc)}" height="12" fill="#bdd9ef" rx="1" opacity=".55"/>`;x+=lw*sc;}
+  }
+  svg+=`</svg>`;return svg;
+}
+
+// ══ PWA SERVICE WORKER (solo con servidor HTTP) ═══════════════
+if('serviceWorker' in navigator && location.protocol!=='file:'){navigator.serviceWorker.register('sw.js').catch(()=>{});}
+
+loadFromHash()||autoLoad();ui();drawCAD();_updateCableEst();
 </script>
 </body>
 </html>
