@@ -1343,9 +1343,9 @@ function drawWiring(){
   }
   h+=`<text x="360" y="${cnY}" text-anchor="middle" ${FM} font-size="6.5" fill="#1a7a30" letter-spacing=".3">── ${T('chainNote')} ──</text>`;
   const pvcRad=r(pvcTk/2);h+=`<rect x="${rX1}" y="${pvcCY-pvcTk/2}" width="${rX2-rX1}" height="${pvcTk}" fill="${pvc.color}22" stroke="${pvc.color}" stroke-width="1.4" rx="${pvcRad}"/>`;
-  const nL=Math.min(totalCables,9),piW=rX2-rX1-12;for(let k=0;k<nL;k++){const lx=r(rX1+6+k*(piW/(nL-1||1)));h+=`<line x1="${lx}" y1="${pvcCY-pvcTk/2+2}" x2="${lx}" y2="${pvcCY+pvcTk/2-2}" stroke="${pvc.color}" stroke-width=".9" opacity=".5"/>`;}
   h+=`<text x="360" y="${pvcLY}" text-anchor="middle" ${FM} font-size="7.5" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label} · ${totalCables} ${T('lblCables')} · IEC 61386 40%</text>`;
-  h+=`<text x="360" y="${pvcNY}" text-anchor="middle" ${FM} font-size="6" fill="#888">${T('pvcNote')}</text>`;
+  const _pvcNoteExtra=siteLen?` · ${T('siteLenLbl').toLowerCase()} ${siteLen} mm`:'';
+  h+=`<text x="360" y="${pvcNY}" text-anchor="middle" ${FM} font-size="6" fill="#888">prof. ${sp.D} mm${_pvcNoteExtra}</text>`;
   h+=`<rect x="${LX}" y="${IT}" width="${LW}" height="${LH}" fill="#eeede5" stroke="#ccc" stroke-width=".5" rx="3"/>`;h+=`<text x="${LX+6}" y="${IT+11}" ${FM} font-size="7" fill="#14304f" font-weight="bold">${T('legend')}</text>`;
   LEG.forEach(({col,lbl,dash,thick},k)=>{const ly=IT+18+k*13;h+=`<line x1="${LX+8}" y1="${ly+3}" x2="${LX+30}" y2="${ly+3}" stroke="${col}" stroke-width="${thick?2.4:1.8}" stroke-dasharray="${dash}"/>`;h+=`<text x="${LX+36}" y="${ly+7}" ${FM} font-size="6.5" fill="#333">${lbl}</text>`;});
   h+=`<rect x="${TX}" y="${IT}" width="${TW2}" height="50" fill="#f0f8ff" stroke="#aac4e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${TX+6}" y="${IT+11}" ${FM} font-size="7" font-weight="bold" fill="#14304f">${T('pvcSizing')}</text>`;
