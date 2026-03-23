@@ -1169,11 +1169,14 @@ function drawCAD(){
   const sbp=r(500*psc),sbx=r(PX.r-sbp-4),sby=r(P_BOT-14);
   if(sbx>PX.l+130&&sbp>20){h+=`<rect x="${sbx}" y="${r(sby-4)}" width="${sbp}" height="4" fill="none" stroke="#444" stroke-width=".6"/>`;h+=`<rect x="${sbx}" y="${r(sby-4)}" width="${r(sbp/2)}" height="4" fill="#444" opacity=".6"/>`;h+=`<text x="${r(sbx+sbp/2)}" y="${r(sby-7)}" text-anchor="middle" ${FM} font-size="6.5" fill="#444">${T('scaleLbl')}</text>`;}
 
-  // Legend
-  const lx2=PX.l+4,ly2=r(P_BOT-54);
+  // Legend — posición dinámica: izquierda si hay espacio, si no derecha del dibujo
   const legItems=[{c:'#cc1111',v:`${T('pernoLbl')} ×${(N()+1)*sp.bolts.length}`},{c:'#1a5fa0',v:T('gabLbl')},{c:'#555',v:T('slotLbl')},{c:pvc.color,v:`PVC ${pvc.label}`},{c:'#8a6800',v:`${T('ficGapCentral')} ${GAP_MM} mm`},{c:'#c08800',v:`${T('twLabel')}: ${rnd(TWtotal)} mm`}];
-  const lH=legItems.length*8+6;
-  h+=`<rect x="${lx2}" y="${r(ly2)}" width="172" height="${lH}" fill="#eeede5" stroke="#ccc" stroke-width=".35" rx="2"/>`;
+  const lH=legItems.length*8+6,legW=172;
+  const leftGateEdge=r(pox-pLWpx),rightGateEdge=r(pox+pdw+pRWpx);
+  const legFitsLeft=leftGateEdge-PX.l>=legW+6,legFitsRight=PX.r-rightGateEdge>=legW+6;
+  const lx2=legFitsLeft?(PX.l+4):legFitsRight?(rightGateEdge+4):(PX.r-legW-4);
+  const ly2=r(P_BOT-lH-4);
+  h+=`<rect x="${lx2}" y="${r(ly2)}" width="${legW}" height="${lH}" fill="#eeede5" stroke="#ccc" stroke-width=".35" rx="2"/>`;
   legItems.forEach(({c,v},k)=>{const yy=r(ly2+5+k*8);h+=`<rect x="${r(lx2+5)}" y="${r(yy-4)}" width="6" height="5" fill="${c}" rx="1"/>`;h+=`<text x="${r(lx2+14)}" y="${r(yy)}" ${FM} font-size="5.5" fill="#333">${v}</text>`;});
 
   // Limit line (full footprint)
