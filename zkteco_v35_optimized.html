@@ -1302,54 +1302,121 @@ function drawCAD(){
   document.getElementById('cv').innerHTML=h;
 }
 
-// ══ WIRING (unchanged from v31) ═══════════════════════════════
+// ══ WIRING ════════════════════════════════════════════════════
 function drawWiring(){
   const sp=MODELS[M];if(!sp)return;
   const n=N(),pvc=pvcSize(n),totalUnits=n+1,totalCables=2+4*n;
-  const cables=T('cables'),pvcRanges=T('pvcRanges');
-  const MC='#c04000',SC='#1a5fa0';
-  const IW=688,MG=16,SW=74,SH=50,SG=12;
-  const rcW=Math.floor((IW-SW-SG)/totalUnits*.85);
-  const cabW=Math.max(64,Math.min(106,rcW));
-  const spc=Math.max(10,Math.floor(((IW-SW-SG)-totalUnits*cabW)/Math.max(n,1)));
-  const sX=MG+SW+SG,uX=i=>sX+i*(cabW+spc),tSpan=totalUnits*cabW+n*spc;
-  const rX1=sX-8,rX2=sX+tSpan+8;
-  const acY=54,uTY=acY+16,cabH=86,connY=uTY+52,dTY=uTY+cabH,pvcCY=dTY+36;
-  const pvcTk=pvc.d<=50?12:pvc.d<=63?15:18;
-  const pvcBY=pvcCY+pvcTk/2,cnY=uTY+cabH+12,pvcLY=pvcBY+13,pvcNY=pvcLY+13,IT=pvcNY+18;
-  const LX=MG,LW=216,TW2=218,TX=720-MG-TW2;
-  const LEG=[...cables.map((lbl,k)=>({col:['#cc1111','#1a5fa0','#e8a020','#2a7a2a'][k],lbl,dash:k===3?'5 3.5':'',thick:false})),{col:'#1a7a30',lbl:T('chainNote'),dash:'6 3.5',thick:true}];
-  const LH=16+LEG.length*13+4,vH=IT+Math.max(LH,50)+20;
-  const wsvg=document.getElementById('wsvg');wsvg.setAttribute('viewBox',`0 0 720 ${vH}`);
-  let h=`<rect width="720" height="${vH}" fill="#eeede5"/><rect x="8" y="8" width="704" height="${vH-16}" fill="none" stroke="#111" stroke-width="1.4"/>`;
-  h+=`<text x="${MG}" y="22" text-anchor="start" ${FM} font-size="9.5" font-weight="bold" fill="#14304f" letter-spacing=".8">${T('wiringTitle')}</text>`;
-  h+=`<text x="${MG}" y="34" text-anchor="start" ${FM} font-size="6.5" fill="#888">${sp.label} · ${n} ${n>1?T('lanes'):T('lane')} · ${unitsShort()}</text>`;
-  h+=`<line x1="${rX1}" y1="${acY}" x2="${rX2}" y2="${acY}" stroke="#cc1111" stroke-width="2.4" stroke-linecap="round"/>`;h+=`<text x="${rX1-4}" y="${acY-5}" text-anchor="end" ${FM} font-size="7" fill="#cc1111" font-weight="bold">AC 110/220V</text>`;
-  const swX=MG,swY=uTY+4;h+=`<rect x="${swX+2}" y="${swY+2}" width="${SW}" height="${SH}" fill="rgba(0,0,0,.07)" rx="4"/>`;h+=`<rect x="${swX}" y="${swY}" width="${SW}" height="${SH}" fill="#f8f8f0" stroke="#555" stroke-width="1" rx="4"/>`;h+=`<rect x="${swX}" y="${swY}" width="${SW}" height="17" fill="#444" rx="4"/>`;h+=`<rect x="${swX}" y="${swY+11}" width="${SW}" height="6" fill="#444"/>`;h+=`<text x="${r(swX+SW/2)}" y="${swY+12}" text-anchor="middle" ${FM} font-size="7" fill="#fff" font-weight="bold">${T('switchLbl')}</text>`;h+=`<text x="${r(swX+SW/2)}" y="${swY+31}" text-anchor="middle" ${FM} font-size="5.5" fill="#444">${T('accessCtrl')}</text>`;h+=`<line x1="${swX+SW}" y1="${r(swY+SH/2)}" x2="${sX}" y2="${r(connY)}" stroke="#1a5fa0" stroke-width="1.3"/>`;h+=`<circle cx="${swX+SW}" cy="${r(swY+SH/2)}" r="2.5" fill="#1a5fa0"/>`;
-  for(let i=0;i<n;i++){const x0=r(uX(i)+cabW),x1=uX(i+1);h+=`<line x1="${x0}" y1="${connY}" x2="${x1}" y2="${connY}" stroke="#1a7a30" stroke-width="2.2" stroke-dasharray="6 3.5" marker-end="url(#ms-arr)"/>`;}
+  const cables=T('cables');
+  const C_AC='#cc1111',C_ETH='#1464b4',C_MTR='#1a7a30',C_MS='#1a1a1a';
+  const SVG_W=720,MG=16,SW_W=68,SW_H=52,CAB_H=100;
+  const UX0=MG+SW_W+12;
+  const availW=SVG_W-2*MG-SW_W-12;
+  const cabW=Math.max(70,Math.min(94,Math.floor(availW*0.78/totalUnits)));
+  const laneGap=n>0?Math.min(160,Math.max(20,Math.floor((availW-totalUnits*cabW)/n))):0;
+  const barrL=n>0?Math.max(0,Math.min(18,Math.floor(laneGap/2)-3)):0;
+  const uX=i=>UX0+i*(cabW+laneGap);
+  const condTk=pvc.d<=50?13:pvc.d<=63?16:20;
+  const acY=54,unitTY=72,unitBY=unitTY+CAB_H;
+  const condCY=unitBY+42,condBY=condCY+condTk/2;
+  const lbl1Y=condBY+16,lbl2Y=lbl1Y+13,panelY=lbl2Y+14;
+  const condX1=r(uX(0)-10),condX2=r(uX(n)+cabW+10);
+  const LEG=[{col:C_AC,lbl:cables[0],dash:'',w:2.6},{col:C_ETH,lbl:cables[1],dash:'4 2.5',w:1.6},{col:C_MTR,lbl:cables[2],dash:'',w:1.6},{col:C_MS,lbl:cables[3],dash:'8 4',w:1.6}];
+  const LH=14+LEG.length*13+4,TH=14+5*13+4;
+  const vH=panelY+Math.max(LH,TH)+18;
+  const wsvg=document.getElementById('wsvg');
+  wsvg.setAttribute('viewBox',`0 0 ${SVG_W} ${vH}`);
+  let h=`<defs><pattern id="cnd-mtl" patternUnits="userSpaceOnUse" width="8" height="${condTk}"><rect width="8" height="${condTk}" fill="#8a9eb4"/><rect width="8" height="3" fill="#a4b8cc"/><rect y="${condTk-3}" width="8" height="3" fill="#6a8898"/></pattern></defs>`;
+  h+=`<rect width="${SVG_W}" height="${vH}" fill="#eeede5"/>`;
+  h+=`<rect x="8" y="8" width="${SVG_W-16}" height="${vH-16}" fill="none" stroke="#1a1a1a" stroke-width="1.4"/>`;
+  h+=`<text x="${MG+2}" y="22" text-anchor="start" ${FM} font-size="9.5" font-weight="bold" fill="#14304f" letter-spacing=".8">${T('wiringTitle')}</text>`;
+  h+=`<text x="${MG+2}" y="34" text-anchor="start" ${FM} font-size="6.5" fill="#666">${sp.label} · ${n} ${n>1?T('lanes'):T('lane')} · ${unitsShort()}</text>`;
+  // AC power rail
+  const acX1=r(uX(0)-6),acX2=r(uX(n)+cabW+6);
+  const psX=Math.max(MG+4,acX1-38);
+  h+=`<rect x="${psX}" y="${acY-9}" width="26" height="18" fill="${C_AC}" rx="2"/>`;
+  h+=`<text x="${r(psX+13)}" y="${acY+5}" text-anchor="middle" ${FM} font-size="6.5" font-weight="bold" fill="#fff">AC</text>`;
+  h+=`<line x1="${psX+26}" y1="${acY}" x2="${acX2}" y2="${acY}" stroke="${C_AC}" stroke-width="2.8" stroke-linecap="round"/>`;
+  h+=`<text x="${r(Math.min(psX,acX1)-2)}" y="${acY-12}" text-anchor="end" ${FM} font-size="6.5" fill="${C_AC}" font-weight="bold">110/220V</text>`;
+  // Switch / Access Control
+  const swX=MG,swY=unitTY+4;
+  h+=`<rect x="${swX+2}" y="${swY+2}" width="${SW_W}" height="${SW_H}" fill="rgba(0,0,0,.09)" rx="4"/>`;
+  h+=`<rect x="${swX}" y="${swY}" width="${SW_W}" height="${SW_H}" fill="#f4f4ec" stroke="#333" stroke-width="1" rx="4"/>`;
+  h+=`<rect x="${swX}" y="${swY}" width="${SW_W}" height="17" fill="#222" rx="4"/>`;
+  h+=`<rect x="${swX}" y="${swY+11}" width="${SW_W}" height="6" fill="#222"/>`;
+  h+=`<text x="${r(swX+SW_W/2)}" y="${swY+12}" text-anchor="middle" ${FM} font-size="6.5" fill="#fff" font-weight="bold">${T('switchLbl')}</text>`;
+  h+=`<text x="${r(swX+SW_W/2)}" y="${swY+30}" text-anchor="middle" ${FM} font-size="5.5" fill="#555">${T('accessCtrl')}</text>`;
+  // Ethernet bezier: switch → E1
+  const swEX=swX+SW_W,swEY=r(swY+SW_H/2);
+  const e1LX=uX(0),e1EY=r(unitTY+54);
+  h+=`<path d="M${swEX} ${swEY} C${swEX+28} ${swEY} ${e1LX-20} ${e1EY} ${e1LX} ${e1EY}" fill="none" stroke="${C_ETH}" stroke-width="1.6" stroke-dasharray="4 2.5"/>`;
+  h+=`<circle cx="${swEX}" cy="${swEY}" r="2.5" fill="${C_ETH}"/>`;
+  h+=`<circle cx="${e1LX}" cy="${e1EY}" r="2" fill="${C_ETH}"/>`;
+  // Units (top-view plan representation)
   for(let i=0;i<=n;i++){
-    const dx=uX(i),dy=uTY,type=cabType(i),isEnd=(type==='left'||type==='right');
-    const mRef=isEnd?sp.labelEnd:sp.labelCentral,tLbl=type==='left'?T('unitLeftEnd'):type==='right'?T('unitRightEnd'):T('unitCentral');
-    const hdrCol=isEnd?'#14304f':'#1a4a28';
-    h+=`<rect x="${dx+2}" y="${dy+2}" width="${cabW}" height="${cabH}" fill="rgba(0,0,0,.07)" rx="4"/>`;h+=`<rect x="${dx}" y="${dy}" width="${cabW}" height="${cabH}" fill="${isEnd?'#f8fafd':'#f0f8f4'}" stroke="${hdrCol}" stroke-width="1.2" rx="4"/>`;h+=`<rect x="${dx}" y="${dy}" width="${cabW}" height="18" fill="${hdrCol}" rx="4"/>`;h+=`<rect x="${dx}" y="${dy+12}" width="${cabW}" height="6" fill="${hdrCol}"/>`;
-    h+=`<text x="${r(dx+cabW/2)}" y="${dy+12}" text-anchor="middle" ${FM} font-size="${cabW>82?8:7}" font-weight="bold" fill="#fff">${mRef}</text>`;h+=`<text x="${r(dx+cabW/2)}" y="${dy+27}" text-anchor="middle" ${FM} font-size="${cabW>80?6:5.5}" fill="#666">${tLbl}</text>`;
-    const ctY=dy+31,ctH=28;
-    if(type==='central'){const hw=r(cabW/2-4);h+=`<rect x="${dx+3}" y="${ctY}" width="${hw}" height="${ctH}" fill="#e8f0ff" stroke="${SC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+3+hw/2)}" cy="${ctY+9}" r="5.5" fill="${SC}"/>`;h+=`<text x="${r(dx+3+hw/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">S</text>`;h+=`<text x="${r(dx+3+hw/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${hw>30?5:4.5}" fill="${SC}">${T('ctrlSlave')}</text>`;h+=`<rect x="${dx+cabW/2+1}" y="${ctY}" width="${hw}" height="${ctH}" fill="#fff0e8" stroke="${MC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+cabW/2+1+hw/2)}" cy="${ctY+9}" r="5.5" fill="${MC}"/>`;h+=`<text x="${r(dx+cabW/2+1+hw/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">M</text>`;h+=`<text x="${r(dx+cabW/2+1+hw/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${hw>30?5:4.5}" fill="${MC}">${T('ctrlMaster')}</text>`;h+=`<line x1="${dx+3+hw}" y1="${ctY+ctH/2}" x2="${dx+cabW/2+1}" y2="${ctY+ctH/2}" stroke="#bbb" stroke-width=".8" stroke-dasharray="2 1.5"/>`;}    else if(type==='left'){h+=`<rect x="${dx+8}" y="${ctY}" width="${cabW-16}" height="${ctH}" fill="#fff0e8" stroke="${MC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+cabW/2)}" cy="${ctY+9}" r="5.5" fill="${MC}"/>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">M</text>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${cabW>80?5:4.5}" fill="${MC}">${T('ctrlMaster')}</text>`;}
-    else{h+=`<rect x="${dx+8}" y="${ctY}" width="${cabW-16}" height="${ctH}" fill="#e8f0ff" stroke="${SC}" stroke-width=".8" rx="2"/>`;h+=`<circle cx="${r(dx+cabW/2)}" cy="${ctY+9}" r="5.5" fill="${SC}"/>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+12}" text-anchor="middle" ${FM} font-size="5.5" font-weight="bold" fill="#fff">S</text>`;h+=`<text x="${r(dx+cabW/2)}" y="${ctY+23}" text-anchor="middle" ${FM} font-size="${cabW>80?5:4.5}" fill="${SC}">${T('ctrlSlave')}</text>`;}
-    h+=`<text x="${r(dx+cabW/2)}" y="${dy+cabH-5}" text-anchor="middle" ${FM} font-size="6" fill="#999">E${i+1}</text>`;
-    h+=`<line x1="${r(dx+cabW/2)}" y1="${acY}" x2="${r(dx+cabW/2)}" y2="${uTY}" stroke="#cc1111" stroke-width="1.4" stroke-dasharray="4 2"/>`;h+=`<circle cx="${r(dx+cabW/2)}" cy="${acY}" r="3" fill="#cc1111"/>`;
-    const dxL=r(dx+cabW*.38),dxR=r(dx+cabW*.62),pvcTop=pvcCY-pvcTk/2;
-    h+=`<line x1="${dxL}" y1="${dTY}" x2="${dxL}" y2="${pvcTop}" stroke="#2a7a2a" stroke-width="1.1" stroke-dasharray="5 3"/>`;h+=`<circle cx="${dxL}" cy="${pvcTop}" r="2.2" fill="#2a7a2a"/>`;h+=`<line x1="${dxR}" y1="${dTY}" x2="${dxR}" y2="${pvcTop}" stroke="#e8a020" stroke-width="1.1"/>`;h+=`<circle cx="${dxR}" cy="${pvcTop}" r="2.2" fill="#e8a020"/>`;
+    const dx=uX(i),dy=unitTY,type=cabType(i),isEnd=(type==='left'||type==='right');
+    const mRef=isEnd?sp.labelEnd:sp.labelCentral,hdrCol=isEnd?'#14304f':'#1a4a28';
+    const bgFill=isEnd?'#edf2f8':'#eaf4ec';
+    // Barrier arms (plan-view silhouette)
+    if(barrL>3){
+      const barrY=r(dy+CAB_H*.40);
+      if(type==='left'||type==='central'){
+        h+=`<rect x="${dx+cabW}" y="${barrY-2}" width="${barrL}" height="5" fill="${hdrCol}" rx="1"/>`;
+        h+=`<rect x="${r(dx+cabW+barrL-3)}" y="${barrY-5}" width="4" height="11" fill="${hdrCol}" rx="1" opacity=".7"/>`;
+      }
+      if(type==='right'||type==='central'){
+        h+=`<rect x="${r(dx-barrL)}" y="${barrY-2}" width="${barrL}" height="5" fill="${hdrCol}" rx="1"/>`;
+        h+=`<rect x="${r(dx-barrL)}" y="${barrY-5}" width="4" height="11" fill="${hdrCol}" rx="1" opacity=".7"/>`;
+      }
+    }
+    // Unit body
+    h+=`<rect x="${dx+2}" y="${dy+2}" width="${cabW}" height="${CAB_H}" fill="rgba(0,0,0,.09)" rx="5"/>`;
+    h+=`<rect x="${dx}" y="${dy}" width="${cabW}" height="${CAB_H}" fill="${bgFill}" stroke="${hdrCol}" stroke-width="1.4" rx="5"/>`;
+    h+=`<rect x="${dx}" y="${dy}" width="${cabW}" height="18" fill="${hdrCol}" rx="5"/>`;
+    h+=`<rect x="${dx}" y="${dy+12}" width="${cabW}" height="6" fill="${hdrCol}"/>`;
+    h+=`<text x="${r(dx+cabW/2)}" y="${dy+12}" text-anchor="middle" ${FM} font-size="${cabW>82?7.5:6.5}" font-weight="bold" fill="#fff">${mRef}</text>`;
+    const roleLbl=type==='left'?`E${i+1} — ${T('ctrlMaster')}`:type==='right'?`E${i+1} — ${T('ctrlSlave')}`:`E${i+1} — S/M`;
+    h+=`<text x="${r(dx+cabW/2)}" y="${dy+27}" text-anchor="middle" ${FM} font-size="${cabW>82?5.8:5.2}" fill="${hdrCol}" font-weight="bold">${roleLbl}</text>`;
+    // Terminal block
+    const tbX=dx+5,tbY=dy+32,tbW=cabW-10,tbH=50;
+    h+=`<rect x="${tbX}" y="${tbY}" width="${tbW}" height="${tbH}" fill="rgba(255,255,255,.65)" stroke="#9aaa9a" stroke-width=".6" rx="3"/>`;
+    h+=`<text x="${r(tbX+tbW/2)}" y="${tbY+8}" text-anchor="middle" ${FM} font-size="4.5" fill="#aaa" letter-spacing=".3">TERMINAL BLOCK</text>`;
+    [{lbl:'AC IN',col:C_AC},{lbl:'RJ45-NET',col:C_ETH},{lbl:'M-S BUS',col:C_MS},{lbl:'ETH-MTR',col:C_MTR}].forEach(({lbl,col},k)=>{
+      const ty=r(tbY+14+k*9);
+      h+=`<rect x="${tbX+4}" y="${ty}" width="5" height="5" fill="${col}" rx="1"/>`;
+      h+=`<text x="${tbX+12}" y="${ty+5}" ${FM} font-size="${cabW>80?5.2:4.8}" fill="#333">${lbl}</text>`;
+    });
+    h+=`<text x="${r(dx+cabW/2)}" y="${dy+CAB_H-5}" text-anchor="middle" ${FM} font-size="5.5" fill="#aaa">E${i+1}</text>`;
+    // AC drop from rail to unit top
+    const acDx=r(dx+cabW/2);
+    h+=`<line x1="${acDx}" y1="${acY}" x2="${acDx}" y2="${unitTY}" stroke="${C_AC}" stroke-width="1.6" stroke-dasharray="4 2"/>`;
+    h+=`<circle cx="${acDx}" cy="${acY}" r="3.5" fill="${C_AC}"/>`;
+    // M-S bus + Ethernet motor drops to conduit
+    const pvcTop=condCY-condTk/2;
+    const cxMS=r(dx+cabW*.38),cxMTR=r(dx+cabW*.62);
+    h+=`<line x1="${cxMS}" y1="${r(unitBY)}" x2="${cxMS}" y2="${pvcTop}" stroke="${C_MS}" stroke-width="1.4" stroke-dasharray="8 4"/>`;
+    h+=`<circle cx="${cxMS}" cy="${pvcTop}" r="2.2" fill="${C_MS}"/>`;
+    h+=`<line x1="${cxMTR}" y1="${r(unitBY)}" x2="${cxMTR}" y2="${pvcTop}" stroke="${C_MTR}" stroke-width="1.4"/>`;
+    h+=`<circle cx="${cxMTR}" cy="${pvcTop}" r="2.2" fill="${C_MTR}"/>`;
   }
-  h+=`<text x="360" y="${cnY}" text-anchor="middle" ${FM} font-size="6.5" fill="#1a7a30" letter-spacing=".3">── ${T('chainNote')} ──</text>`;
-  const pvcRad=r(pvcTk/2);h+=`<rect x="${rX1}" y="${pvcCY-pvcTk/2}" width="${rX2-rX1}" height="${pvcTk}" fill="${pvc.color}22" stroke="${pvc.color}" stroke-width="1.4" rx="${pvcRad}"/>`;
-  h+=`<text x="360" y="${pvcLY}" text-anchor="middle" ${FM} font-size="7.5" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label} · ${totalCables} ${T('lblCables')} · IEC 61386 40%</text>`;
-  const _pvcNoteExtra=siteLen?` · ${T('siteLenLbl').toLowerCase()} ${siteLen} mm`:'';
-  h+=`<text x="360" y="${pvcNY}" text-anchor="middle" ${FM} font-size="6" fill="#888">prof. ${sp.D} mm${_pvcNoteExtra}</text>`;
-  h+=`<rect x="${LX}" y="${IT}" width="${LW}" height="${LH}" fill="#eeede5" stroke="#ccc" stroke-width=".5" rx="3"/>`;h+=`<text x="${LX+6}" y="${IT+11}" ${FM} font-size="7" fill="#14304f" font-weight="bold">${T('legend')}</text>`;
-  LEG.forEach(({col,lbl,dash,thick},k)=>{const ly=IT+18+k*13;h+=`<line x1="${LX+8}" y1="${ly+3}" x2="${LX+30}" y2="${ly+3}" stroke="${col}" stroke-width="${thick?2.4:1.8}" stroke-dasharray="${dash}"/>`;h+=`<text x="${LX+36}" y="${ly+7}" ${FM} font-size="6.5" fill="#333">${lbl}</text>`;});
-  h+=`<rect x="${TX}" y="${IT}" width="${TW2}" height="50" fill="#f0f8ff" stroke="#aac4e0" stroke-width=".5" rx="3"/>`;h+=`<text x="${TX+6}" y="${IT+11}" ${FM} font-size="7" font-weight="bold" fill="#14304f">${T('pvcSizing')}</text>`;
-  [{range:pvcRanges[0],diam:'Ø50 mm',color:'#2a7a2a'},{range:pvcRanges[1],diam:'Ø63 mm',color:'#c08800'},{range:pvcRanges[2],diam:'Ø75 mm',color:'#cc4400'}].forEach(({range,diam,color},k)=>{const isA=(k===0&&n<=2)||(k===1&&n>=3&&n<=4)||(k===2&&n>=5);const tly=IT+19+k*11;if(isA)h+=`<rect x="${TX+2}" y="${tly-6}" width="${TW2-4}" height="11" fill="${color}22" rx="2"/>`;h+=`<text x="${TX+6}" y="${tly}" ${FM} font-size="6.5" fill="${isA?color:'#666'}" font-weight="${isA?'bold':'normal'}">${range} → ${diam}</text>`;if(isA)h+=`<text x="${TX+TW2-6}" y="${tly}" text-anchor="end" ${FM} font-size="6.5" fill="${color}" font-weight="bold">◀ activo</text>`;});
+  // PVC conduit (metallic texture)
+  const condW=condX2-condX1,condR=r(condTk/2);
+  h+=`<rect x="${condX1}" y="${condCY-condTk/2}" width="${condW}" height="${condTk}" fill="url(#cnd-mtl)" stroke="#4a6070" stroke-width="1.6" rx="${condR}"/>`;
+  h+=`<rect x="${condX1+condR}" y="${condCY-condTk/2+1}" width="${condW-2*condR}" height="3" fill="rgba(255,255,255,.28)" rx="1"/>`;
+  const midX=r((condX1+condX2)/2);
+  h+=`<text x="${midX}" y="${lbl1Y}" text-anchor="middle" ${FM} font-size="7.5" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label} · ${totalCables} ${T('lblCables')} · IEC 61386 40%</text>`;
+  const _ex=siteLen?` · ${T('siteLenLbl').toLowerCase()} ${siteLen} mm`:'';
+  h+=`<text x="${midX}" y="${lbl2Y}" text-anchor="middle" ${FM} font-size="6" fill="#888">prof. ${sp.D} mm${_ex}</text>`;
+  // Legend panel
+  const LX=MG,LW=210;
+  h+=`<rect x="${LX}" y="${panelY}" width="${LW}" height="${LH}" fill="#f6f5f0" stroke="#bbb" stroke-width=".7" rx="3"/>`;
+  h+=`<text x="${LX+6}" y="${panelY+10}" ${FM} font-size="7" fill="#14304f" font-weight="bold">${T('legend')}</text>`;
+  LEG.forEach(({col,lbl,dash,w},k)=>{const ly=panelY+16+k*13;h+=`<line x1="${LX+8}" y1="${ly+3}" x2="${LX+30}" y2="${ly+3}" stroke="${col}" stroke-width="${w}" stroke-dasharray="${dash}"/>`;h+=`<text x="${LX+36}" y="${ly+7}" ${FM} font-size="6.5" fill="#333">${lbl}</text>`;});
+  // Conduit details table
+  const TW=224,TX=SVG_W-MG-TW;
+  const tRows=[['Material','PVC rígido EN50086'],[T('lblCables')||'Cables',`${totalCables}`],['Ø nominal',pvc.label],['IEC 61386','Fill ≤ 40%'],['Prof.inst.',`${sp.D} mm`]];
+  h+=`<rect x="${TX}" y="${panelY}" width="${TW}" height="${TH}" fill="#eef4fc" stroke="#8aaac4" stroke-width=".7" rx="3"/>`;
+  h+=`<text x="${TX+6}" y="${panelY+10}" ${FM} font-size="7" font-weight="bold" fill="#14304f">${T('pvcSizing')}</text>`;
+  tRows.forEach(([k,v],i)=>{const ry=panelY+17+i*13;if(i%2===0)h+=`<rect x="${TX+2}" y="${ry-7}" width="${TW-4}" height="12" fill="rgba(20,80,160,.04)" rx="1"/>`;h+=`<text x="${TX+6}" y="${ry}" ${FM} font-size="6" fill="#555">${k}</text>`;h+=`<text x="${TX+TW-6}" y="${ry}" text-anchor="end" ${FM} font-size="6" font-weight="bold" fill="#14304f">${v}</text>`;});
   const badge=document.getElementById('pvc-badge');if(badge){badge.style.cssText=`border-color:${pvc.color};color:${pvc.color};background:${pvc.color}14;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1.5px solid;font-family:monospace`;badge.innerHTML=`<span style="font-size:12px;font-weight:800">PVC ${pvc.label}</span><span style="font-size:8px;opacity:.7">${totalCables} ${T('lblCables')} · IEC 61386</span>`;}
   document.getElementById('w-title').textContent=`${sp.label} · ${n} ${n>1?T('lanes'):T('lane')}`;
   wsvg.innerHTML=h;
