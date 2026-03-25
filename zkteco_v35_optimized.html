@@ -1775,6 +1775,33 @@ function drawISO(){
   svg+=`<text x="18" y="36" ${FM} font-size="7" fill="#777">${sp.sub} · ${n} ${n>1?T('lanes'):T('lane')} · ${rnd(TWtotal)} mm</text>`;
   // Base plate
   svg+=basePlate();
+  const cabinet=(x0,z0,bW,bD,bH,modelColor,wireOff)=>{
+    let s='';
+    s+=box(x0,z0,bW,bD,bH,'#dcdce4',0.95);
+    const railH=60,sk2='stroke="rgba(0,0,0,.2)" stroke-width=".4"';
+    const rf=[pt(x0,bH-railH,z0),pt(x0+bW,bH-railH,z0),pt(x0+bW,bH,z0),pt(x0,bH,z0)];
+    const rt=[pt(x0,bH,z0),pt(x0+bW,bH,z0),pt(x0+bW,bH,z0+bD),pt(x0,bH,z0+bD)];
+    const rs=[pt(x0+bW,bH-railH,z0),pt(x0+bW,bH-railH,z0+bD),pt(x0+bW,bH,z0+bD),pt(x0+bW,bH,z0)];
+    s+=`<polygon points="${pp(rf)}" fill="${modelColor}" fill-opacity=".95" ${sk2}/>`;
+    s+=`<polygon points="${pp(rt)}" fill="${modelColor}" fill-opacity=".78" ${sk2}/>`;
+    s+=`<polygon points="${pp(rs)}" fill="${modelColor}" fill-opacity=".6" ${sk2}/>`;
+    [0.3,0.7].forEach(f=>{
+      const p1=pt(x0+bW*f,10,z0),p2=pt(x0+bW*f,bH-railH-10,z0);
+      s+=`<line x1="${p1.sx}" y1="${p1.sy}" x2="${p2.sx}" y2="${p2.sy}" stroke="#999" stroke-width=".6" stroke-opacity=".7"/>`;
+    });
+    const gX=x0+bW*0.15,gW2=bW*0.7,gYb=30,gH2=bH*0.65;
+    const gf=[pt(gX,gYb,z0),pt(gX+gW2,gYb,z0),pt(gX+gW2,gYb+gH2,z0),pt(gX,gYb+gH2,z0)];
+    s+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".30" stroke="#5599cc" stroke-width=".9"/>`;
+    const rX=x0+bW*0.15,rW=bW*0.08;
+    const rfl=[pt(rX,gYb+5,z0),pt(rX+rW,gYb+5,z0),pt(rX+rW,gYb+gH2-5,z0),pt(rX,gYb+gH2-5,z0)];
+    s+=`<polygon points="${pp(rfl)}" fill="#fff" fill-opacity=".15" stroke="none"/>`;
+    const ledX=x0+bW*0.08;
+    const l1=pt(ledX,bH*0.45,z0),l2=pt(ledX,bH*0.55,z0);
+    s+=`<circle cx="${l1.sx}" cy="${l1.sy}" r="2.5" fill="#ff8800" fill-opacity=".85"/>`;
+    s+=`<circle cx="${l2.sx}" cy="${l2.sy}" r="2.5" fill="#22cc22" fill-opacity=".85"/>`;
+    if(wireOff!=null){const wp=pt(x0+wireOff,bH*.5,z0);s+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
+    return s;
+  };
   // Accessories LEFT
   let axL=0;
   for(let i=0;i<accLeft.length;i++){
@@ -1790,10 +1817,11 @@ function drawISO(){
   }
   // Gate cabinets + lanes
   let cx=TWL;
+  const cablesSvg=[];
   for(let i=0;i<=n;i++){
-    svg+=box(cx,0,sp.W,depthZ,sp.H,sp.mc,1);
-    // Wire dot on front face
-    if(i===0||i===n){const wOff=i===0?sp.wireOff:sp.W-sp.wireOff;const wp=pt(cx+wOff,sp.H*.5,0);svg+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
+    const wireOff=(i===0)?sp.wireOff:(i===n)?sp.W-sp.wireOff:null;
+    svg+=cabinet(cx,0,sp.W,depthZ,sp.H,sp.mc,wireOff);
+    cablesSvg.push({x0:cx,bW:sp.W});
     cx+=sp.W;
     if(i<n){
       const{pg}=getLane(i),lW=pg.s;
