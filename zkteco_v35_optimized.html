@@ -1802,17 +1802,31 @@ function drawISO(){
     if(wireOff!=null){const wp=pt(x0+wireOff,bH*.5,z0);s+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
     return s;
   };
+  const accPanel=(x0,z0,bW,bD,bH,hasGlass,gW,gH)=>{
+    let s='';
+    s+=box(x0,z0,bW,bD,bH,'#dcdce4',0.95);
+    const railH=60,mc='#c08800',sk2='stroke="rgba(0,0,0,.2)" stroke-width=".4"';
+    const rf=[pt(x0,bH-railH,z0),pt(x0+bW,bH-railH,z0),pt(x0+bW,bH,z0),pt(x0,bH,z0)];
+    const rt=[pt(x0,bH,z0),pt(x0+bW,bH,z0),pt(x0+bW,bH,z0+bD),pt(x0,bH,z0+bD)];
+    const rs=[pt(x0+bW,bH-railH,z0),pt(x0+bW,bH-railH,z0+bD),pt(x0+bW,bH,z0+bD),pt(x0+bW,bH,z0)];
+    s+=`<polygon points="${pp(rf)}" fill="${mc}" fill-opacity=".95" ${sk2}/>`;
+    s+=`<polygon points="${pp(rt)}" fill="${mc}" fill-opacity=".78" ${sk2}/>`;
+    s+=`<polygon points="${pp(rs)}" fill="${mc}" fill-opacity=".6" ${sk2}/>`;
+    if(hasGlass&&gW&&gH){
+      const gX=x0+(bW-gW)/2,gZ=z0+20;
+      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
+      s+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".35" stroke="#5599cc" stroke-width=".8"/>`;}
+    return s;
+  };
   // Accessories LEFT
   let axL=0;
   for(let i=0;i<accLeft.length;i++){
     const itm=accLeft[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
     const izv=itm.isoZ!=null?+itm.isoZ:1,accZ=izv===1?(depthZ-accDepth)/2:izv===0?(depthZ-accDepth):0;
     axL+=ACC_GAP_MM;
-    svg+=box(axL,accZ,aW,accDepth,aH,'#c08800',.78);
-    if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
-      const gX=axL+(aW-gW)/2,gZ=accZ+20;
-      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
-      svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
+    const gWl=acat.customGlass?(+(itm.r50gW)||920):acat.gW;
+    const gHl=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
+    svg+=accPanel(axL,accZ,aW,accDepth,aH,acat.hasGlass,gWl,gHl);
     axL+=aW;
   }
   // Gate cabinets + lanes
@@ -1838,11 +1852,9 @@ function drawISO(){
     const itm=accRight[i],acat=ACC_BY_CODE[itm.code],aW=getAccItemW(itm),aH=acat.H;
     const izv=itm.isoZ!=null?+itm.isoZ:1,accZ=izv===1?(depthZ-accDepth)/2:izv===0?(depthZ-accDepth):0;
     axR+=ACC_GAP_MM;
-    svg+=box(axR,accZ,aW,accDepth,aH,'#c08800',.78);
-    if(acat.hasGlass){const gW=acat.customGlass?(+(itm.r50gW)||920):acat.gW,gH=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
-      const gX=axR+(aW-gW)/2,gZ=accZ+20;
-      const gf=[pt(gX,0,gZ),pt(gX+gW,0,gZ),pt(gX+gW,gH,gZ),pt(gX,gH,gZ)];
-      svg+=`<polygon points="${pp(gf)}" fill="#88ccff" fill-opacity=".4" stroke="#5599cc" stroke-width=".8"/>`;}
+    const gWr=acat.customGlass?(+(itm.r50gW)||920):acat.gW;
+    const gHr=acat.customGlass?(+(itm.r50gH)||600):acat.gH;
+    svg+=accPanel(axR,accZ,aW,accDepth,aH,acat.hasGlass,gWr,gHr);
     axR+=aW;
   }
   // Total width dimension line
