@@ -1743,11 +1743,11 @@ function drawISO(){
   const sp=MODELS[M];if(!sp)return;
   const n=N(),TWg=TWgate(),TWL=accSideTotalW(accLeft),TWR=accSideTotalW(accRight),TWtotal=TWfull(),MAXH=maxH();
   const depthZ=sp.D,accDepth=140,W=720,H=480;
-  const margin=20;
+  const topPad=48,botPad=24;
   const projW=(TWtotal+depthZ)*0.866,projH=MAXH+(TWtotal+depthZ)*0.5;
-  const sc=Math.min((W-margin*2)/projW,(H-margin-60)/projH)*0.9;
-  const ox=r(margin+depthZ*0.866*sc);
-  const oy=r(margin+MAXH*sc);
+  const sc=Math.min((W-80)/projW,(H-topPad-botPad)/projH)*0.92;
+  const ox=r(W/2-(TWtotal-depthZ)*0.866*sc/2);
+  const oy=r(topPad+(H-topPad-botPad)/2+(MAXH-(TWtotal+depthZ)*0.5)*sc/2);
   const pt=(x,y,z)=>({sx:r(ox+(x-z)*0.866*sc),sy:r(oy+(x+z)*0.5*sc-y*sc)});
   const pp=pts=>pts.map(q=>q.sx+','+q.sy).join(' ');
   const box=(x0,z0,bw,bd,bh,col,al)=>{al=al||.92;
@@ -1795,8 +1795,8 @@ function drawISO(){
     const rX=x0+bW*0.15,rW=bW*0.08;
     const rfl=[pt(rX,gYb+5,z0),pt(rX+rW,gYb+5,z0),pt(rX+rW,gYb+gH2-5,z0),pt(rX,gYb+gH2-5,z0)];
     s+=`<polygon points="${pp(rfl)}" fill="#fff" fill-opacity=".15" stroke="none"/>`;
-    const ledX=x0+bW*0.08;
-    const l1=pt(ledX,bH*0.45,z0),l2=pt(ledX,bH*0.55,z0);
+    const ledX=x0+bW*0.88;
+    const l1=pt(ledX,bH*0.6,z0),l2=pt(ledX,bH*0.7,z0);
     s+=`<circle cx="${l1.sx}" cy="${l1.sy}" r="2.5" fill="#ff8800" fill-opacity=".85"/>`;
     s+=`<circle cx="${l2.sx}" cy="${l2.sy}" r="2.5" fill="#22cc22" fill-opacity=".85"/>`;
     if(wireOff!=null){const wp=pt(x0+wireOff,bH*.5,z0);s+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
@@ -1804,9 +1804,12 @@ function drawISO(){
   };
   const cables=(x0,bW)=>{
     let s='';
-    [['#e60000',0.35],['#0055cc',0.45],['#aaaa00',0.55]].forEach(([col,f])=>{
-      const p0=pt(x0+bW*f,0,0);
-      s+=`<path d="M${p0.sx},${p0.sy} Q${p0.sx},${p0.sy+20} ${p0.sx+5},${p0.sy+35}" stroke="${col}" stroke-width="1.3" fill="none"/>`;
+    [['#e60000',0.3],['#0055cc',0.5],['#99bb00',0.7]].forEach(([col,f])=>{
+      const cz=depthZ*0.55;
+      const pa=pt(x0+bW*f,40,cz);
+      const pb=pt(x0+bW*f,0,cz);
+      s+=`<line x1="${pa.sx}" y1="${pa.sy}" x2="${pb.sx}" y2="${pb.sy}" stroke="${col}" stroke-width="1.5" stroke-opacity=".9"/>`;
+      s+=`<circle cx="${pb.sx}" cy="${pb.sy}" r="2" fill="${col}" fill-opacity=".85"/>`;
     });
     return s;
   };
