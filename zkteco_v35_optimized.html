@@ -1908,15 +1908,19 @@ function drawISOWF(){
   const oy=r(topPad+(H-topPad-botPad)/2+(MAXH-(TWtotal+depthZ)*0.5)*sc/2);
   const pt=(x,y,z)=>({sx:r(ox+(x-z)*0.866*sc),sy:r(oy+(x+z)*0.5*sc-y*sc)});
   const pp=pts=>pts.map(q=>q.sx+','+q.sy).join(' ');
+  // Wireframe box: visible faces + hidden edges dashed
   const wfBox=(x0,z0,bw,bd,bh,lc,sw)=>{
     lc=lc||'#1a1a2e';sw=sw||0.9;
     const sk=`stroke="${lc}" stroke-width="${sw}" stroke-linejoin="round"`;
-    const f=[pt(x0,0,z0),pt(x0+bw,0,z0),pt(x0+bw,bh,z0),pt(x0,bh,z0)];
-    const t=[pt(x0,bh,z0),pt(x0+bw,bh,z0),pt(x0+bw,bh,z0+bd),pt(x0,bh,z0+bd)];
-    const s=[pt(x0+bw,0,z0),pt(x0+bw,0,z0+bd),pt(x0+bw,bh,z0+bd),pt(x0+bw,bh,z0)];
-    return `<polygon points="${pp(f)}" fill="#f5f5f5" fill-opacity="0.92" ${sk}/>`+
-      `<polygon points="${pp(t)}" fill="#ebebeb" fill-opacity="0.95" ${sk}/>`+
-      `<polygon points="${pp(s)}" fill="#e0e0e0" fill-opacity="0.95" ${sk}/>`;
+    const A=pt(x0,0,z0),B=pt(x0+bw,0,z0),C=pt(x0+bw,bh,z0),D=pt(x0,bh,z0);
+    const E=pt(x0,0,z0+bd),F=pt(x0+bw,0,z0+bd),G=pt(x0+bw,bh,z0+bd),Hh=pt(x0,bh,z0+bd);
+    const dsh=`stroke="${lc}" stroke-width="${sw*0.5}" fill="none" stroke-dasharray="2.5 2" stroke-opacity="0.3"`;
+    return `<polygon points="${pp([A,B,C,D])}" fill="#f7f7f7" fill-opacity="0.97" ${sk}/>`+
+      `<polygon points="${pp([D,C,G,Hh])}" fill="#f0f0f0" fill-opacity="0.97" ${sk}/>`+
+      `<polygon points="${pp([B,F,G,C])}" fill="#e8e8e8" fill-opacity="0.97" ${sk}/>`+
+      `<line x1="${A.sx}" y1="${A.sy}" x2="${E.sx}" y2="${E.sy}" ${dsh}/>`+
+      `<line x1="${E.sx}" y1="${E.sy}" x2="${F.sx}" y2="${F.sy}" ${dsh}/>`+
+      `<line x1="${E.sx}" y1="${E.sy}" x2="${Hh.sx}" y2="${Hh.sy}" ${dsh}/>`;
   };
   const FM='font-family="monospace"';
   const RS='stroke="#cc0000" stroke-width="0.75"';
@@ -1935,50 +1939,25 @@ function drawISOWF(){
     svg+=wfBox(axL,accZ,aW,accDepth,aH,'#1a1a2e',0.8);
     axL+=aW;
   }
-  // Gate cabinets + barrier panels
+  // Gate cabinets — accumulate barrier data for deferred rendering
+  const barrierQ=[];
   let cx=TWL;
   for(let i=0;i<=n;i++){
     svg+=wfBox(cx,0,sp.W,depthZ,sp.H,'#1a1a2e',1.0);
-    // Rail band (model color, subtle)
     const rH=55;
-    const rf=[pt(cx,sp.H-rH,0),pt(cx+sp.W,sp.H-rH,0),pt(cx+sp.W,sp.H,0),pt(cx,sp.H,0)];
-    const rt=[pt(cx,sp.H,0),pt(cx+sp.W,sp.H,0),pt(cx+sp.W,sp.H,depthZ),pt(cx,sp.H,depthZ)];
-    svg+=`<polygon points="${pp(rf)}" fill="${sp.mc}" fill-opacity="0.18" stroke="${sp.mc}" stroke-width="0.7"/>`;
-    svg+=`<polygon points="${pp(rt)}" fill="${sp.mc}" fill-opacity="0.1" stroke="${sp.mc}" stroke-width="0.7"/>`;
-    // Vertical slot lines
+    const rfp=[pt(cx,sp.H-rH,0),pt(cx+sp.W,sp.H-rH,0),pt(cx+sp.W,sp.H,0),pt(cx,sp.H,0)];
+    const rtp=[pt(cx,sp.H,0),pt(cx+sp.W,sp.H,0),pt(cx+sp.W,sp.H,depthZ),pt(cx,sp.H,depthZ)];
+    svg+=`<polygon points="${pp(rfp)}" fill="${sp.mc}" fill-opacity="0.15" stroke="${sp.mc}" stroke-width="0.7" stroke-opacity="0.6"/>`;
+    svg+=`<polygon points="${pp(rtp)}" fill="${sp.mc}" fill-opacity="0.08" stroke="${sp.mc}" stroke-width="0.7" stroke-opacity="0.4"/>`;
     [0.33,0.67].forEach(f=>{
-      const p1=pt(cx+sp.W*f,8,0),p2=pt(cx+sp.W*f,sp.H-rH-8,0);
-      svg+=`<line x1="${p1.sx}" y1="${p1.sy}" x2="${p2.sx}" y2="${p2.sy}" stroke="#bbb" stroke-width="0.5" stroke-dasharray="3 2"/>`;
+      const p1=pt(cx+sp.W*f,10,0),p2=pt(cx+sp.W*f,sp.H-rH-10,0);
+      svg+=`<line x1="${p1.sx}" y1="${p1.sy}" x2="${p2.sx}" y2="${p2.sy}" stroke="#ccc" stroke-width="0.5" stroke-dasharray="3 2"/>`;
     });
-    // Glass panel
     const gX=cx+sp.W*0.12,gWp=sp.W*0.76,gYb=24,gHp=sp.H*0.6;
     const gf=[pt(gX,gYb,0),pt(gX+gWp,gYb,0),pt(gX+gWp,gYb+gHp,0),pt(gX,gYb+gHp,0)];
-    svg+=`<polygon points="${pp(gf)}" fill="#c8e4f8" fill-opacity="0.28" stroke="#3377aa" stroke-width="0.6"/>`;
+    svg+=`<polygon points="${pp(gf)}" fill="#cce8ff" fill-opacity="0.25" stroke="#3377aa" stroke-width="0.6"/>`;
     cx+=sp.W;
-    if(i<n){
-      const{pg}=getLane(i),lW=pg.s;
-      // Barrier panels (closed position, across the lane at front face)
-      const bH=sp.H*0.68,bY=22,bD=18;
-      const bLen=lW*0.44;
-      // Left barrier: from cx extending right
-      const blf=[pt(cx,bH,0),pt(cx+bLen,bH,0),pt(cx+bLen,bH,bD),pt(cx,bH,bD)];
-      const blfe=[pt(cx,bY,0),pt(cx+bLen,bY,0),pt(cx+bLen,bH,0),pt(cx,bH,0)];
-      const bles=[pt(cx+bLen,bY,0),pt(cx+bLen,bY,bD),pt(cx+bLen,bH,bD),pt(cx+bLen,bH,0)];
-      svg+=`<polygon points="${pp(blf)}" fill="#dde8f0" fill-opacity="0.85" stroke="#444" stroke-width="0.7"/>`;
-      svg+=`<polygon points="${pp(blfe)}" fill="#eaf2f8" fill-opacity="0.9" stroke="#444" stroke-width="0.7"/>`;
-      svg+=`<polygon points="${pp(bles)}" fill="#d0dce8" fill-opacity="0.9" stroke="#444" stroke-width="0.7"/>`;
-      // Right barrier: from cx+lW extending left
-      const brf=[pt(cx+lW-bLen,bH,0),pt(cx+lW,bH,0),pt(cx+lW,bH,bD),pt(cx+lW-bLen,bH,bD)];
-      const brfe=[pt(cx+lW-bLen,bY,0),pt(cx+lW,bY,0),pt(cx+lW,bH,0),pt(cx+lW-bLen,bH,0)];
-      const bres=[pt(cx+lW,bY,0),pt(cx+lW,bY,bD),pt(cx+lW,bH,bD),pt(cx+lW,bH,0)];
-      svg+=`<polygon points="${pp(brf)}" fill="#dde8f0" fill-opacity="0.85" stroke="#444" stroke-width="0.7"/>`;
-      svg+=`<polygon points="${pp(brfe)}" fill="#eaf2f8" fill-opacity="0.9" stroke="#444" stroke-width="0.7"/>`;
-      svg+=`<polygon points="${pp(bres)}" fill="#d0dce8" fill-opacity="0.9" stroke="#444" stroke-width="0.7"/>`;
-      // Lane width cota (red)
-      const lmid=pt(cx+lW/2,2,depthZ*0.5);
-      svg+=`<text x="${lmid.sx}" y="${lmid.sy}" text-anchor="middle" ${FM} font-size="7" fill="#cc0000" font-weight="bold">${pg.l} mm</text>`;
-      cx+=lW;
-    }
+    if(i<n){const{pg}=getLane(i),lW=pg.s;barrierQ.push({lx:cx,lW,lbl:pg.l});cx+=lW;}
   }
   // Right accessories
   let axR=TWL+TWg;
@@ -1989,35 +1968,48 @@ function drawISOWF(){
     svg+=wfBox(axR,accZ,aW,accDepth,aH,'#1a1a2e',0.8);
     axR+=aW;
   }
+  // ── Barreras — renderizadas AL FINAL para quedar siempre encima ──
+  // Posición: borde interno de cada gabinete (lx = borde derecho del gabinete izquierdo)
+  // z=0 cara frontal; renderizado tras todos los sólidos garantiza visibilidad
+  barrierQ.forEach(({lx,lW,lbl})=>{
+    const bLen=lW*0.44,bY0=sp.H*0.13,bY1=sp.H,bC='#1a3860';
+    const bSk=`fill="#ddeef8" fill-opacity="0.8" stroke="${bC}" stroke-width="0.9"`;
+    // Pala izquierda: desde lx (borde del gabinete izq.) hacia el interior del pasillo
+    svg+=`<polygon points="${pp([pt(lx,bY0,0),pt(lx+bLen,bY0,0),pt(lx+bLen,bY1,0),pt(lx,bY1,0)])}" ${bSk}/>`;
+    const lh=pt(lx,sp.H*0.58,0);
+    svg+=`<circle cx="${lh.sx}" cy="${lh.sy}" r="4" fill="#fff" stroke="${bC}" stroke-width="0.9"/>`;
+    svg+=`<circle cx="${lh.sx}" cy="${lh.sy}" r="1.6" fill="${bC}"/>`;
+    // Pala derecha: desde lx+lW (borde del gabinete derecho) hacia el interior
+    svg+=`<polygon points="${pp([pt(lx+lW-bLen,bY0,0),pt(lx+lW,bY0,0),pt(lx+lW,bY1,0),pt(lx+lW-bLen,bY1,0)])}" ${bSk}/>`;
+    const rh=pt(lx+lW,sp.H*0.58,0);
+    svg+=`<circle cx="${rh.sx}" cy="${rh.sy}" r="4" fill="#fff" stroke="${bC}" stroke-width="0.9"/>`;
+    svg+=`<circle cx="${rh.sx}" cy="${rh.sy}" r="1.6" fill="${bC}"/>`;
+    // Cota ancho de pasillo (rojo)
+    const lmid=pt(lx+lW/2,3,depthZ*0.55);
+    svg+=`<text x="${lmid.sx}" y="${lmid.sy}" text-anchor="middle" ${FM} font-size="7" fill="#cc0000" font-weight="bold">${lbl} mm</text>`;
+  });
   // ── Cotas en rojo ──────────────────────────────────────────
-  // Ancho total
   const dL=pt(0,0,depthZ),dR=pt(TWtotal,0,depthZ);
   const dY=14;
   svg+=`<line x1="${dL.sx}" y1="${dL.sy+dY}" x2="${dR.sx}" y2="${dR.sy+dY}" ${RS}/>`;
   svg+=`<line x1="${dL.sx}" y1="${dL.sy+dY-5}" x2="${dL.sx}" y2="${dL.sy+dY+5}" ${RS}/>`;
   svg+=`<line x1="${dR.sx}" y1="${dR.sy+dY-5}" x2="${dR.sx}" y2="${dR.sy+dY+5}" ${RS}/>`;
   svg+=`<text x="${r((dL.sx+dR.sx)/2)}" y="${r((dL.sy+dR.sy)/2+dY+12)}" text-anchor="middle" ${FM} font-size="8" fill="#cc0000" font-weight="bold">${rnd(TWtotal)} mm</text>`;
-  // Ancho de un gabinete
   if(TWL+sp.W<=TWtotal){
-    const cw1=pt(TWL,0,0),cw2=pt(TWL+sp.W,0,0);
-    const cwY=-7;
+    const cw1=pt(TWL,0,0),cw2=pt(TWL+sp.W,0,0),cwY=-8;
     svg+=`<line x1="${cw1.sx}" y1="${cw1.sy+cwY}" x2="${cw2.sx}" y2="${cw2.sy+cwY}" ${RS}/>`;
     svg+=`<line x1="${cw1.sx}" y1="${cw1.sy+cwY-4}" x2="${cw1.sx}" y2="${cw1.sy+cwY+4}" ${RS}/>`;
     svg+=`<line x1="${cw2.sx}" y1="${cw2.sy+cwY-4}" x2="${cw2.sx}" y2="${cw2.sy+cwY+4}" ${RS}/>`;
-    svg+=`<text x="${r((cw1.sx+cw2.sx)/2)}" y="${r(Math.min(cw1.sy,cw2.sy)+cwY-4)}" text-anchor="middle" ${FM} font-size="7" fill="#cc0000">${sp.W} mm</text>`;
+    svg+=`<text x="${r((cw1.sx+cw2.sx)/2)}" y="${r(Math.min(cw1.sy,cw2.sy)+cwY-5)}" text-anchor="middle" ${FM} font-size="7" fill="#cc0000">${sp.W} mm</text>`;
   }
-  // Altura
-  const hp1=pt(0,0,0),hp2=pt(0,sp.H,0);
-  const hx=-10;
+  const hp1=pt(0,0,0),hp2=pt(0,sp.H,0),hx=-12;
   svg+=`<line x1="${hp1.sx+hx}" y1="${hp1.sy}" x2="${hp2.sx+hx}" y2="${hp2.sy}" ${RS}/>`;
   svg+=`<line x1="${hp1.sx+hx-4}" y1="${hp1.sy}" x2="${hp1.sx+hx+4}" y2="${hp1.sy}" ${RS}/>`;
   svg+=`<line x1="${hp2.sx+hx-4}" y1="${hp2.sy}" x2="${hp2.sx+hx+4}" y2="${hp2.sy}" ${RS}/>`;
-  svg+=`<text x="${hp1.sx+hx-4}" y="${r((hp1.sy+hp2.sy)/2+3)}" text-anchor="end" ${FM} font-size="7" fill="#cc0000">${rnd(sp.H)} mm</text>`;
-  // Profundidad (gris, referencia)
-  const dp1=pt(TWtotal,0,0),dp2=pt(TWtotal,0,depthZ);
-  const dx=10;
-  svg+=`<line x1="${dp1.sx+dx}" y1="${dp1.sy}" x2="${dp2.sx+dx}" y2="${dp2.sy}" stroke="#888" stroke-width="0.6" stroke-dasharray="3 2"/>`;
-  svg+=`<text x="${dp2.sx+dx+5}" y="${r((dp1.sy+dp2.sy)/2+3)}" ${FM} font-size="6.5" fill="#888">${sp.D} mm</text>`;
+  svg+=`<text x="${hp1.sx+hx-5}" y="${r((hp1.sy+hp2.sy)/2+3)}" text-anchor="end" ${FM} font-size="7" fill="#cc0000">${rnd(sp.H)} mm</text>`;
+  const dp1=pt(TWtotal,0,0),dp2=pt(TWtotal,0,depthZ),dx=10;
+  svg+=`<line x1="${dp1.sx+dx}" y1="${dp1.sy}" x2="${dp2.sx+dx}" y2="${dp2.sy}" stroke="#aaa" stroke-width="0.6" stroke-dasharray="3 2"/>`;
+  svg+=`<text x="${dp2.sx+dx+5}" y="${r((dp1.sy+dp2.sy)/2+3)}" ${FM} font-size="6.5" fill="#aaa">${sp.D} mm</text>`;
   document.getElementById('isowfsvg').innerHTML=svg;
 }
 
