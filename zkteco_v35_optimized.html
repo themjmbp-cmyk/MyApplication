@@ -1802,6 +1802,14 @@ function drawISO(){
     if(wireOff!=null){const wp=pt(x0+wireOff,bH*.5,z0);s+=`<circle cx="${wp.sx}" cy="${wp.sy}" r="3.5" fill="#1a5fa0" opacity=".85" stroke="#fff" stroke-width=".4"/>`;}
     return s;
   };
+  const cables=(x0,bW)=>{
+    let s='';
+    [['#e60000',0.35],['#0055cc',0.45],['#aaaa00',0.55]].forEach(([col,f])=>{
+      const p0=pt(x0+bW*f,0,0);
+      s+=`<path d="M${p0.sx},${p0.sy} Q${p0.sx},${p0.sy+20} ${p0.sx+5},${p0.sy+35}" stroke="${col}" stroke-width="1.3" fill="none"/>`;
+    });
+    return s;
+  };
   const accPanel=(x0,z0,bW,bD,bH,hasGlass,gW,gH)=>{
     let s='';
     s+=box(x0,z0,bW,bD,bH,'#dcdce4',0.95);
@@ -1857,6 +1865,8 @@ function drawISO(){
     svg+=accPanel(axR,accZ,aW,accDepth,aH,acat.hasGlass,gWr,gHr);
     axR+=aW;
   }
+  // Cables (rendered last for correct SVG z-order)
+  cablesSvg.forEach(c=>{svg+=cables(c.x0,c.bW);});
   // Total width dimension line
   const dL=pt(0,0,depthZ),dR=pt(TWtotal,0,depthZ);
   const dY=12;
