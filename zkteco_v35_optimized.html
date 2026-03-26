@@ -1118,7 +1118,18 @@ function drawCabPlanDetail(sp,pcx,poy,cw,cd,psc){
     h+=`<circle cx="${wx}" cy="${wy}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
     if(pw>14) h+=tickDim(px0,r(px0+pw),r(poy+cd*.6),`${t.pillW}`,'#444');
   } else if(t.type==='span'){
-    // Comet — per-cabinet: light background only; plates drawn by drawCometTpl()
+    // Comet S1000/S1200 — per-cabinet plate at bolt[0] and bolt[last]
+    const ph=r(t.plateH*psc);
+    [sp.bolts[0],sp.bolts[sp.bolts.length-1]].forEach(b=>{
+      const py=r(poy+b*psc-ph/2);
+      h+=`<rect x="${r(pcx)}" y="${py}" width="${r(cw)}" height="${ph}" fill="#f5f3ee" stroke="#333" stroke-width=".9"/>`;
+      const sh=r(t.slotH*psc),sw=r(t.slotW*psc),voff=r(ph*.28);
+      [[r(pcx+sw),r(py+voff)],[r(pcx+sw),r(py+ph-voff)],[r(pcx+cw-sw),r(py+voff)],[r(pcx+cw-sw),r(py+ph-voff)]].forEach(([sx,sy])=>{
+        h+=`<rect x="${r(sx-sw/2)}" y="${r(sy-sh/2)}" width="${sw}" height="${sh}" rx="${r(sh/2)}" fill="#fff" stroke="#cc1111" stroke-width=".8"/>`;
+      });
+      const wr=r(t.wireR*psc);
+      h+=`<circle cx="${cx}" cy="${r(py+ph/2)}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
+    });
   } else if(t.colW){
     // Mars S1000/S1200 — column strip + flanges at bolt positions
     const colPx=r(t.colW*psc),col0=r(cx-colPx/2);
@@ -1138,47 +1149,23 @@ function drawCabPlanDetail(sp,pcx,poy,cw,cd,psc){
     const wr=r(4*psc),wy2=r(poy+cd*.5);
     h+=`<circle cx="${cx}" cy="${wy2}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
   } else if(t.plateW){
-    // Mars-S100/S120 — rectangular end plates at each bolt position
-    const pw=r(t.plateW*psc),ph=r(t.plateH*psc);
-    sp.bolts.forEach(b=>{
-      const py=r(poy+b*psc-ph/2);
-      h+=`<rect x="${r(cx-pw/2)}" y="${py}" width="${pw}" height="${ph}" rx="2" fill="#f5f3ee" stroke="#333" stroke-width=".9"/>`;
-      const cr=r(t.circR*psc),leftX=r(cx-pw*0.38);
-      [[leftX,r(py+ph*.3)],[leftX,r(py+ph*.7)]].forEach(([bx,by2])=>{
-        h+=`<circle cx="${bx}" cy="${by2}" r="${cr}" fill="#fff" stroke="#cc1111" stroke-width=".9"/>`;
-        h+=`<line x1="${r(bx-cr)}" y1="${by2}" x2="${r(bx+cr)}" y2="${by2}" stroke="#cc1111" stroke-width=".5"/>`;
-        h+=`<line x1="${bx}" y1="${r(by2-cr)}" x2="${bx}" y2="${r(by2+cr)}" stroke="#cc1111" stroke-width=".5"/>`;
-      });
-      const sh=r(t.slotH*psc),sw=r(t.slotW*psc),rightX=r(cx+pw*0.35);
-      [[rightX,r(py+ph*.3)],[rightX,r(py+ph*.7)]].forEach(([sx,sy])=>{
-        h+=`<rect x="${r(sx-sw/2)}" y="${r(sy-sh/2)}" width="${sw}" height="${sh}" rx="${r(sh/2)}" fill="#fff" stroke="#cc1111" stroke-width=".8"/>`;
-      });
-      const wr=r(t.wireR*psc);
-      h+=`<circle cx="${cx}" cy="${r(py+ph*.5)}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
-      const nr=r(t.notchR*psc);
-      h+=`<path d="M${r(cx+pw/2)} ${r(py+ph*.5-nr)} A${nr} ${nr} 0 0 0 ${r(cx+pw/2)} ${r(py+ph*.5+nr)}" fill="#d8d4cc" stroke="#333" stroke-width=".7"/>`;
-      h+=`<path d="M${r(cx-pw/2)} ${r(py+ph*.5-nr)} A${nr} ${nr} 0 0 1 ${r(cx-pw/2)} ${r(py+ph*.5+nr)}" fill="#d8d4cc" stroke="#333" stroke-width=".7"/>`;
+    // Mars-S100/S120 — single vertical plate per cabinet, bolt[0] to bolt[1]
+    const pw=r(t.plateH*psc);  // 65 mm in W direction
+    const ptop=r(poy+sp.bolts[0]*psc),pbot=r(poy+sp.bolts[1]*psc),ph2=r(pbot-ptop);
+    h+=`<rect x="${r(cx-pw/2)}" y="${ptop}" width="${pw}" height="${ph2}" rx="2" fill="#f5f3ee" stroke="#333" stroke-width=".9"/>`;
+    const cr=r(t.circR*psc),off=r(t.circR*psc*2.2);
+    [[cx-pw/2+off,ptop+off],[cx+pw/2-off,ptop+off],
+     [cx-pw/2+off,pbot-off],[cx+pw/2-off,pbot-off]].forEach(([bx,by2])=>{
+      h+=`<circle cx="${r(bx)}" cy="${r(by2)}" r="${cr}" fill="#fff" stroke="#cc1111" stroke-width=".9"/>`;
+      h+=`<line x1="${r(bx-cr)}" y1="${r(by2)}" x2="${r(bx+cr)}" y2="${r(by2)}" stroke="#cc1111" stroke-width=".5"/>`;
+      h+=`<line x1="${r(bx)}" y1="${r(by2-cr)}" x2="${r(bx)}" y2="${r(by2+cr)}" stroke="#cc1111" stroke-width=".5"/>`;
     });
+    const wr=r(t.wireR*psc),midy=r((ptop+pbot)/2);
+    h+=`<circle cx="${cx}" cy="${midy}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
+    const nr=r(t.notchR*psc);
+    h+=`<path d="M${r(cx-pw/2)} ${r(midy-nr)} A${nr} ${nr} 0 0 1 ${r(cx-pw/2)} ${r(midy+nr)}" fill="#d8d4cc" stroke="#333" stroke-width=".7"/>`;
+    h+=`<path d="M${r(cx+pw/2)} ${r(midy-nr)} A${nr} ${nr} 0 0 0 ${r(cx+pw/2)} ${r(midy+nr)}" fill="#d8d4cc" stroke="#333" stroke-width=".7"/>`;
   }
-  return h;
-}
-function drawCometTpl(sp,pox,poy,pdw,psc){
-  const t=sp.tpl;if(!t||t.type!=='span')return'';
-  let h='';
-  const ph=r(t.plateH*psc),x0=r(pox),x1=r(pox+pdw);
-  [sp.bolts[0],sp.bolts[sp.bolts.length-1]].forEach(b=>{
-    const py=r(poy+b*psc-ph/2);
-    h+=`<rect x="${x0}" y="${py}" width="${r(pdw)}" height="${ph}" fill="#f0ece4" stroke="#333" stroke-width=".9"/>`;
-    const sh=r(t.slotH*psc),sw=r(t.slotW*psc),voff=r(ph*.3);
-    [[x0+sw,py+voff],[x0+sw,py+ph-voff],[x1-sw,py+voff],[x1-sw,py+ph-voff]].forEach(([sx,sy])=>{
-      h+=`<rect x="${r(sx-sw/2)}" y="${r(sy-sh/2)}" width="${sw}" height="${sh}" rx="${r(sh/2)}" fill="#fff" stroke="#cc1111" stroke-width=".8"/>`;
-    });
-    const wr=r(t.wireR*psc),midy=r(py+ph/2);
-    h+=`<circle cx="${r(x0+sp.wireOff*psc)}" cy="${midy}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
-    h+=`<circle cx="${r(x1-sp.wireOff*psc)}" cy="${midy}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
-  });
-  const b0y=r(poy+sp.bolts[0]*psc),bly=r(poy+sp.bolts[sp.bolts.length-1]*psc);
-  if(bly-b0y>20) h+=DV(r(x0-22),b0y,bly,`${sp.bolts[sp.bolts.length-1]-sp.bolts[0]} mm`);
   return h;
 }
 
@@ -1253,7 +1240,6 @@ function drawCAD(){
       pcx=r(pcx+lw);
     }
   }
-  if(sp.tpl?.type==='span') h+=drawCometTpl(sp,pox,poy,pdw,psc);
 
   // Plan dims
   // Total width dim
