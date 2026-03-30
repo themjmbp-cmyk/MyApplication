@@ -206,8 +206,9 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 <div id="w">
 <div class="tb">
   <span class="logo"><em>ZK</em>Teco</span><span class="vtag">SpeedGate CAD v35</span>
+  <div id="session-banner" style="display:none;align-items:center;gap:5px;padding:3px 10px;background:rgba(42,122,42,.12);border:1px solid rgba(42,122,42,.35);border-radius:6px;margin-left:10px;font-family:monospace;font-size:9px;color:#2a7a2a;white-space:nowrap"></div>
   <div class="lp">
-    <span style="font-size:8px;font-family:monospace;opacity:.55;margin-right:3px;white-space:nowrap" data-t="langLabel">Idioma</span>
+    <span style="font-size:10px;font-family:monospace;font-weight:600;opacity:.75;margin-right:5px;padding:2px 7px;border:1px solid var(--br);border-radius:5px;white-space:nowrap;cursor:default" data-t="langLabel">Idioma</span>
     <button class="lb on" data-lang="es" onclick="setLang('es')">ES</button>
     <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
     <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
@@ -1703,7 +1704,9 @@ function ui(){
     <div class="sc"><span class="sl">${T('nCabs')}</span><span class="sv">${N()+1} ${T('uiGabinets')}</span></div>
     <div class="sc"><span class="sl">PVC</span><span class="sv" style="color:${pvc.color}">${pvc.label}</span></div>
     ${siteLimit>0?`<div class="sc"><span class="sl">${T('maxLbl')}</span><span class="sv ${tc}">${st==='over'?T('alertOverBadge'):st==='near'?T('alertNearBadge'):'✓ '+slack+'mm'}</span></div>`:''}
-    ${sessionRestored?`<div class="sc" style="margin-left:auto"><span style="font-size:9px;color:#2a7a2a;opacity:.75">↺ ${T('sessionRestored')}</span><button onclick="clearSession()" style="margin-left:4px;font-size:10px;line-height:1;background:none;border:none;color:#888;cursor:pointer;padding:0" title="${T('sessionClear')}">×</button></div>`:''}`;
+`;
+  const sb=document.getElementById('session-banner');
+  if(sb){if(sessionRestored){sb.style.display='flex';sb.innerHTML=`↺ ${T('sessionRestored')}<button onclick="clearSession()" style="margin-left:2px;font-size:11px;line-height:1;background:none;border:none;color:#888;cursor:pointer;padding:0" title="${T('sessionClear')}">×</button>`;}else{sb.style.display='none';sb.innerHTML='';}}
   updateAlerts();updateI18nDOM();renderAccBar();autoSave();
 }
 document.getElementById('dm').onclick=()=>{if(N()>1){pushUndo('-pasillo');lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
@@ -1983,16 +1986,16 @@ function drawISOWF(){
   // Posición: borde interno de cada gabinete (lx = borde derecho del gabinete izquierdo)
   // z=0 cara frontal; renderizado tras todos los sólidos garantiza visibilidad
   barrierQ.forEach(({lx,lW,lbl})=>{
-    const bLen=lW*0.44,bY0=sp.H*0.13,bY1=sp.H,bC='#1a3860';
+    const bLen=lW*0.44,bY0=sp.H*0.13,bY1=sp.H,bC='#1a3860',bZ=depthZ/2;
     const bSk=`fill="#ddeef8" fill-opacity="0.8" stroke="${bC}" stroke-width="0.9"`;
     // Pala izquierda: desde lx (borde del gabinete izq.) hacia el interior del pasillo
-    svg+=`<polygon points="${pp([pt(lx,bY0,0),pt(lx+bLen,bY0,0),pt(lx+bLen,bY1,0),pt(lx,bY1,0)])}" ${bSk}/>`;
-    const lh=pt(lx,sp.H*0.58,0);
+    svg+=`<polygon points="${pp([pt(lx,bY0,bZ),pt(lx+bLen,bY0,bZ),pt(lx+bLen,bY1,bZ),pt(lx,bY1,bZ)])}" ${bSk}/>`;
+    const lh=pt(lx,sp.H*0.58,bZ);
     svg+=`<circle cx="${lh.sx}" cy="${lh.sy}" r="4" fill="#fff" stroke="${bC}" stroke-width="0.9"/>`;
     svg+=`<circle cx="${lh.sx}" cy="${lh.sy}" r="1.6" fill="${bC}"/>`;
     // Pala derecha: desde lx+lW (borde del gabinete derecho) hacia el interior
-    svg+=`<polygon points="${pp([pt(lx+lW-bLen,bY0,0),pt(lx+lW,bY0,0),pt(lx+lW,bY1,0),pt(lx+lW-bLen,bY1,0)])}" ${bSk}/>`;
-    const rh=pt(lx+lW,sp.H*0.58,0);
+    svg+=`<polygon points="${pp([pt(lx+lW-bLen,bY0,bZ),pt(lx+lW,bY0,bZ),pt(lx+lW,bY1,bZ),pt(lx+lW-bLen,bY1,bZ)])}" ${bSk}/>`;
+    const rh=pt(lx+lW,sp.H*0.58,bZ);
     svg+=`<circle cx="${rh.sx}" cy="${rh.sy}" r="4" fill="#fff" stroke="${bC}" stroke-width="0.9"/>`;
     svg+=`<circle cx="${rh.sx}" cy="${rh.sy}" r="1.6" fill="${bC}"/>`;
     // Cota ancho de pasillo (rojo)
