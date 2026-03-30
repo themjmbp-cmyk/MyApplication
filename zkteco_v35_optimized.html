@@ -225,14 +225,15 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
   <button class="ptb" id="tab-iso" draggable="true" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button>
   <button class="ptb" id="tab-isowf" draggable="true" onclick="setPage('isowf')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 10l4-4 3 3 3-4 2 2"/></svg> <span data-t="tabIsoWF">Vista CAD</span></button>
   <button class="ptb" id="tab-comp" draggable="true" onclick="setPage('comp')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/><line x1="4" y1="6" x2="4" y2="10"/><line x1="12" y1="6" x2="12" y2="10"/></svg> <span data-t="tabComp">Comparar</span></button>
-  <button class="ptb" style="margin-left:auto;border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:4px;padding:0 8px;border-left:1px solid var(--br)">
+    <button class="bf bsv" style="padding:4px 10px;font-size:9.5px" onclick="saveProject()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="btnSave">Guardar</span></button>
+    <button class="bf bld" style="padding:4px 10px;font-size:9.5px" onclick="document.getElementById('fi-load').click()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="btnLoad">Cargar</span></button>
+    <button class="bf bsh" style="padding:4px 10px;font-size:9.5px" id="btn-share" onclick="shareURL()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="12" cy="3" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="13" r="2"/><line x1="5.8" y1="7.2" x2="10.2" y2="4.8"/><line x1="5.8" y1="8.8" x2="10.2" y2="11.2"/></svg> <span data-t="btnShare">Compartir</span></button>
+    <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
+  </div>
+  <button class="ptb" style="border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
 </div>
 <div class="xb">
-  <span class="xlbl" data-t="expProject">Proyecto</span>
-  <button class="bf bsv" onclick="saveProject()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="btnSave">Guardar</span></button>
-  <button class="bf bld" onclick="document.getElementById('fi-load').click()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="btnLoad">Cargar</span></button>
-  <button class="bf bsh" id="btn-share" onclick="shareURL()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="12" cy="3" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="13" r="2"/><line x1="5.8" y1="7.2" x2="10.2" y2="4.8"/><line x1="5.8" y1="8.8" x2="10.2" y2="11.2"/></svg> <span data-t="btnShare">Compartir</span></button>
-  <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
   <div class="eg">
     <button class="be" onclick="exportProject('png')" id="btn-all-png">⬇ PNG</button>
     <button class="be" onclick="exportProject('svg')" id="btn-all-svg">⬇ SVG</button>
@@ -1533,8 +1534,7 @@ function drawFicha(){
   const row=(k,v,u='',col='')=>`<div class="fr2"><span class="fk">${k}</span><span class="fv" style="${col?'color:'+col:''}"> ${v}<span class="u">${u}</span></span></div>`;
 
   let c1=`<div class="fc"><div class="fh fhd">${T('ficGab')}</div>`;
-  c1+=row(T('ficType'),T('swingBarrier'));c1+=row(T('ficLargo'),sp.D,'mm');c1+=row(T('ficAncho'),sp.W,'mm');c1+=row(T('ficAlto'),sp.H,'mm');c1+=row(T('ficArm'),sp.armBase,'mm');c1+=row(T('ficTemp'),sp.tempRange);c1+=row(T('ficVel'),sp.openSpeed);c1+=row(T('ficElec'),sp.power);c1+=row(T('ficPow'),sp.consumption);c1+=row(T('ficGap'),GAP_MM+' mm','','#8a6800');
-  c1+=`<div class="fh fhb">${T('ficComm')}</div>`;c1+=row(T('ficProto'),T('ficRS485'));c1+=row(T('ficBaud'),T('ficBaud9'));c1+=row(T('ficMaster'),sp.labelEnd+' ×1','','#c04000');if(nC>0)c1+=row(T('ficSlave'),sp.labelCentral+' ×'+nC,'','#1a5fa0');c1+=`</div>`;
+  c1+=row(T('ficType'),T('swingBarrier'));c1+=row(T('ficLargo'),sp.D,'mm');c1+=row(T('ficAncho'),sp.W,'mm');c1+=row(T('ficAlto'),sp.H,'mm');c1+=row(T('ficArm'),sp.armBase,'mm');c1+=row(T('ficTemp'),sp.tempRange);c1+=row(T('ficVel'),sp.openSpeed);c1+=row(T('ficElec'),sp.power);c1+=row(T('ficPow'),sp.consumption);c1+=row(T('ficGap'),GAP_MM+' mm','','#8a6800');c1+=`</div>`;
 
   let c2=`<div class="fc"><div class="fh fhg">${T('ficProj')}</div>`;
   c2+=row(T('ficLanes'),N());c2+=row(T('ficCabs'),N()+1,T('uiGabinets'));c2+=`<div class="fr2"><span class="fk">${T('ficCabDetail')}</span><span class="fv" style="font-size:9px;font-weight:500;text-align:right">${unitsInfo()}</span></div>`;c2+=`</div>`;
@@ -1563,8 +1563,7 @@ function drawFicha(){
       </div>
     </div>`;
   }
-  document.getElementById('ficha-outer').innerHTML=`<div class="fhr2">${sp.label} — ${sp.sub}</div><div class="fg">${c1}${c2}${lanesHtml}${accHtml}<div class="fft">ZKTeco Corp. © 2025 — www.zkteco.com</div></div>`;
-  // ── BOM inline (material list embedded in ficha tab) ──────────
+  // ── BOM ──────────────────────────────────────────────────────
   const bomItems=[];
   bomItems.push({qty:1,ref:sp.labelEnd,desc:sp.label+' · '+sp.sub});
   if(nC>0)bomItems.push({qty:nC,ref:sp.labelCentral,desc:sp.label+' · Central'});
@@ -1574,14 +1573,12 @@ function drawFicha(){
   const baG={};
   [...accLeft,...accRight].forEach(a=>{if(!baG[a.code])baG[a.code]={qty:0,ref:a.code,desc:accLbl(ACC_BY_CODE[a.code])};baG[a.code].qty++;});
   Object.values(baG).forEach(g=>bomItems.push(g));
-  const bPvc=pvcSize(N()),bCables=T('cables');
-  bomItems.push({qty:1,ref:'PVC-Ø'+bPvc.d,desc:T('bomPVC')+' '+bPvc.label});
-  if(Array.isArray(bCables))bCables.forEach((c,i)=>bomItems.push({qty:N()+1,ref:'CBL-'+(i+1),desc:c}));
   const bTotal=bomItems.reduce((s,it)=>s+it.qty,0);
-  const bEl=document.getElementById('bom-inline');
-  if(bEl)bEl.innerHTML=`<div class="fc"><div class="fh fhd" style="letter-spacing:1px">${T('bomTitle')}</div>`+
-    bomItems.map(it=>`<div class="fr2"><span class="fk"><span style="font-weight:700;color:#1a5fa0;min-width:24px;display:inline-block;font-size:11px">${it.qty}×</span>${it.ref}</span><span class="fv" style="font-size:9px;color:#555;font-weight:500">${it.desc}</span></div>`).join('')+
-    `<div class="fr2" style="border-top:1.5px solid rgba(26,95,160,.2);margin-top:3px;padding-top:3px"><span class="fk" style="font-weight:700;color:#14304f">${T('bomTotal')}</span><span class="fv" style="font-weight:800;color:#1a5fa0;font-size:13px">${bTotal}×</span></div></div>`;
+  const bomHtml=`<div class="fc" style="grid-column:1/-1"><div class="fh fhd" style="letter-spacing:1px">${T('bomTitle')}</div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0">`+
+    bomItems.map(it=>`<div class="fr2" style="padding:4px 12px"><span class="fk"><span style="font-weight:700;color:#1a5fa0;min-width:22px;display:inline-block;font-size:11px">${it.qty}×</span>${it.ref}</span><span class="fv" style="font-size:9px;color:#555;font-weight:500">${it.desc}</span></div>`).join('')+
+    `</div><div class="fr2" style="border-top:1.5px solid rgba(26,95,160,.2);padding:5px 12px"><span class="fk" style="font-weight:700;color:#14304f">${T('bomTotal')}</span><span class="fv" style="font-weight:800;color:#1a5fa0;font-size:13px">${bTotal}×</span></div></div>`;
+  document.getElementById('ficha-outer').innerHTML=`<div class="fhr2">${sp.label} — ${sp.sub}</div><div class="fg">${c1}${c2}${lanesHtml}${accHtml}${bomHtml}<div class="fft">ZKTeco Corp. © 2025 — www.zkteco.com</div></div>`;
+  const bEl=document.getElementById('bom-inline');if(bEl)bEl.innerHTML='';
   drawFichaSVG();
 }
 
@@ -1656,9 +1653,9 @@ function drawCover(){
   let h=`<rect width="${W}" height="${H}" fill="#eeede5"/><rect x="10" y="10" width="${W-20}" height="${H-20}" fill="none" stroke="#14304f" stroke-width="2"/>`;
   h+=`<rect x="10" y="10" width="${W-20}" height="72" fill="#14304f"/>`;h+=`<text x="40" y="52" ${FM} font-size="30" font-weight="bold" fill="#fff" letter-spacing="2">ZK<tspan fill="#7dd87a">Teco</tspan></text>`;h+=`<text x="40" y="70" ${FM} font-size="9" fill="#7dd87a" letter-spacing="4">${T('coverSecurityTag')}</text>`;
   h+=`<text x="${W-105}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-105}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-105}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
-  const qrData=encodeURIComponent((project!=='—'?project:M)+' '+refn+' '+version);
-  h+=`<image href="https://api.qrserver.com/v1/create-qr-code/?size=64x64&data=${qrData}&bgcolor=14304f&color=7dd87a" x="${W-94}" y="12" width="64" height="64" rx="3" style="image-rendering:pixelated"/>`;
-  h+=`<text x="${r(W-62)}" y="82" text-anchor="middle" ${FM} font-size="6" fill="rgba(125,216,122,.6)">${T('qrTitle')}</text>`;
+  const qrData=encodeURIComponent(getShareURL());
+  h+=`<image href="https://api.qrserver.com/v1/create-qr-code/?size=96x96&data=${qrData}&bgcolor=14304f&color=7dd87a" x="${W-94}" y="12" width="64" height="64" rx="3" style="image-rendering:pixelated"/>`;
+  h+=`<text x="${r(W-62)}" y="82" text-anchor="middle" ${FM} font-size="6" fill="rgba(125,216,122,.6)" data-t="qrOpen">Abrir proyecto</text>`;
   h+=`<text x="40" y="112" ${FM} font-size="8" fill="#888" letter-spacing="2">${T('covProject')}</text>`;h+=`<text x="40" y="135" ${FM} font-size="18" font-weight="bold" fill="#14304f">${project}</text>`;h+=`<line x1="40" y1="145" x2="${W-40}" y2="145" stroke="#14304f" stroke-width=".5"/>`;
   const c2x=390,rH=28;let ry=168;
   const rows=[[T('fldClient').toUpperCase(),client,false,''],[T('fldAddr').toUpperCase(),addr,false,''],[T('modelLbl').toUpperCase(),sp.label,false,''],['',unitsShort(),false,'sub'],[T('uiLanes').toUpperCase(),`${N()} ${N()>1?T('lanes'):T('lane')} · ${N()+1} ${T('nCabs').toLowerCase()}`,false,''],[T('covGates'),`${rnd(TWg)} mm`,aC!==null,''],[T('twLabel').toUpperCase(),`${rnd(TWtotal)} mm`,false,'acc']];
@@ -2118,14 +2115,17 @@ document.addEventListener('keydown',e=>{
 });
 
 // ══ SHARE URL ═════════════════════════════════════════════════
-function shareURL(){
+function getShareURL(){
   const gv=id=>{const el=document.getElementById(id);return el?el.value:'';};
   const state={v:3,m:M,l:lanes.map(l=>({p:l.pgIdx,f:l.lfIdx})),sl:siteLimit,
     al:accLeft.map(a=>({c:a.code,g:a.r50gW,h:a.r50gH})),
     ar:accRight.map(a=>({c:a.code,g:a.r50gW,h:a.r50gH})),
     cv:{cl:gv('f-client'),pr:gv('f-project'),ad:gv('f-addr'),rf:gv('f-ref'),au:gv('f-author'),rv:gv('f-rev'),dt:gv('f-date'),vr:gv('f-version')}};
-  const hash='#s='+btoa(encodeURIComponent(JSON.stringify(state)));
-  const url=location.href.replace(/#.*/,'')+hash;
+  return location.href.replace(/#.*/,'')+('#s='+btoa(encodeURIComponent(JSON.stringify(state))));
+}
+function shareURL(){
+  const url=getShareURL();
+  const hash=url.replace(/[^#]*(#.*)/,'$1');
   history.replaceState(null,'',hash);
   if(navigator.clipboard){
     navigator.clipboard.writeText(url).then(()=>showToast(T('urlCopied'))).catch(()=>showToast(T('urlCopyManual')));
