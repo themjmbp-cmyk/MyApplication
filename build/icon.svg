@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <rect width="256" height="256" rx="32" fill="#14304f"/>
+  <text x="128" y="155" text-anchor="middle" font-family="monospace" font-size="100" font-weight="bold" fill="white">ZK</text>
+  <rect x="28" y="188" width="200" height="10" rx="5" fill="#7dd87a"/>
+</svg>

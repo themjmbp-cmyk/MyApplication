@@ -1,0 +1,85 @@
+{
+  "name": "zkteco-speedgate-cad",
+  "version": "3.5.0",
+  "description": "CAD tool for ZKTeco SpeedGate installations — ES/EN/PT",
+  "main": "main.js",
+  "author": "ZKTeco SpeedGate CAD",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "electron . --no-sandbox",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac",
+    "dist:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.zkteco.speedgate-cad",
+    "productName": "ZKTeco SpeedGate CAD",
+    "copyright": "ZKTeco SpeedGate CAD",
+    "files": [
+      "main.js",
+      "zkteco_v35_optimized.html",
+      "sw.js",
+      "manifest.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icons",
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ZKTeco SpeedGate CAD"
+    }
+  }
+}
