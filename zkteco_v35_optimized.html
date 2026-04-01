@@ -471,6 +471,7 @@ es:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha t
   uiMirror:'Espejo',btnMirror:'↔ Invertir',mirrorApplied:'Accesorios invertidos',
   lightTheme:'Modo oscuro',darkTheme:'Modo claro',accWarn:'Accesorio demasiado ancho',dxfExport:'Exportando DXF…',
   tabBOM:'Mat. & BOM',bomTitle:'LISTA DE MATERIALES',bomModel:'Modelo',bomLanes:'Pasillos',bomCabs:'Gabinetes',bomGMP:'Ref. GMP',bomQty:'Cant.',bomDesc:'Descripción',bomLeaf:'Hoja',bomAcc:'Accesorios',bomPVC:'Conducto PVC',bomCables:'Cables',bomTotal:'TOTAL',
+  screwHoleLbl:'Taladro anclaje',wireHoleLbl:'Paso de cable',
 },
 en:{langLabel:'Language',tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
@@ -524,6 +525,7 @@ en:{langLabel:'Language',tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech She
   uiMirror:'Mirror',btnMirror:'↔ Flip',mirrorApplied:'Accessories flipped',
   lightTheme:'Dark mode',darkTheme:'Light mode',accWarn:'Accessory too wide',dxfExport:'Exporting DXF…',
   tabBOM:'Mat. & BOM',bomTitle:'BILL OF MATERIALS',bomModel:'Model',bomLanes:'Lanes',bomCabs:'Cabinets',bomGMP:'GMP Ref.',bomQty:'Qty',bomDesc:'Description',bomLeaf:'Barrier',bomAcc:'Accessories',bomPVC:'PVC Conduit',bomCables:'Cables',bomTotal:'TOTAL',
+  screwHoleLbl:'Screw hole',wireHoleLbl:'Wire hole',
 },
 pt:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
@@ -577,6 +579,7 @@ pt:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha t
   uiMirror:'Espelho',btnMirror:'↔ Inverter',mirrorApplied:'Acessórios invertidos',
   lightTheme:'Modo escuro',darkTheme:'Modo claro',accWarn:'Acessório demasiado largo',dxfExport:'A exportar DXF…',
   tabBOM:'Mat. & BOM',bomTitle:'LISTA DE MATERIAIS',bomModel:'Modelo',bomLanes:'Corredores',bomCabs:'Gabinetes',bomGMP:'Ref. GMP',bomQty:'Qtd.',bomDesc:'Descrição',bomLeaf:'Paleta',bomAcc:'Acessórios',bomPVC:'Conduíte PVC',bomCables:'Cabos',bomTotal:'TOTAL',
+  screwHoleLbl:'Furo parafuso',wireHoleLbl:'Furo de cabo',
 },
 fr:{langLabel:'Langue',tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche tech.',tabCover:'Couverture',
   btnSave:'Enregistrer',btnLoad:'Charger',expProject:'Projet',
@@ -628,7 +631,7 @@ fr:{langLabel:'Langue',tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche te
   uiMirror:'Miroir',btnMirror:'↔ Inverser',mirrorApplied:'Accessoires inversés',
   lightTheme:'Mode sombre',darkTheme:'Mode clair',accWarn:'Accessoire trop large',dxfExport:'Export DXF…',
   tabBOM:'Mat. & BOM',bomTitle:'NOMENCLATURE',bomModel:'Modèle',bomLanes:'Voies',bomCabs:'Armoires',bomGMP:'Réf. GMP',bomQty:'Qté',bomDesc:'Description',bomLeaf:'Barrière',bomAcc:'Accessoires',bomPVC:'Conduit PVC',bomCables:'Câbles',bomTotal:'TOTAL',
-  gapNote:'inclus dans la cote',awaiting:'File d\'attente',
+  gapNote:'inclus dans la cote',awaiting:'File d\'attente',screwHoleLbl:'Perçage ancrage',wireHoleLbl:'Passage câble',
 },
 de:{langLabel:'Sprache',tabCad:'CAD-Plan',tabWiring:'Verkabelung',tabFicha:'Datenblatt',tabCover:'Titelseite',
   btnSave:'Speichern',btnLoad:'Laden',expProject:'Projekt',
@@ -680,6 +683,7 @@ de:{langLabel:'Sprache',tabCad:'CAD-Plan',tabWiring:'Verkabelung',tabFicha:'Date
   uiMirror:'Spiegeln',btnMirror:'↔ Spiegeln',mirrorApplied:'Zubehör gespiegelt',
   lightTheme:'Dunkelmodus',darkTheme:'Hellmodus',accWarn:'Zubehör zu breit',dxfExport:'DXF wird exportiert…',
   tabBOM:'Mat. & BOM',bomTitle:'STÜCKLISTE',bomModel:'Modell',bomLanes:'Spuren',bomCabs:'Gehäuse',bomGMP:'GMP-Ref.',bomQty:'Anz.',bomDesc:'Beschreibung',bomLeaf:'Barriere',bomAcc:'Zubehör',bomPVC:'PVC-Kanal',bomCables:'Kabel',bomTotal:'GESAMT',
+  screwHoleLbl:'Ankerloch',wireHoleLbl:'Kabeldurchgang',
 }};
 let LANG='es';
 const T=k=>I18N[LANG]?.[k]??I18N.es?.[k]??k;
@@ -697,13 +701,13 @@ function redrawPage(){drawCAD();if(PAGE==='wiring')drawWiring();else if(PAGE==='
 function pvcSize(n){const t=2+4*n;if(t<=8)return{d:50,label:'Ø50 mm',color:'#2a7a2a'};if(t<=12)return{d:63,label:'Ø63 mm',color:'#c08800'};return{d:75,label:'Ø75 mm',color:'#cc4400'};}
 const MODELS={
   sbtl8000:{label:'SBTL8000 / SBTL8200',labelEnd:'SBTL8000',labelCentral:'SBTL8200',sub:'Swing Barrier · Industrial',W:134,D:1613,H:1017.5,armBase:200,wallCl:100,bolts:[80,336,681,977,1533],wireOff:88,mc:'#c04000',tempRange:'-25°C ~ +70°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'150W',
-   pg:[{c:660,s:788.5,l:'660',leaves:[{label:'Std 935',gmp:'GMP-ACC-640X935-A',pH:480,pW:295,topH:935},{label:'H 1.2m',gmp:'GMP-ACC-640X1200-A',pH:745,pW:295,topH:1200},{label:'H 1.5m',gmp:'GMP-ACC-640X1500-A',pH:1045,pW:295,topH:1500}]},{c:900,s:1028,l:'900',leaves:[{label:'Wide 935',gmp:'GMP-ACC-900X935-A',pH:480,pW:425,topH:935},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:425,topH:1500}]},{c:1200,s:1330,l:'1200',leaves:[{label:'XL 935',gmp:'GMP-ACC-1200X935-A',pH:630,pW:575,topH:935}]}]},
+   pg:[{c:660,s:788.5,l:'660',leaves:[{label:'Std 935',gmp:'GMP-ACC-640X935-A',pH:480,pW:295,topH:935},{label:'H 1.2m',gmp:'GMP-ACC-640X1200-A',pH:745,pW:295,topH:1200},{label:'H 1.5m',gmp:'GMP-ACC-640X1500-A',pH:1045,pW:295,topH:1500}]},{c:900,s:1028,l:'900',leaves:[{label:'Wide 935',gmp:'GMP-ACC-900X935-A',pH:480,pW:425,topH:935},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:425,topH:1500}]},{c:1200,s:1330,l:'1200',leaves:[{label:'XL 935',gmp:'GMP-ACC-1200X935-A',pH:630,pW:575,topH:935}]}],tpl:{pillW:88,boltR:6.5,slotH:14,slotW:36,wireR:7}},
   comet:{label:'Comet S1000 / S1200',labelEnd:'Comet S1000',labelCentral:'Comet S1200',sub:'Swing Gate · Slim',W:115,D:1500,H:1000,armBase:255,wallCl:100,bolts:[76,724,1424],wireOff:76,mc:'#005080',tempRange:'-25°C ~ +70°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'120W',
-   pg:[{c:660,s:812,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:875},{label:'H 1.2m',gmp:'GMP-ACC-650X1200-A',pH:955,pW:295,topH:1200}]},{c:900,s:1010,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:875}]},{c:1200,s:1310,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:875}]}]},
+   pg:[{c:660,s:812,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:875},{label:'H 1.2m',gmp:'GMP-ACC-650X1200-A',pH:955,pW:295,topH:1200}]},{c:900,s:1010,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:875}]},{c:1200,s:1310,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:875}]}],tpl:{type:'span',plateH:100,slotW:40,slotH:12,wireR:7}},
   mars:{label:'Mars Pro-S1000 / S1200',labelEnd:'Mars Pro-S1000',labelCentral:'Mars Pro-S1200',sub:'Swing Barrier · Compact',W:120,D:1360,H:1020,armBase:245,wallCl:100,bolts:[60,1300],wireOff:60,mc:'#1a6a30',tempRange:'-20°C ~ +60°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'100W',
-   pg:[{c:650,s:800,l:'650',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:875},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1500}]},{c:900,s:1050,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:875},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1500}]},{c:1200,s:1350,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:875}]}]},
+   pg:[{c:650,s:800,l:'650',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:875},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1500}]},{c:900,s:1050,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:875},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1500}]},{c:1200,s:1350,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:875}]}],tpl:{colW:60,flangeSize:60,boltR:5,boltOff:12}},
   mars_s100:{label:'Mars-S100 / S120',labelEnd:'Mars-S100',labelCentral:'Mars-S120',sub:'Swing Barrier · Ultra-Compact',W:120,D:600,H:1040,armBase:264,wallCl:100,bolts:[60,540],wireOff:60,mc:'#1a5a8a',tempRange:'-20°C ~ +60°C',openSpeed:'≤ 1.5 s',power:'AC 100–240V 50/60Hz',consumption:'100W',
-   pg:[{c:660,s:820,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:894},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1519}]},{c:900,s:1060,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:894},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1519}]},{c:1200,s:1360,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:894}]}]},
+   pg:[{c:660,s:820,l:'660',leaves:[{label:'Std 875',gmp:'GMP-ACC-650X875-A',pH:630,pW:295,topH:894},{label:'H 1.5m',gmp:'GMP-ACC-650X1500-A',pH:1255,pW:295,topH:1519}]},{c:900,s:1060,l:'900',leaves:[{label:'Wide 875',gmp:'GMP-ACC-900X875-A',pH:630,pW:420,topH:894},{label:'W 1.5m',gmp:'GMP-ACC-900X1500-A',pH:1255,pW:420,topH:1519}]},{c:1200,s:1360,l:'1200',leaves:[{label:'XL 875',gmp:'GMP-ACC-1200X875-A',pH:630,pW:575,topH:894}]}],tpl:{plateW:388,plateH:65,circR:5,slotW:22,slotH:9,wireR:7,notchR:14}},
 };
 const MK=Object.keys(MODELS);
 let M='sbtl8000',lanes=[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}],PAGE='cad',siteLimit=0,siteLen=0;
@@ -1086,6 +1090,84 @@ function drawAccListElev(list,side,fox,foy,fgy,fsc,fdw){
   return{svg:h,totalW:totalSideW};
 }
 
+// ── PLAN VIEW BOLT TEMPLATE ───────────────────────────────────
+function drawCabPlanDetail(sp,pcx,poy,cw,cd,psc){
+  const t=sp.tpl,cx=r(pcx+cw/2);
+  let h=`<rect x="${r(pcx)}" y="${r(poy)}" width="${r(cw)}" height="${r(cd)}" fill="#d8d4cc" stroke="#888" stroke-width=".6"/>`;
+  if(!t) return h;
+  if(t.pillW){
+    // SBTL8000/8200 — pill shape
+    const pw=r(t.pillW*psc),rx=r(pw/2),px0=r(cx-pw/2);
+    h+=`<rect x="${px0}" y="${r(poy)}" width="${pw}" height="${r(cd)}" rx="${rx}" fill="#f5f3ee" stroke="#333" stroke-width="1"/>`;
+    h+=`<line x1="${cx}" y1="${r(poy+8)}" x2="${cx}" y2="${r(poy+cd-8)}" stroke="#aaa" stroke-width=".4" stroke-dasharray="4 3"/>`;
+    const nb=sp.bolts.length;
+    sp.bolts.forEach((b,i)=>{
+      const by=r(poy+b*psc);
+      if(i===0||i===nb-1){
+        const br=r(t.boltR*psc);
+        h+=`<circle cx="${cx}" cy="${by}" r="${br}" fill="#fff" stroke="#cc1111" stroke-width="1.1"/>`;
+        h+=`<line x1="${r(cx-br)}" y1="${by}" x2="${r(cx+br)}" y2="${by}" stroke="#cc1111" stroke-width=".7"/>`;
+        h+=`<line x1="${cx}" y1="${r(by-br)}" x2="${cx}" y2="${r(by+br)}" stroke="#cc1111" stroke-width=".7"/>`;
+      } else {
+        const sh=r(t.slotH*psc),sw=r(t.slotW*psc);
+        h+=`<rect x="${r(cx-sw/2)}" y="${r(by-sh/2)}" width="${sw}" height="${sh}" rx="${r(sh/2)}" fill="#fff" stroke="#cc1111" stroke-width=".9"/>`;
+      }
+    });
+    const wr=r(t.wireR*psc),wy=r(poy+cd*.5),wx=r(pcx+sp.wireOff*psc);
+    h+=`<circle cx="${wx}" cy="${wy}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
+    if(pw>14) h+=tickDim(px0,r(px0+pw),r(poy+cd*.6),`${t.pillW}`,'#444');
+  } else if(t.type==='span'){
+    // Comet S1000/S1200 — per-cabinet plate at bolt[0] and bolt[last]
+    const ph=r(t.plateH*psc);
+    [sp.bolts[0],sp.bolts[sp.bolts.length-1]].forEach(b=>{
+      const py=r(poy+b*psc-ph/2);
+      h+=`<rect x="${r(pcx)}" y="${py}" width="${r(cw)}" height="${ph}" fill="#f5f3ee" stroke="#333" stroke-width=".9"/>`;
+      const sh=r(t.slotH*psc),sw=r(t.slotW*psc),voff=r(ph*.28);
+      [[r(pcx+sw),r(py+voff)],[r(pcx+sw),r(py+ph-voff)],[r(pcx+cw-sw),r(py+voff)],[r(pcx+cw-sw),r(py+ph-voff)]].forEach(([sx,sy])=>{
+        h+=`<rect x="${r(sx-sw/2)}" y="${r(sy-sh/2)}" width="${sw}" height="${sh}" rx="${r(sh/2)}" fill="#fff" stroke="#cc1111" stroke-width=".8"/>`;
+      });
+      const wr=r(t.wireR*psc);
+      h+=`<circle cx="${cx}" cy="${r(py+ph/2)}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
+    });
+  } else if(t.colW){
+    // Mars S1000/S1200 — column strip + flanges at bolt positions
+    const colPx=r(t.colW*psc),col0=r(cx-colPx/2);
+    h+=`<rect x="${col0}" y="${r(poy)}" width="${colPx}" height="${r(cd)}" fill="#e8e4dc" stroke="#555" stroke-width=".7"/>`;
+    h+=`<line x1="${cx}" y1="${r(poy+4)}" x2="${cx}" y2="${r(poy+cd-4)}" stroke="#aaa" stroke-width=".35" stroke-dasharray="4 3"/>`;
+    const fs=r(t.flangeSize*psc);
+    sp.bolts.forEach(b=>{
+      const by=r(poy+b*psc),fy=r(by-fs/2);
+      h+=`<rect x="${r(cx-fs/2)}" y="${fy}" width="${fs}" height="${fs}" fill="#f0ece4" stroke="#333" stroke-width=".9"/>`;
+      const off=r(t.boltOff*psc),br=r(t.boltR*psc);
+      [[cx-fs/2+off,fy+off],[cx+fs/2-off,fy+off],[cx-fs/2+off,fy+fs-off],[cx+fs/2-off,fy+fs-off]].forEach(([bx,by2])=>{
+        h+=`<circle cx="${r(bx)}" cy="${r(by2)}" r="${br}" fill="#fff" stroke="#cc1111" stroke-width=".9"/>`;
+        h+=`<line x1="${r(bx-br)}" y1="${r(by2)}" x2="${r(bx+br)}" y2="${r(by2)}" stroke="#cc1111" stroke-width=".5"/>`;
+        h+=`<line x1="${r(bx)}" y1="${r(by2-br)}" x2="${r(bx)}" y2="${r(by2+br)}" stroke="#cc1111" stroke-width=".5"/>`;
+      });
+    });
+    const wr=r(4*psc),wy2=r(poy+cd*.5);
+    h+=`<circle cx="${cx}" cy="${wy2}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
+  } else if(t.plateW){
+    // Mars-S100/S120 — single vertical plate per cabinet, bolt[0] to bolt[1]
+    const pw=r(t.plateH*psc);  // 65 mm in W direction
+    const ptop=r(poy+sp.bolts[0]*psc),pbot=r(poy+sp.bolts[1]*psc),ph2=r(pbot-ptop);
+    h+=`<rect x="${r(cx-pw/2)}" y="${ptop}" width="${pw}" height="${ph2}" rx="2" fill="#f5f3ee" stroke="#333" stroke-width=".9"/>`;
+    const cr=r(t.circR*psc),off=r(t.circR*psc*2.2);
+    [[cx-pw/2+off,ptop+off],[cx+pw/2-off,ptop+off],
+     [cx-pw/2+off,pbot-off],[cx+pw/2-off,pbot-off]].forEach(([bx,by2])=>{
+      h+=`<circle cx="${r(bx)}" cy="${r(by2)}" r="${cr}" fill="#fff" stroke="#cc1111" stroke-width=".9"/>`;
+      h+=`<line x1="${r(bx-cr)}" y1="${r(by2)}" x2="${r(bx+cr)}" y2="${r(by2)}" stroke="#cc1111" stroke-width=".5"/>`;
+      h+=`<line x1="${r(bx)}" y1="${r(by2-cr)}" x2="${r(bx)}" y2="${r(by2+cr)}" stroke="#cc1111" stroke-width=".5"/>`;
+    });
+    const wr=r(t.wireR*psc),midy=r((ptop+pbot)/2);
+    h+=`<circle cx="${cx}" cy="${midy}" r="${wr}" fill="#1a5fa0" opacity=".75"/>`;
+    const nr=r(t.notchR*psc);
+    h+=`<path d="M${r(cx-pw/2)} ${r(midy-nr)} A${nr} ${nr} 0 0 1 ${r(cx-pw/2)} ${r(midy+nr)}" fill="#d8d4cc" stroke="#333" stroke-width=".7"/>`;
+    h+=`<path d="M${r(cx+pw/2)} ${r(midy-nr)} A${nr} ${nr} 0 0 0 ${r(cx+pw/2)} ${r(midy+nr)}" fill="#d8d4cc" stroke="#333" stroke-width=".7"/>`;
+  }
+  return h;
+}
+
 // ══ MAIN CAD ══════════════════════════════════════════════════
 function drawCAD(){
   const sp=MODELS[M];if(!sp)return;
@@ -1138,9 +1220,7 @@ function drawCAD(){
   let pcx=pox;
   for(let i=0;i<=N();i++){
     const cw=r(sp.W*psc),cd=r(sp.D*psc),lbl=i===0||i===N()?sp.labelEnd.split(/[\s/-]/)[0]:sp.labelCentral.split(/[\s/-]/)[0];
-    h+=cabSVG(pcx,poy,cw,cd,lbl);
-    sp.bolts.forEach(b=>{const bs=r(poy+b*psc),bx=r(pcx+cw/2),br=mn(3,r(psc*9));if(bs>r(poy+3)&&bs<r(poy+cd-3)){h+=`<circle cx="${bx}" cy="${bs}" r="${br}" fill="none" stroke="#cc1111" stroke-width=".75"/>`;h+=`<line x1="${r(bx-br)}" y1="${bs}" x2="${r(bx+br)}" y2="${bs}" stroke="#cc1111" stroke-width=".5"/>`;h+=`<line x1="${bx}" y1="${r(bs-br)}" x2="${bx}" y2="${r(bs+br)}" stroke="#cc1111" stroke-width=".5"/>`;}});
-    if(i===0||i===N()){const wx=i===0?r(pox+sp.wireOff*psc):r(pox+pdw-sp.wireOff*psc);h+=`<circle cx="${wx}" cy="${r(poy+cd*.5)}" r="${mn(3.5,r(psc*20))}" fill="#1a5fa0" opacity=".7"/>`;}
+    h+=drawCabPlanDetail(sp,pcx,poy,cw,cd,psc);
     h+=`<rect x="${r(pcx+1)}" y="${r(poy+cd-4)}" width="${r(sp.W*psc-2)}" height="4" fill="${pvc.color}35" stroke="${pvc.color}" stroke-width=".6" rx="1"/>`;
     pcx=r(pcx+cw);
     if(i<N()){
@@ -1176,7 +1256,7 @@ function drawCAD(){
   if(sbx>PX.l+130&&sbp>20){h+=`<rect x="${sbx}" y="${r(sby-4)}" width="${sbp}" height="4" fill="none" stroke="#444" stroke-width=".6"/>`;h+=`<rect x="${sbx}" y="${r(sby-4)}" width="${r(sbp/2)}" height="4" fill="#444" opacity=".6"/>`;h+=`<text x="${r(sbx+sbp/2)}" y="${r(sby-7)}" text-anchor="middle" ${FM} font-size="6.5" fill="#444">${T('scaleLbl')}</text>`;}
 
   // Legend — 2 columnas esquina superior-derecha del plano (siempre sobre las cotas)
-  const legItems=[{c:'#cc1111',v:`${T('pernoLbl')} ×${(N()+1)*sp.bolts.length}`},{c:'#1a5fa0',v:T('gabLbl')},{c:'#555',v:T('slotLbl')},{c:pvc.color,v:`PVC ${pvc.label}`},{c:'#8a6800',v:`${T('ficGapCentral')} ${GAP_MM} mm`},{c:'#c08800',v:`${T('twLabel')}: ${rnd(TWtotal)} mm`}];
+  const legItems=[{c:'#cc1111',v:T('screwHoleLbl')},{c:'#1a5fa0',v:T('wireHoleLbl')},{c:'#555',v:T('slotLbl')},{c:pvc.color,v:`PVC ${pvc.label}`},{c:'#8a6800',v:`${T('ficGapCentral')} ${GAP_MM} mm`},{c:'#c08800',v:`${T('twLabel')}: ${rnd(TWtotal)} mm`}];
   const lRows=Math.ceil(legItems.length/2),lCW=88,legW=lCW*2,lH=lRows*10+8;
   const lx2=r(PX.r-18-13-4-legW);  // a la izquierda del indicador Norte
   const ly2=P_TOP+4;
