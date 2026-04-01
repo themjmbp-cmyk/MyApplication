@@ -219,17 +219,17 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 </div>
 <div class="pt">
   <button class="ptb on" id="tab-cad" draggable="true" onclick="setPage('cad')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> <span data-t="tabCad">Plano CAD</span></button>
-  <button class="ptb" id="tab-wiring" draggable="true" onclick="setPage('wiring')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="3" cy="8" r="2"/><circle cx="13" cy="8" r="2"/><path d="M5 8h1.5l1-3h1l1 3H11"/></svg> <span data-t="tabWiring">Cableado</span></button>
+  <!-- <button class="ptb" id="tab-wiring" draggable="true" onclick="setPage('wiring')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="3" cy="8" r="2"/><circle cx="13" cy="8" r="2"/><path d="M5 8h1.5l1-3h1l1 3H11"/></svg> <span data-t="tabWiring">Cableado</span></button> -->
   <button class="ptb" id="tab-ficha" draggable="true" onclick="setPage('ficha')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/></svg> <span data-t="tabFicha">Ficha técnica</span></button>
   <button class="ptb" id="tab-cover" draggable="true" onclick="setPage('cover')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M3 1h7l3 3v11H3z"/><path d="M10 1v3h3"/></svg> <span data-t="tabCover">Portada</span></button>
-  <button class="ptb" id="tab-iso" draggable="true" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button>
+  <!-- <button class="ptb" id="tab-canal" draggable="true" onclick="setPage('canal')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="1" y="10" width="14" height="4" rx="1"/><line x1="4" y1="10" x2="4" y2="6"/><line x1="8" y1="10" x2="8" y2="6"/><line x1="12" y1="10" x2="12" y2="6"/><circle cx="4" cy="5" r="1.5"/><circle cx="8" cy="5" r="1.5"/><circle cx="12" cy="5" r="1.5"/></svg> <span data-t="tabCanal">Canalización</span></button> -->
+  <!-- <button class="ptb" id="tab-iso" draggable="true" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button> -->
   <button class="ptb" id="tab-isowf" draggable="true" onclick="setPage('isowf')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 10l4-4 3 3 3-4 2 2"/></svg> <span data-t="tabIsoWF">Vista CAD</span></button>
   <button class="ptb" id="tab-comp" draggable="true" onclick="setPage('comp')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/><line x1="4" y1="6" x2="4" y2="10"/><line x1="12" y1="6" x2="12" y2="10"/></svg> <span data-t="tabComp">Comparar</span></button>
   <div id="pt-tabs-end" style="flex:1;min-width:8px"></div>
   <div style="display:flex;align-items:center;gap:4px;padding:0 8px;border-left:1px solid var(--br)">
     <button class="bf bsv" style="padding:4px 10px;font-size:9.5px" onclick="saveProject()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="btnSave">Guardar</span></button>
     <button class="bf bld" style="padding:4px 10px;font-size:9.5px" onclick="document.getElementById('fi-load').click()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="btnLoad">Cargar</span></button>
-    <button class="bf bsh" style="padding:4px 10px;font-size:9.5px" id="btn-share" onclick="shareURL()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="12" cy="3" r="2"/><circle cx="4" cy="8" r="2"/><circle cx="12" cy="13" r="2"/><line x1="5.8" y1="7.2" x2="10.2" y2="4.8"/><line x1="5.8" y1="8.8" x2="10.2" y2="11.2"/></svg> <span data-t="btnShare">Compartir</span></button>
     <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
   </div>
   <button class="ptb" style="border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
@@ -290,6 +290,11 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 <div id="page-wiring" style="display:none">
   <div class="whb"><div style="font-size:11px;font-weight:600;color:#fff;font-family:monospace" id="w-title">—</div><div id="pvc-badge"></div><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('wsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('wsvg','png')">PNG</button></div></div>
   <div class="dw"><svg id="wsvg" viewBox="0 0 720 400" role="img" data-ta="tabWiring"></svg></div>
+</div>
+
+<div id="page-canal" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="canalTitle">Canalización</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('canalsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('canalsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="canalsvg" viewBox="0 0 720 400" role="img" data-ta="tabCanal"></svg></div>
 </div>
 
 <div id="page-ficha" style="display:none">
@@ -418,7 +423,7 @@ function goLbl(o){return LANG==='en'?o.labelEn:LANG==='pt'?o.labelPt:o.label;}
 
 // ══ I18N ══════════════════════════════════════════════════════
 const I18N={
-es:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'Portada',
+es:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha técnica',tabCover:'Portada',tabCanal:'Canalización',canalTitle:'CANALIZACIÓN — SECCIÓN SUBTERRÁNEA',
   btnSave:'Guardar',btnLoad:'Cargar',expProject:'Proyecto',
   accLeftSide:'Lado izquierdo',accRightSide:'Lado derecho',accAdd:'+ Añadir',accNone:'Sin accesorio',
   uiLanes:'Nº Pasillos',uiLimit:'Hueco disponible obra',uiPage:'Esta página',
@@ -453,7 +458,7 @@ es:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha t
   alertNear:(tw,lim)=>`Ancho total <b>${tw} mm</b> — quedan <b>${lim-tw} mm</b> disponibles`,
   alertOverBadge:'NO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',r50Width:'Ancho',r50Height:'Alto',
-  accRemove:'Eliminar',loadingPDF:'Cargando PDF…',modelLbl:'Modelo',sessionRestored:'Restaurar sesión',sessionClear:'Sesión restaurada',
+  accRemove:'Eliminar',loadingPDF:'Cargando PDF…',modelLbl:'Modelo',sessionRestored:'Sesión restaurada',sessionClear:'Limpiar sesión guardada',
   msgPerSide:'por lado',lblCables:'cables',lblPortada:'portada',
   ttipMinLanes:'mín. 1 pasillo',ttipMaxLanes:'máx. 6 pasillos',
   btnDecLanes:'Reducir pasillos',btnIncLanes:'Añadir pasillo',
@@ -473,7 +478,7 @@ es:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha t
   tabBOM:'Mat. & BOM',bomTitle:'LISTA DE MATERIALES',bomModel:'Modelo',bomLanes:'Pasillos',bomCabs:'Gabinetes',bomGMP:'Ref. GMP',bomQty:'Cant.',bomDesc:'Descripción',bomLeaf:'Hoja',bomAcc:'Accesorios',bomPVC:'Conducto PVC',bomCables:'Cables',bomTotal:'TOTAL',
   screwHoleLbl:'Taladro anclaje',wireHoleLbl:'Paso de cable',
 },
-en:{langLabel:'Language',tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',
+en:{langLabel:'Language',tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech Sheet',tabCover:'Cover',tabCanal:'Conduit',canalTitle:'CONDUIT — UNDERGROUND SECTION',
   btnSave:'Save',btnLoad:'Load',expProject:'Project',
   accLeftSide:'Left side',accRightSide:'Right side',accAdd:'+ Add',accNone:'No accessory',
   uiLanes:'No. Lanes',uiLimit:'Site opening',uiPage:'This page',
@@ -527,7 +532,7 @@ en:{langLabel:'Language',tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech She
   tabBOM:'Mat. & BOM',bomTitle:'BILL OF MATERIALS',bomModel:'Model',bomLanes:'Lanes',bomCabs:'Cabinets',bomGMP:'GMP Ref.',bomQty:'Qty',bomDesc:'Description',bomLeaf:'Barrier',bomAcc:'Accessories',bomPVC:'PVC Conduit',bomCables:'Cables',bomTotal:'TOTAL',
   screwHoleLbl:'Screw hole',wireHoleLbl:'Wire hole',
 },
-pt:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',
+pt:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha técnica',tabCover:'Capa',tabCanal:'Canalização',canalTitle:'CANALIZAÇÃO — SECÇÃO SUBTERRÂNEA',
   btnSave:'Guardar',btnLoad:'Carregar',expProject:'Projecto',
   accLeftSide:'Lado esquerdo',accRightSide:'Lado direito',accAdd:'+ Adicionar',accNone:'Sem acessório',
   uiLanes:'Nº Corredores',uiLimit:'Vão disponível',uiPage:'Esta página',
@@ -581,7 +586,7 @@ pt:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha t
   tabBOM:'Mat. & BOM',bomTitle:'LISTA DE MATERIAIS',bomModel:'Modelo',bomLanes:'Corredores',bomCabs:'Gabinetes',bomGMP:'Ref. GMP',bomQty:'Qtd.',bomDesc:'Descrição',bomLeaf:'Paleta',bomAcc:'Acessórios',bomPVC:'Conduíte PVC',bomCables:'Cabos',bomTotal:'TOTAL',
   screwHoleLbl:'Furo parafuso',wireHoleLbl:'Furo de cabo',
 },
-fr:{langLabel:'Langue',tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche tech.',tabCover:'Couverture',
+fr:{langLabel:'Langue',tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche tech.',tabCover:'Couverture',tabCanal:'Canalisations',canalTitle:'CANALISATIONS — SECTION SOUTERRAINE',
   btnSave:'Enregistrer',btnLoad:'Charger',expProject:'Projet',
   accLeftSide:'Côté gauche',accRightSide:'Côté droit',accAdd:'+ Ajouter',accNone:'Sans accessoire',
   uiLanes:'Nb voies',uiLimit:'Ouverture site',uiPage:'Cette page',
@@ -633,7 +638,7 @@ fr:{langLabel:'Langue',tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche te
   tabBOM:'Mat. & BOM',bomTitle:'NOMENCLATURE',bomModel:'Modèle',bomLanes:'Voies',bomCabs:'Armoires',bomGMP:'Réf. GMP',bomQty:'Qté',bomDesc:'Description',bomLeaf:'Barrière',bomAcc:'Accessoires',bomPVC:'Conduit PVC',bomCables:'Câbles',bomTotal:'TOTAL',
   gapNote:'inclus dans la cote',awaiting:'File d\'attente',screwHoleLbl:'Perçage ancrage',wireHoleLbl:'Passage câble',
 },
-de:{langLabel:'Sprache',tabCad:'CAD-Plan',tabWiring:'Verkabelung',tabFicha:'Datenblatt',tabCover:'Titelseite',
+de:{langLabel:'Sprache',tabCad:'CAD-Plan',tabWiring:'Verkabelung',tabFicha:'Datenblatt',tabCover:'Titelseite',tabCanal:'Leitungen',canalTitle:'LEITUNGEN — UNTERABSCHNITT',
   btnSave:'Speichern',btnLoad:'Laden',expProject:'Projekt',
   accLeftSide:'Linke Seite',accRightSide:'Rechte Seite',accAdd:'+ Hinzufügen',accNone:'Kein Zubehör',
   uiLanes:'Anzahl Spuren',uiLimit:'Durchgangsbreite',uiPage:'Diese Seite',
@@ -803,7 +808,7 @@ function updateAlerts(){
   const inp=document.getElementById('limit-input');inp.className='lf'+(state?' '+state:'');
 }
 function onLimitChange(){const val=parseInt(document.getElementById('limit-input').value,10)||0;siteLimit=Math.max(0,val);updateAlerts();drawCAD();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();autoSave();}
-function setPage(p){PAGE=p;['cad','wiring','ficha','cover','iso','isowf','comp'].forEach(id=>{const pg=document.getElementById('page-'+id);if(pg)pg.style.display=id===p?'':'none';const tb=document.getElementById('tab-'+id);if(tb)tb.classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();else if(p==='iso')drawISO();else if(p==='isowf')drawISOWF();else if(p==='comp')drawComparator();}
+function setPage(p){PAGE=p;['cad','wiring','canal','ficha','cover','iso','isowf','comp'].forEach(id=>{const pg=document.getElementById('page-'+id);if(pg)pg.style.display=id===p?'':'none';const tb=document.getElementById('tab-'+id);if(tb)tb.classList.toggle('on',id===p);});if(p==='wiring')drawWiring();else if(p==='canal')drawCanal();else if(p==='ficha')drawFicha();else if(p==='cover')drawCover();else if(p==='iso')drawISO();else if(p==='isowf')drawISOWF();else if(p==='comp')drawComparator();}
 
 // ══ AUTO-SAVE (LocalStorage) ══════════════════════════════════
 const LS_KEY='zkteco-cad-v35';
@@ -1411,13 +1416,10 @@ function drawWiring(){
   const MAIN_CY=r(UNITS_BOT+28);
   const PLAN_BOT=MAIN_CY+Math.ceil(condTkM/2)+10;
   const BOT_WALL=PLAN_BOT+WALL_H;
-  const CALL_Y0=BOT_WALL+8;
-  const CALL_H=13;
-  const TABLE_Y=CALL_Y0+(totalUnits+1)*CALL_H+8;
-  const TABLE_H=18+4*13;
-  const LEG_Y=TABLE_Y+TABLE_H+8;
-  const LEG_H=14+4*13+6;
-  const vH=LEG_Y+LEG_H+14;
+  const BOT2_TOP=BOT_WALL+10;
+  const SEC2_TITLE_H=16,SEC2_DRAW_H=220;
+  const FGY2=BOT2_TOP+SEC2_TITLE_H+SEC2_DRAW_H;
+  const vH=FGY2+24;
   const condX1=r(uX(0)-8),condX2=r(uX(n)+cabW+8);
   const wsvg=document.getElementById('wsvg');
   wsvg.setAttribute('viewBox',`0 0 ${SVG_W} ${vH}`);
@@ -1436,6 +1438,7 @@ function drawWiring(){
     <rect width="8" height="${r(condTkM*.22)}" fill="#a4b8cc"/>
     <rect y="${r(condTkM*.78)}" width="8" height="${r(condTkM*.22)}" fill="#6a8898"/>
   </pattern>
+  <marker id="da" viewBox="0 0 10 6" refX="9.2" refY="3" markerWidth="7" markerHeight="4.5" orient="auto-start-reverse"><path d="M0 0L10 3L0 6Z" fill="context-stroke"/></marker>
 </defs>`;
   // ── Global background + border ────────────────────────────────
   h+=`<rect width="${SVG_W}" height="${vH}" fill="#d4d0c8"/>`;
@@ -1523,72 +1526,188 @@ function drawWiring(){
     h+=`<text x="${uCX}" y="${r(UNITS_TOP+CAB_D-3)}" text-anchor="middle" ${FM} font-size="4.5" fill="#aaa">E${i+1}</text>`;
     // Branch conduit (unit bottom → junction box on main conduit)
     h+=`<line x1="${uCX}" y1="${UNITS_BOT}" x2="${uCX}" y2="${r(MAIN_CY-condTkM/2)}" stroke="${pvc.color}" stroke-width="${condTkB}" stroke-linecap="round" opacity=".55"/>`;
-    // Junction box (cross symbol)
-    const jS=9;
-    h+=`<rect x="${r(uCX-jS/2)}" y="${r(MAIN_CY-jS/2)}" width="${jS}" height="${jS}" fill="#f8f0d8" stroke="#8a7a60" stroke-width="1" rx="1"/>`;
-    h+=`<line x1="${r(uCX-jS/2+1.5)}" y1="${r(MAIN_CY-jS/2+1.5)}" x2="${r(uCX+jS/2-1.5)}" y2="${r(MAIN_CY+jS/2-1.5)}" stroke="#8a7a60" stroke-width=".7"/>`;
-    h+=`<line x1="${r(uCX+jS/2-1.5)}" y1="${r(MAIN_CY-jS/2+1.5)}" x2="${r(uCX-jS/2+1.5)}" y2="${r(MAIN_CY+jS/2-1.5)}" stroke="#8a7a60" stroke-width=".7"/>`;
   }
-  // ── Callout annotations (below bottom wall) ───────────────────
-  // Main conduit callout
-  const mainCallX=r((condX1+condX2)/2);
-  const _slNote=siteLen?`, L≈${siteLen}m`:'';
-  h+=`<text x="${mainCallX}" y="${CALL_Y0+8}" text-anchor="middle" ${FM} font-size="5.8" fill="${pvc.color}" font-weight="bold">Conducto principal: PVC-U ${pvc.label} · ${totalCables} ${T('lblCables')} · fill ≤40%${_slNote} · prof.${sp.D}mm</text>`;
-  // Per-unit branch callouts (2 per row)
-  for(let i=0;i<=n;i++){
-    const col=i%2,row=Math.floor(i/2);
-    const cx=r(MG+(col===0?SVG_W*0.27:SVG_W*0.72)-MG);
-    const cy=CALL_Y0+CALL_H+(row*CALL_H)+8;
-    const seg=`Ramal JB-${i+1}: PVC-U Ø32mm · 4 ${T('lblCables')} · fill ≤35% · prof.${sp.D}mm`;
-    h+=`<text x="${cx}" y="${cy}" text-anchor="middle" ${FM} font-size="5.5" fill="#444">${seg}</text>`;
-  }
-  // ── Planilla de Cables y Conductos (full-width table) ─────────
-  const TBW=SVG_W-2*MG;
-  h+=`<rect x="${MG}" y="${TABLE_Y}" width="${TBW}" height="${TABLE_H}" fill="#f0ede6" stroke="#bbb" stroke-width=".7" rx="3"/>`;
-  h+=`<rect x="${MG}" y="${TABLE_Y}" width="${TBW}" height="16" fill="#182838" rx="3"/>`;
-  h+=`<rect x="${MG}" y="${TABLE_Y+10}" width="${TBW}" height="6" fill="#182838"/>`;
-  h+=`<text x="${r(MG+TBW/2)}" y="${TABLE_Y+12}" text-anchor="middle" ${FM} font-size="7" font-weight="bold" fill="#fff" letter-spacing=".4">${T('pvcSizing')} — PLANILLA DE CONDUCTOS</text>`;
-  const colW=TBW/4;
-  // Table header row
-  ['Segmento','Conducto','Cables / Fill IEC 40%','Norma'].forEach((lbl,k)=>{
-    h+=`<text x="${r(MG+colW*k+5)}" y="${TABLE_Y+26}" ${FM} font-size="5.5" fill="#14304f" font-weight="bold">${lbl}</text>`;
-  });
-  const schRows=[
-    ['Conducto principal',`PVC-U ${pvc.label}`,`${totalCables} cables · fill ≤40%`,'IEC 61386-1'],
-    ['Ramales a unidades',`PVC-U Ø32mm`,`4 cables/ramal · fill ≤35%`,'EN 50086-2-4'],
-    ['Alimentación panel',`PVC-U Ø32mm`,`2 cables · fill ≤20%`,'EN 50086-2-4'],
-    [`Prof.inst. · ${n+1} cajas reg.`,`${sp.D} mm`,`${n+1}× JB · EN 50085`,'EN 60670-24'],
+  // === VISTA FRONTAL / FRONT ELEVATION WITH CABLE ROUTING ====
+  const TWg=TWgate();
+  const LBL_W=84;
+  const avW2=SVG_W-2*MG-LBL_W-8;
+  const fsc2=Math.min(avW2/Math.max(1,TWg),(SEC2_DRAW_H-30)/sp.H)*0.85;
+  const fdw2=r(TWg*fsc2);
+  const fox2=r(MG+LBL_W+(avW2-fdw2)/2);
+  const gndY2=r(FGY2-26);
+  const foy2=r(gndY2-sp.H*fsc2);
+  // Section title bar
+  h+=`<rect x="8" y="${BOT2_TOP}" width="${SVG_W-16}" height="${SEC2_TITLE_H}" fill="#182838"/>`;
+  h+=`<text x="${r(SVG_W/2)}" y="${BOT2_TOP+11}" text-anchor="middle" ${FM} font-size="7.5" font-weight="bold" fill="#fff" letter-spacing=".8">${T('frontTitle')} — RECORRIDO DE CABLES</text>`;
+  // Background
+  h+=`<rect x="8" y="${BOT2_TOP+SEC2_TITLE_H}" width="${SVG_W-16}" height="${SEC2_DRAW_H}" fill="#e8e6de"/>`;
+  // Cable line definitions
+  const wiresDef=[
+    {col:C_AC,  lbl:cables[0], dash:'',    w:2.2},
+    {col:C_ETH, lbl:cables[1], dash:'5 3', w:1.8},
+    {col:C_MTR, lbl:cables[2], dash:'',    w:1.8},
+    {col:C_MS,  lbl:cables[3], dash:'8 4', w:1.8}
   ];
-  schRows.forEach(([c1,c2,c3,c4],i)=>{
-    const ry=TABLE_Y+31+i*12;
-    if(i%2===0)h+=`<rect x="${MG+2}" y="${ry-7}" width="${TBW-4}" height="12" fill="rgba(0,0,0,.03)" rx="1"/>`;
-    h+=`<text x="${MG+5}" y="${ry}" ${FM} font-size="5.5" fill="#333">${c1}</text>`;
-    h+=`<text x="${r(MG+colW)}" y="${ry}" ${FM} font-size="5.5" fill="#14304f" font-weight="bold">${c2}</text>`;
-    h+=`<text x="${r(MG+2*colW)}" y="${ry}" ${FM} font-size="5.5" fill="#555">${c3}</text>`;
-    h+=`<text x="${r(MG+3*colW)}" y="${ry}" ${FM} font-size="5.5" fill="#888">${c4}</text>`;
+  const wireYs=[.28,.41,.57,.70].map(f=>r(foy2+sp.H*fsc2*f));
+  // Build cabinet/lane positions
+  const FE2=[];let fcx2=fox2;
+  for(let i=0;i<=n;i++){
+    const cw2=r(sp.W*fsc2);
+    FE2.push({type:'cab',x0:fcx2,x1:r(fcx2+cw2),i});
+    fcx2=r(fcx2+cw2);
+    if(i<n){const{pg}=getLane(i);const lw2=r(pg.s*fsc2);FE2.push({type:'lane',x0:fcx2,x1:r(fcx2+lw2),pg,li:i});fcx2=r(fcx2+lw2);}
+  }
+  // Passageways (behind cabinets and cables)
+  FE2.filter(e=>e.type==='lane').forEach(e=>{
+    const{pg}=e,lw2=e.x1-e.x0,gp2=r((pg.s-pg.c)/2*fsc2),clw2=r(pg.c*fsc2);
+    h+=`<rect x="${e.x0}" y="${foy2}" width="${lw2}" height="${r(sp.H*fsc2)}" fill="rgba(155,210,250,.45)" stroke="#5a96c8" stroke-width=".5"/>`;
+    h+=`<rect x="${r(e.x0+gp2)}" y="${r(foy2+2)}" width="${clw2}" height="${r(sp.H*fsc2-4)}" fill="rgba(155,220,255,.25)"/>`;
+    const fs2=Math.max(7,Math.min(11,r(clw2*.12)));
+    h+=`<text x="${r((e.x0+e.x1)/2)}" y="${r(foy2+sp.H*fsc2*.78)}" text-anchor="middle" ${FM} font-size="${fs2}" fill="#1a5fa0">C${e.li+1}</text>`;
+    const gapPx2=r(GAP_MM*fsc2);
+    if(gapPx2>=5&&clw2>12){
+      const gx0=r((e.x0+e.x1)/2-gapPx2/2),gx1=r((e.x0+e.x1)/2+gapPx2/2),gAY=r(foy2+12);
+      h+=`<line x1="${gx0}" y1="${r(gAY-3)}" x2="${gx0}" y2="${r(gAY+3)}" stroke="#8a6800" stroke-width=".9"/>`;
+      h+=`<line x1="${gx1}" y1="${r(gAY-3)}" x2="${gx1}" y2="${r(gAY+3)}" stroke="#8a6800" stroke-width=".9"/>`;
+      h+=`<line x1="${gx0}" y1="${gAY}" x2="${gx1}" y2="${gAY}" stroke="#8a6800" stroke-width=".7" marker-start="url(#da)" marker-end="url(#da)"/>`;
+      h+=`<text x="${r((gx0+gx1)/2)}" y="${r(gAY-5)}" text-anchor="middle" ${FM} font-size="4.8" fill="#8a6800" font-weight="600">GAP ${GAP_MM}mm</text>`;
+    }
+    if(clw2>14)h+=tickDim(r(e.x0+gp2),r(e.x0+gp2+clw2),r(gndY2+12),`${pg.c}`,'#2a7a2a');
+    if(lw2>18)h+=tickDim(e.x0,e.x1,r(gndY2+22),`${rnd(pg.s)}`,'#555');
   });
-  // ── Legend + PVC ranges (side by side) ────────────────────────
-  const LEG=[{col:C_AC,lbl:cables[0],dash:'',w:2.4},{col:C_ETH,lbl:cables[1],dash:'4 2.5',w:1.5},{col:C_MTR,lbl:cables[2],dash:'',w:1.5},{col:C_MS,lbl:cables[3],dash:'8 4',w:1.5}];
-  const LW=Math.floor((SVG_W-2*MG-8)/2);
-  const RX=MG+LW+8,RW=SVG_W-2*MG-LW-8;
-  // Legend
-  h+=`<rect x="${MG}" y="${LEG_Y}" width="${LW}" height="${LEG_H}" fill="#f0ede6" stroke="#bbb" stroke-width=".7" rx="3"/>`;
-  h+=`<text x="${MG+6}" y="${LEG_Y+10}" ${FM} font-size="7" fill="#182838" font-weight="bold">${T('legend')}</text>`;
-  LEG.forEach(({col,lbl,dash,w},k)=>{const ly=LEG_Y+14+k*13;h+=`<line x1="${MG+8}" y1="${ly+3}" x2="${MG+30}" y2="${ly+3}" stroke="${col}" stroke-width="${w}" stroke-dasharray="${dash}"/>`;h+=`<text x="${MG+36}" y="${ly+7}" ${FM} font-size="6.5" fill="#333">${lbl}</text>`;});
-  // PVC sizing ranges
-  h+=`<rect x="${RX}" y="${LEG_Y}" width="${RW}" height="${LEG_H}" fill="#eef4fc" stroke="#8aaac4" stroke-width=".7" rx="3"/>`;
-  h+=`<text x="${RX+6}" y="${LEG_Y+10}" ${FM} font-size="7" fill="#182838" font-weight="bold">${T('pvcSizing')}</text>`;
-  [{range:pvcRanges[0],diam:'Ø50mm',col:'#2a7a2a'},{range:pvcRanges[1],diam:'Ø63mm',col:'#c08800'},{range:pvcRanges[2],diam:'Ø75mm',col:'#cc4400'}].forEach(({range,diam,col},k)=>{
-    const isA=(k===0&&n<=2)||(k===1&&n>=3&&n<=4)||(k===2&&n>=5);
-    const ry=LEG_Y+14+k*13;
-    if(isA)h+=`<rect x="${RX+2}" y="${ry-7}" width="${RW-4}" height="13" fill="${col}22" rx="1"/>`;
-    h+=`<text x="${RX+6}" y="${ry}" ${FM} font-size="6.5" fill="${isA?col:'#666'}" font-weight="${isA?'bold':'normal'}">${range} → ${diam}</text>`;
-    if(isA)h+=`<text x="${RX+RW-6}" y="${ry}" text-anchor="end" ${FM} font-size="6.5" fill="${col}" font-weight="bold">◀ activo</text>`;
+  // Cabinets
+  FE2.filter(e=>e.type==='cab').forEach(e=>{
+    const cw2=e.x1-e.x0,ch2=r(sp.H*fsc2);
+    h+=`<rect x="${e.x0}" y="${foy2}" width="${cw2}" height="${ch2}" fill="#b5b0a8" stroke="#777" stroke-width=".8"/>`;
+    h+=`<rect x="${r(e.x0+cw2*.12)}" y="${r(foy2+4)}" width="${r(cw2*.76)}" height="${r(Math.min(5,ch2*.04))}" fill="#2a7a2a" rx="1"/>`;
   });
-  // ── Badge + title + render ────────────────────────────────────
-  const badge=document.getElementById('pvc-badge');if(badge){badge.style.cssText=`border-color:${pvc.color};color:${pvc.color};background:${pvc.color}14;display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;border:1.5px solid;font-family:monospace`;badge.innerHTML=`<span style="font-size:12px;font-weight:800">PVC ${pvc.label}</span><span style="font-size:8px;opacity:.7">${totalCables} ${T('lblCables')} · IEC 61386</span>`;}
+  // Cable routing lines + connection dots + labels
+  wiresDef.forEach(({col,lbl,dash,w},k)=>{
+    const wy=wireYs[k];
+    h+=`<line x1="${fox2}" y1="${wy}" x2="${r(fox2+fdw2)}" y2="${wy}" stroke="${col}" stroke-width="${w}" stroke-dasharray="${dash}"/>`;
+    h+=`<circle cx="${fox2}" cy="${wy}" r="2.5" fill="${col}"/>`;
+    h+=`<circle cx="${r(fox2+fdw2)}" cy="${wy}" r="2.5" fill="${col}"/>`;
+    FE2.filter(e=>e.type==='cab').forEach(e=>{
+      if(e.i>0)h+=`<circle cx="${e.x0}" cy="${wy}" r="1.8" fill="${col}" opacity=".75"/>`;
+      if(e.i<n)h+=`<circle cx="${e.x1}" cy="${wy}" r="1.8" fill="${col}" opacity=".75"/>`;
+    });
+    const lnX2=r(fox2-LBL_W+36),lblRX=r(fox2-LBL_W+30);
+    h+=`<line x1="${lnX2}" y1="${wy}" x2="${r(fox2-8)}" y2="${wy}" stroke="${col}" stroke-width="${w}" stroke-dasharray="${dash}"/>`;
+    h+=`<circle cx="${lnX2}" cy="${wy}" r="2" fill="${col}"/>`;
+    h+=`<text x="${r(lblRX-2)}" y="${r(wy+2.5)}" text-anchor="end" ${FM} font-size="5.5" fill="${col}">${lbl}</text>`;
+  });
+  // Ground line
+  h+=gnd(fox2,r(fox2+fdw2),gndY2);
+  // ── Title + render ────────────────────────────────────────────
+  const badge=document.getElementById('pvc-badge');if(badge)badge.innerHTML='';
   document.getElementById('w-title').textContent=`${sp.label} · ${n} ${n>1?T('lanes'):T('lane')}`;
   wsvg.innerHTML=h;
+}
+
+// ══ CANAL ═════════════════════════════════════════════════════
+function drawCanal(){
+  const sp=MODELS[M];if(!sp)return;
+  const n=N(),pvc=pvcSize(n);
+  const C_AC='#cc1111',C_ETH='#1a5fa0',C_MTR='#e8a020',C_MS='#2a7a2a';
+  const SVG_W=720,MG=14;
+  // Layout
+  const TITLE_H=40,FRONT_CLIP_H=130,UG_H=170;
+  const GND_Y=TITLE_H+FRONT_CLIP_H;
+  const vH=GND_Y+UG_H+14;
+  // Scale (same approach as drawCAD front elevation)
+  const TWg=TWgate();
+  const fsc=Math.min((SVG_W-2*MG-20)/Math.max(1,TWg),(FRONT_CLIP_H+40)/sp.H)*0.85;
+  const fdw=r(TWg*fsc);
+  const fox=r(MG+(SVG_W-2*MG-fdw)/2);
+  // UG params (enlarged for readability)
+  const pvcPx=pvc.d<=50?14:pvc.d<=63?17:21;
+  const co=pvcPx*.42;
+  const SLAB=18,BY=r(GND_Y+UG_H-14);
+  const L=MG+4,R=SVG_W-MG-4;
+  let h=makeDefs();
+  h+=`<rect width="${SVG_W}" height="${vH}" fill="#eeede5"/>`;
+  h+=`<rect x="8" y="8" width="${SVG_W-16}" height="${vH-16}" fill="none" stroke="#111" stroke-width="1.6"/>`;
+  // Title bar
+  h+=`<rect x="8" y="8" width="${SVG_W-16}" height="32" fill="#182838"/>`;
+  h+=`<text x="${MG+2}" y="23" ${FM} font-size="9.5" font-weight="bold" fill="#fff" letter-spacing=".8">${T('canalTitle')}</text>`;
+  h+=`<text x="${MG+2}" y="35" ${FM} font-size="6.5" fill="#7ab4d8">${sp.label} · ${n} ${n>1?T('lanes'):T('lane')} · PVC ${pvc.label}</text>`;
+  // Front clip background
+  h+=`<rect x="8" y="${TITLE_H}" width="${SVG_W-16}" height="${FRONT_CLIP_H}" fill="#eeede5"/>`;
+  // Cabinets + passageways (bottom portion only)
+  const clipTop=TITLE_H+2;
+  let fecx=fox;
+  for(let i=0;i<=n;i++){
+    const cw=r(sp.W*fsc),ch=r(sp.H*fsc);
+    const visTop=Math.max(clipTop,r(GND_Y-ch));
+    const visH=r(GND_Y-visTop);
+    if(visH>0){
+      h+=`<rect x="${fecx}" y="${visTop}" width="${cw}" height="${visH}" fill="#b5b0a8" stroke="#111" stroke-width=".9"/>`;
+      h+=`<rect x="${fecx}" y="${visTop}" width="${cw}" height="${visH}" fill="url(#ht)" opacity=".55"/>`;
+    }
+    sp.bolts.forEach(b=>{const bs=r(GND_Y-b*fsc),br=Math.min(3,r(fsc*9));if(bs>clipTop&&bs<GND_Y-2){h+=`<circle cx="${r(fecx+cw/2)}" cy="${bs}" r="${br}" fill="none" stroke="#cc1111" stroke-width=".75"/>`;h+=`<line x1="${r(fecx+cw/2-br)}" y1="${bs}" x2="${r(fecx+cw/2+br)}" y2="${bs}" stroke="#cc1111" stroke-width=".5"/>`;h+=`<line x1="${r(fecx+cw/2)}" y1="${r(bs-br)}" x2="${r(fecx+cw/2)}" y2="${r(bs+br)}" stroke="#cc1111" stroke-width=".5"/>`;}});
+    fecx=r(fecx+cw);
+    if(i<n){
+      const{pg}=getLane(i);
+      const lw=r(pg.s*fsc),gp2=r((pg.s-pg.c)/2*fsc),clw=r(pg.c*fsc);
+      h+=`<rect x="${fecx}" y="${clipTop}" width="${lw}" height="${r(GND_Y-clipTop)}" fill="rgba(155,210,250,.35)" stroke="#5a96c8" stroke-width=".5"/>`;
+      h+=`<rect x="${r(fecx+gp2)}" y="${clipTop}" width="${clw}" height="${r(GND_Y-clipTop)}" fill="rgba(155,220,255,.2)"/>`;
+      h+=`<text x="${r(fecx+lw/2)}" y="${r(GND_Y-8)}" text-anchor="middle" ${FM} font-size="8" fill="#1a5fa0">C${i+1}</text>`;
+      if(clw>20)h+=tickDim(r(fecx+gp2),r(fecx+gp2+clw),r(GND_Y-24),`${pg.c}`,'#2a7a2a');
+      if(lw>24)h+=tickDim(fecx,r(fecx+lw),r(GND_Y-10),`${rnd(pg.s)}`,'#555');
+      fecx=r(fecx+lw);
+    }
+  }
+  // Ground line
+  h+=gnd(fox,r(fox+fdw),GND_Y);
+  // UG section label + slab + concrete
+  h+=`<text x="${r((L+R)/2)}" y="${r(GND_Y+5)}" text-anchor="middle" ${FM} font-size="5" fill="#888" letter-spacing=".8">${T('ugSection')}</text>`;
+  h+=`<rect x="${L}" y="${GND_Y}" width="${R-L}" height="${SLAB}" fill="url(#ht)" opacity=".7"/>`;
+  h+=`<rect x="${L}" y="${GND_Y}" width="${R-L}" height="${SLAB}" fill="none" stroke="#555" stroke-width=".6"/>`;
+  h+=`<text x="${r(L+4)}" y="${r(GND_Y+SLAB/2+2.5)}" dominant-baseline="central" ${FM} font-size="5" fill="#555">${T('slab')}</text>`;
+  h+=`<rect x="${L}" y="${r(GND_Y+SLAB)}" width="${R-L}" height="${r(UG_H-SLAB)}" fill="url(#conc)"/>`;
+  h+=`<rect x="${L}" y="${r(GND_Y+SLAB)}" width="${R-L}" height="${r(UG_H-SLAB)}" fill="none" stroke="#888" stroke-width=".5"/>`;
+  // Cabinet centers (cx array)
+  const cx=[];let wx=fox;
+  for(let i=0;i<=n;i++){cx.push(Math.max(L+4,Math.min(R-4,r(wx+sp.W*fsc/2))));wx=r(wx+sp.W*fsc);if(i<n)wx=r(wx+getLane(i).pg.s*fsc);}
+  // Cable exits / anchors
+  cx.forEach(x=>{
+    if(x<L+2||x>R-2)return;
+    const bT=r(GND_Y-2),bB=r(GND_Y+SLAB+22);
+    h+=`<line x1="${x}" y1="${bT}" x2="${x}" y2="${bB}" stroke="#888" stroke-width="3" stroke-linecap="round"/>`;
+    for(let ty=bT+5;ty<bB-3;ty+=5)h+=`<line x1="${r(x-2.2)}" y1="${ty}" x2="${r(x+2.2)}" y2="${ty}" stroke="#aaa" stroke-width=".6"/>`;
+    h+=`<rect x="${r(x-5)}" y="${r(GND_Y-3.5)}" width="10" height="3.5" fill="#b0b0b0" stroke="#777" stroke-width=".5" rx=".8"/>`;
+    h+=`<rect x="${r(x-4)}" y="${r(GND_Y-8)}" width="8" height="5.5" fill="#999" stroke="#666" stroke-width=".6" rx=".7"/>`;
+    h+=`<path d="M${r(x-6)},${GND_Y} L${r(x-6)},${r(GND_Y+4)} Q${r(x-6)},${r(GND_Y+8)} ${r(x-2)},${r(GND_Y+8)} L${r(x+2)},${r(GND_Y+8)} Q${r(x+6)},${r(GND_Y+8)} ${r(x+6)},${r(GND_Y+4)} L${r(x+6)},${GND_Y}" fill="none" stroke="#777" stroke-width="1.3"/>`;
+  });
+  // Conduit paths with cables
+  for(let i=0;i<n;i++){
+    const x0=cx[i],x1=cx[i+1];
+    if(x0<L||x1>R||x1-x0<8)continue;
+    const sw=x1-x0,rad=Math.min(18,r(sw*.12)),dY=r(GND_Y+SLAB+4);
+    const path=`M${x0},${dY} L${x0},${r(BY-rad)} Q${x0},${BY} ${r(x0+rad)},${BY} L${r(x1-rad)},${BY} Q${x1},${BY} ${x1},${r(BY-rad)} L${x1},${dY}`;
+    h+=`<path d="${path}" fill="none" stroke="${pvc.color}22" stroke-width="${pvcPx+10}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    h+=`<path d="${path}" fill="none" stroke="${pvc.color}" stroke-width="${pvcPx}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    h+=`<path d="${path}" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="${Math.max(4,pvcPx-5)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    [C_AC,C_ETH,C_MTR,C_MS].forEach((cc,k)=>{
+      const ox=r(-co*1.5+k*co);
+      h+=`<line x1="${r(x0+ox)}" y1="${dY}" x2="${r(x0+ox)}" y2="${r(BY-rad-3)}" stroke="${cc}" stroke-width="1.4" opacity=".9"/>`;
+      h+=`<line x1="${r(x1+ox)}" y1="${dY}" x2="${r(x1+ox)}" y2="${r(BY-rad-3)}" stroke="${cc}" stroke-width="1.4" opacity=".9"/>`;
+      if(sw>30)h+=`<line x1="${r(x0+rad+3)}" y1="${r(BY-2+(k-1.5)*2)}" x2="${r(x1-rad-3)}" y2="${r(BY-2+(k-1.5)*2)}" stroke="${cc}" stroke-width="1.4" opacity=".9"/>`;
+    });
+    if(sw>50)h+=`<text x="${r((x0+x1)/2)}" y="${r(BY-pvcPx/2-5)}" text-anchor="middle" ${FM} font-size="7" fill="${pvc.color}" font-weight="bold">PVC ${pvc.label}</text>`;
+    if(sw>36)h+=`<text x="${r((x0+x1)/2)}" y="${r(BY+pvcPx/2+9)}" text-anchor="middle" ${FM} font-size="6" fill="#666">C${i+1}</text>`;
+  }
+  // Legend
+  const cables=T('cables');
+  const LW2=148,LH2=60,lx2=R-LW2-2,ly2=r(GND_Y+UG_H-LH2-2);
+  h+=`<rect x="${lx2}" y="${ly2}" width="${LW2}" height="${LH2}" fill="#eeede5" stroke="${pvc.color}70" stroke-width=".8" rx="3"/>`;
+  h+=`<rect x="${lx2}" y="${ly2}" width="${LW2}" height="14" fill="${pvc.color}" rx="3"/>`;
+  h+=`<rect x="${lx2}" y="${r(ly2+10)}" width="${LW2}" height="4" fill="${pvc.color}"/>`;
+  h+=`<text x="${r(lx2+LW2/2)}" y="${r(ly2+10)}" text-anchor="middle" ${FM} font-size="7" font-weight="bold" fill="#fff">PVC ${pvc.label}</text>`;
+  [C_AC,C_ETH,C_MTR,C_MS].forEach((col,k)=>{const ry=r(ly2+18+k*10);h+=`<rect x="${r(lx2+4)}" y="${r(ry-4)}" width="9" height="5" fill="${col}" rx="1"/>`;h+=`<text x="${r(lx2+16)}" y="${ry}" ${FM} font-size="6" fill="#333">${cables[k]}</text>`;});
+  const el=document.getElementById('canalsvg');
+  el.setAttribute('viewBox',`0 0 ${SVG_W} ${vH}`);
+  el.innerHTML=h;
 }
 
 // ══ FICHA ═════════════════════════════════════════════════════
@@ -1734,9 +1853,6 @@ function drawCover(){
   let h=`<rect width="${W}" height="${H}" fill="#eeede5"/><rect x="10" y="10" width="${W-20}" height="${H-20}" fill="none" stroke="#14304f" stroke-width="2"/>`;
   h+=`<rect x="10" y="10" width="${W-20}" height="72" fill="#14304f"/>`;h+=`<text x="40" y="52" ${FM} font-size="30" font-weight="bold" fill="#fff" letter-spacing="2">ZK<tspan fill="#7dd87a">Teco</tspan></text>`;h+=`<text x="40" y="70" ${FM} font-size="9" fill="#7dd87a" letter-spacing="4">${T('coverSecurityTag')}</text>`;
   h+=`<text x="${W-105}" y="40" text-anchor="end" ${FM} font-size="9" fill="#aaa" letter-spacing="1">${T('coverTitle')}</text>`;h+=`<text x="${W-105}" y="54" text-anchor="end" ${FM} font-size="14" font-weight="bold" fill="#fff">${refn}</text>`;h+=`<text x="${W-105}" y="68" text-anchor="end" ${FM} font-size="9" fill="#7dd87a">${version}</text>`;
-  const qrData=encodeURIComponent(getShareURL());
-  h+=`<image href="https://api.qrserver.com/v1/create-qr-code/?size=96x96&data=${qrData}&bgcolor=14304f&color=7dd87a" x="${W-94}" y="12" width="64" height="64" rx="3" style="image-rendering:pixelated"/>`;
-  h+=`<text x="${r(W-62)}" y="82" text-anchor="middle" ${FM} font-size="6" fill="rgba(125,216,122,.6)" data-t="qrOpen">Abrir proyecto</text>`;
   h+=`<text x="40" y="112" ${FM} font-size="8" fill="#888" letter-spacing="2">${T('covProject')}</text>`;h+=`<text x="40" y="135" ${FM} font-size="18" font-weight="bold" fill="#14304f">${project}</text>`;h+=`<line x1="40" y1="145" x2="${W-40}" y2="145" stroke="#14304f" stroke-width=".5"/>`;
   const c2x=390,rH=28;let ry=168;
   const rows=[[T('fldClient').toUpperCase(),client,false,''],[T('fldAddr').toUpperCase(),addr,false,''],[T('modelLbl').toUpperCase(),sp.label,false,''],['',unitsShort(),false,'sub'],[T('uiLanes').toUpperCase(),`${N()} ${N()>1?T('lanes'):T('lane')} · ${N()+1} ${T('nCabs').toLowerCase()}`,false,''],[T('covGates'),`${rnd(TWg)} mm`,aC!==null,''],[T('twLabel').toUpperCase(),`${rnd(TWtotal)} mm`,false,'acc']];
@@ -1784,7 +1900,7 @@ function ui(){
     ${siteLimit>0?`<div class="sc"><span class="sl">${T('maxLbl')}</span><span class="sv ${tc}">${st==='over'?T('alertOverBadge'):st==='near'?T('alertNearBadge'):'✓ '+slack+'mm'}</span></div>`:''}
 `;
   const sb=document.getElementById('session-banner');
-  if(sb){if(sessionRestored){sb.style.display='flex';sb.innerHTML=`↺ ${T('sessionRestored')}<button onclick="clearSession()" style="margin-left:2px;font-size:11px;line-height:1;background:none;border:none;color:#888;cursor:pointer;padding:0" title="${T('sessionClear')}">×</button>`;}else{sb.style.display='none';sb.innerHTML='';}}
+  if(sb){if(sessionRestored){sb.style.display='flex';sb.style.cursor='pointer';sb.title=T('sessionClear');sb.onclick=clearSession;sb.innerHTML=`↺ ${T('sessionRestored')} ×`;}else{sb.style.display='none';sb.style.cursor='';sb.title='';sb.onclick=null;sb.innerHTML='';}}
   updateAlerts();updateI18nDOM();renderAccBar();autoSave();
 }
 document.getElementById('dm').onclick=()=>{if(N()>1){pushUndo('-pasillo');lanes.pop();ui();drawCAD();if(PAGE==='wiring')drawWiring();if(PAGE==='cover')drawCover();if(PAGE==='ficha')drawFicha();}};
