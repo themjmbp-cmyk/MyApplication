@@ -463,7 +463,7 @@ es:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cableado',tabFicha:'Ficha t
   alertNear:(tw,lim)=>`Ancho total <b>${tw} mm</b> — quedan <b>${lim-tw} mm</b> disponibles`,
   alertOverBadge:'NO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACCESORIOS',glass:'vidrio',accLabel:'ACCESORIOS:',lane:'pasillo',lanes:'pasillos',covClient:'Cliente',covGates:'PUERTAS',r50Width:'Ancho',r50Height:'Alto',
-  accRemove:'Eliminar',loadingPDF:'Cargando PDF…',modelLbl:'Modelo',sessionRestored:'Sesión restaurada',sessionClear:'Limpiar sesión guardada',
+  accRemove:'Eliminar',loadingPDF:'Cargando PDF…',modelLbl:'Modelo',sessionRestored:'Reiniciar proyecto',sessionClear:'Reiniciar proyecto',
   msgPerSide:'por lado',lblCables:'cables',lblPortada:'portada',
   ttipMinLanes:'mín. 1 pasillo',ttipMaxLanes:'máx. 6 pasillos',
   btnDecLanes:'Reducir pasillos',btnIncLanes:'Añadir pasillo',
@@ -516,7 +516,7 @@ en:{langLabel:'Language',tabCad:'CAD Plan',tabWiring:'Wiring',tabFicha:'Tech She
   alertNear:(tw,lim)=>`Total width <b>${tw} mm</b> — <b>${lim-tw} mm</b> remaining`,
   alertOverBadge:'DOES NOT FIT',alertNearBadge:'TIGHT FIT',pdfPage:'Page',uiGabinets:'units',
   ficAcc:'ACCESSORIES',glass:'glass',accLabel:'ACCESSORIES:',lane:'lane',lanes:'lanes',covClient:'Client',covGates:'GATES',r50Width:'Width',r50Height:'Height',
-  accRemove:'Remove',loadingPDF:'Loading PDF…',modelLbl:'Model',sessionRestored:'Session restored',sessionClear:'Clear saved session',
+  accRemove:'Remove',loadingPDF:'Loading PDF…',modelLbl:'Model',sessionRestored:'Reset project',sessionClear:'Reset project',
   msgPerSide:'per side',lblCables:'cables',lblPortada:'cover',
   ttipMinLanes:'min. 1 lane',ttipMaxLanes:'max. 6 lanes',
   btnDecLanes:'Decrease lanes',btnIncLanes:'Add lane',
@@ -569,7 +569,7 @@ pt:{langLabel:'Idioma',tabCad:'Plano CAD',tabWiring:'Cablagem',tabFicha:'Ficha t
   alertNear:(tw,lim)=>`Largura <b>${tw} mm</b> — <b>${lim-tw} mm</b> disponíveis`,
   alertOverBadge:'NÃO CABE',alertNearBadge:'AJUSTADO',pdfPage:'Página',uiGabinets:'uds',
   ficAcc:'ACESSÓRIOS',glass:'vidro',accLabel:'ACESSÓRIOS:',lane:'corredor',lanes:'corredores',covClient:'Cliente',covGates:'PORTÕES',r50Width:'Largura',r50Height:'Altura',
-  accRemove:'Remover',loadingPDF:'A carregar PDF…',modelLbl:'Modelo',sessionRestored:'Sessão restaurada',sessionClear:'Limpar sessão guardada',
+  accRemove:'Remover',loadingPDF:'A carregar PDF…',modelLbl:'Modelo',sessionRestored:'Reiniciar projeto',sessionClear:'Reiniciar projeto',
   msgPerSide:'por lado',lblCables:'cabos',lblPortada:'capa',
   ttipMinLanes:'mín. 1 corredor',ttipMaxLanes:'máx. 6 corredores',
   btnDecLanes:'Reduzir corredores',btnIncLanes:'Adicionar corredor',
@@ -622,7 +622,7 @@ fr:{langLabel:'Langue',tabCad:'Plan CAD',tabWiring:'Câblage',tabFicha:'Fiche te
   alertNear:(tw,lim)=>`Largeur totale <b>${tw} mm</b> — <b>${lim-tw} mm</b> disponibles`,
   alertOverBadge:'NE RENTRE PAS',alertNearBadge:'JUSTE',pdfPage:'Page',uiGabinets:'u.',
   ficAcc:'ACCESSOIRES',glass:'vitrage',accLabel:'ACCESSOIRES:',lane:'voie',lanes:'voies',covClient:'Client',covGates:'PORTILLONS',r50Width:'Largeur',r50Height:'Hauteur',
-  accRemove:'Supprimer',loadingPDF:'Chargement PDF…',modelLbl:'Modèle',sessionRestored:'Session restaurée',sessionClear:'Effacer session sauvegardée',
+  accRemove:'Supprimer',loadingPDF:'Chargement PDF…',modelLbl:'Modèle',sessionRestored:'Réinitialiser projet',sessionClear:'Réinitialiser projet',
   msgPerSide:'par côté',lblCables:'câbles',lblPortada:'couverture',
   ttipMinLanes:'min. 1 voie',ttipMaxLanes:'max. 6 voies',btnDecLanes:'Réduire voies',btnIncLanes:'Ajouter voie',errorLoad:'Erreur chargement projet',
   planTopView:'VUE DE DESSUS',ficGapCentral:'GAP central',coverSecurityTag:'SÉCURITÉ · CONTRÔLE D\'ACCÈS',
@@ -674,7 +674,7 @@ de:{langLabel:'Sprache',tabCad:'CAD-Plan',tabWiring:'Verkabelung',tabFicha:'Date
   alertNear:(tw,lim)=>`Gesamtbreite <b>${tw} mm</b> — noch <b>${lim-tw} mm</b> verfügbar`,
   alertOverBadge:'PASST NICHT',alertNearBadge:'KNAPP',pdfPage:'Seite',uiGabinets:'St.',
   ficAcc:'ZUBEHÖR',glass:'Glas',accLabel:'ZUBEHÖR:',lane:'Spur',lanes:'Spuren',covClient:'Kunde',covGates:'TORE',r50Width:'Breite',r50Height:'Höhe',
-  accRemove:'Entfernen',loadingPDF:'PDF wird geladen…',modelLbl:'Modell',sessionRestored:'Sitzung wiederhergestellt',sessionClear:'Gespeicherte Sitzung löschen',
+  accRemove:'Entfernen',loadingPDF:'PDF wird geladen…',modelLbl:'Modell',sessionRestored:'Projekt zurücksetzen',sessionClear:'Projekt zurücksetzen',
   msgPerSide:'je Seite',lblCables:'Kabel',lblPortada:'Titelseite',
   ttipMinLanes:'min. 1 Spur',ttipMaxLanes:'max. 6 Spuren',btnDecLanes:'Spur verringern',btnIncLanes:'Spur hinzufügen',errorLoad:'Fehler beim Laden des Projekts',
   planTopView:'DRAUFSICHT',ficGapCentral:'Zentralspalt',coverSecurityTag:'SICHERHEIT · ZUTRITTSKONTROLLE',
@@ -871,10 +871,10 @@ function hideP(){document.getElementById('pbar').classList.remove('on');}
 async function exportPage(id,fmt){const el=document.getElementById(id),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-${id==='cv'?'cad':id==='wsvg'?'wiring':T('lblPortada')}`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
 async function exportFicha(fmt){drawFichaSVG();const el=document.getElementById('ficha-svg'),vb=el.viewBox.baseVal;const name=`ZKTeco-${MODELS[M].label.replace(/[\s/]+/g,'-')}-ficha`;const str=getSVGStr(el);if(fmt==='svg'){dlB(new Blob([str],{type:'image/svg+xml'}),name+'.svg');return;}try{const c=await s2c(str,vb.width,vb.height,2);c.toBlob(b=>dlB(b,name+'.png'),'image/png');}catch(ex){alert(ex);}}
 async function exportProject(fmt){
-  const bP=document.getElementById('btn-all-png'),bS=document.getElementById('btn-all-svg');bP.disabled=true;bS.disabled=true;showP(0,'…');drawWiring();drawCover();drawFichaSVG();
+  const bP=document.getElementById('btn-all-png'),bS=document.getElementById('btn-all-svg');bP.disabled=true;bS.disabled=true;showP(0,'…');drawCover();drawFichaSVG();drawISOWF();drawComparator();
   const sp=MODELS[M],name=`ZKTeco-${sp.label.replace(/[\s/]+/g,'-')}-proyecto`;
-  const pgs=[{id:'covsvg'},{id:'cv'},{id:'wsvg'},{id:'ficha-svg'}];
-  const lbls=[T('tabCover'),T('tabCad'),T('tabWiring'),T('tabFicha')];
+  const pgs=[{id:'covsvg'},{id:'cv'},{id:'ficha-svg'},{id:'isowfsvg'},{id:'cmpsvg'}];
+  const lbls=[T('tabCover'),T('tabCad'),T('tabFicha'),T('tabIsoWF'),T('tabComp')];
   const done=()=>setTimeout(()=>{hideP();bP.disabled=false;bS.disabled=false;},2000);
   if(fmt==='png'){try{const cvs=[];for(let i=0;i<pgs.length;i++){showP(10+i*18,lbls[i]+'…');const el=document.getElementById(pgs[i].id);const vb=el.viewBox.baseVal;const c=await s2c(getSVGStr(el),vb.width,vb.height,2);cvs.push({c,W:vb.width,H:vb.height});await new Promise(rr=>requestAnimationFrame(rr));}
   const G=40,SC=2,maxW=Math.max(...cvs.map(x=>x.W))*SC,totalH=cvs.reduce((s,x)=>s+x.H*SC,0)+(pgs.length-1)*G*SC;const out=document.createElement('canvas');out.width=maxW;out.height=totalH;const ctx=out.getContext('2d');ctx.fillStyle='#eeede5';ctx.fillRect(0,0,maxW,totalH);let y=0;cvs.forEach(({c,W,H},i)=>{ctx.drawImage(c,(maxW-W*SC)/2,y);y+=H*SC;if(i<cvs.length-1){ctx.fillStyle='#14304f';ctx.fillRect(0,y,maxW,G*SC);ctx.fillStyle='#7dd87a';ctx.font=`bold ${11*SC}px monospace`;ctx.textAlign='center';ctx.fillText(`— ${lbls[i+1]} —`,maxW/2,y+G*SC*.65);y+=G*SC;}});showP(98,'…');out.toBlob(b=>{dlB(b,name+'.png');showP(100,'✅');done();},'image/png');}catch(ex){hideP();alert(ex);bP.disabled=false;bS.disabled=false;}}
