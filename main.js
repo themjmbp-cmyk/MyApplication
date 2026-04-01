@@ -1,5 +1,6 @@
-const { app, BrowserWindow, Menu, shell } = require('electron');
+const { app, BrowserWindow, Menu, shell, dialog, session } = require('electron');
 const path = require('path');
+const os = require('os');
 
 // Single instance lock
 const gotLock = app.requestSingleInstanceLock();
@@ -33,6 +34,22 @@ function createWindow() {
 
   // Remove default menu bar (keeps F12 devtools via keyboard)
   Menu.setApplicationMenu(null);
+
+  // Handle file downloads (saveProject, exportPDF, exportPage)
+  win.webContents.session.on('will-download', (event, item) => {
+    const filename = item.getFilename();
+    const ext = path.extname(filename).slice(1).toLowerCase() || '*';
+    const filterName = ext === 'pdf' ? 'PDF' : ext === 'json' ? 'JSON' : ext === 'svg' ? 'SVG' : ext === 'png' ? 'PNG' : 'Archivo';
+    const savePath = dialog.showSaveDialogSync(win, {
+      defaultPath: path.join(os.homedir(), filename),
+      filters: [{ name: filterName, extensions: [ext] }, { name: 'Todos los archivos', extensions: ['*'] }]
+    });
+    if (savePath) {
+      item.setSavePath(savePath);
+    } else {
+      item.cancel();
+    }
+  });
 }
 
 app.whenReady().then(() => {
