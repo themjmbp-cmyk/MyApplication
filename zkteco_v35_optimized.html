@@ -200,6 +200,7 @@ body{font-family:system-ui,sans-serif;background:#1a2a3a}
 /* ── UNDO HISTORY PANEL ── */
 #undo-panel{padding:0 8px;overflow:hidden}
 .undo-hist-line{font-size:7.5px;font-family:monospace;color:var(--t2);opacity:.5;padding:1px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
 </style>
 </head>
 <body>
@@ -425,6 +426,7 @@ function accTotalW(list){return accSideTotalW(list);}
 function accLbl(a){return LANG==='en'?a.labelEn:LANG==='pt'?a.labelPt:a.label;}
 function accDsc(a){return LANG==='en'?a.descEn:LANG==='pt'?a.descPt:a.desc;}
 function goLbl(o){return LANG==='en'?o.labelEn:LANG==='pt'?o.labelPt:o.label;}
+
 
 // ══ I18N ══════════════════════════════════════════════════════
 const I18N={
@@ -708,6 +710,7 @@ function updateI18nDOM(){
 }
 function redrawPage(){drawCAD();if(PAGE==='wiring')drawWiring();else if(PAGE==='ficha')drawFicha();else if(PAGE==='cover')drawCover();}
 
+
 // ══ MODELS ════════════════════════════════════════════════════
 function pvcSize(n){const t=2+4*n;if(t<=8)return{d:50,label:'Ø50 mm',color:'#2a7a2a'};if(t<=12)return{d:63,label:'Ø63 mm',color:'#c08800'};return{d:75,label:'Ø75 mm',color:'#cc4400'};}
 const MODELS={
@@ -733,6 +736,7 @@ function maxH(){return Math.max(MODELS[M].H,...Array.from({length:N()},(_,i)=>ge
 function cabType(i){if(i===0)return'left';if(i===N())return'right';return'central';}
 function unitsInfo(){const sp=MODELS[M],nC=Math.max(0,N()-1);return nC>0?`1 × ${sp.labelEnd} + ${nC} × ${sp.labelCentral}`:`1 × ${sp.labelEnd}`;}
 function unitsShort(){const sp=MODELS[M],nC=Math.max(0,N()-1);return nC>0?`1×${sp.labelEnd} + ${nC}×${sp.labelCentral}`:`1×${sp.labelEnd}`;}
+
 
 // ══ ACCESSORY UI ══════════════════════════════════════════════
 function renderAccBar(){
@@ -802,6 +806,7 @@ function setAccGlass(side,idx,gi){
   if(list[idx])list[idx].r50gi=gi;
   renderAccBar();drawCAD();if(PAGE==='ficha')drawFicha();
 }
+
 
 // ══ ALERTS ════════════════════════════════════════════════════
 function getAlertState(){if(!siteLimit||siteLimit<=0)return null;const tw=TWfull();if(tw>siteLimit)return'over';if(tw>siteLimit*0.95)return'near';return null;}
@@ -896,6 +901,7 @@ async function exportPDF(){
   for(let i=0;i<pgs.length;i++){if(i>0)doc.addPage();showP(10+i*20,pgs[i].label+'…');const el=document.getElementById(pgs[i].id);const vb=el.viewBox.baseVal;const canvas=await s2c(getSVGStr(el),vb.width,vb.height,2);const aR=vb.width/vb.height,pgAR=(PW-2*mg)/(PH-2*mg);let dW,dH,ox,oy;if(aR>pgAR){dW=PW-2*mg;dH=dW/aR;ox=mg;oy=mg+(PH-2*mg-dH)/2;}else{dH=PH-2*mg;dW=dH*aR;oy=mg;ox=mg+(PW-2*mg-dW)/2;}doc.addImage(canvas.toDataURL('image/jpeg',.93),'JPEG',ox,oy,dW,dH);doc.setFillColor(20,48,79);doc.rect(0,0,PW,8,'F');doc.setTextColor(125,216,122);doc.setFontSize(8);doc.setFont('Courier','bold');doc.text(`ZKTeco SpeedGate CAD — ${sp.label} — ${pgs[i].label}`,mg,5.5);doc.setTextColor(150,150,150);doc.setFont('Courier','normal');doc.setFontSize(7);doc.text(`${T('pdfPage')} ${i+1} / ${pgs.length}`,PW-mg,PH-3,{align:'right'});doc.setDrawColor(200,200,200);doc.setLineWidth(.2);doc.line(mg,PH-7,PW-mg,PH-7);doc.setTextColor(150,150,150);doc.setFontSize(6);doc.text('ZKTeco Corp. © 2025 — www.zkteco.com',PW/2,PH-3,{align:'center'});await new Promise(rr=>requestAnimationFrame(rr));}
   showP(95,'…');doc.save(`ZKTeco-${sp.label.replace(/[\s/]+/g,'-')}-proyecto.pdf`);showP(100,'✅');setTimeout(()=>{hideP();btn.disabled=false;},2000);
 }
+
 
 // ══ SVG HELPERS ═══════════════════════════════════════════════
 const FM=`font-family="monospace"`;
@@ -1100,6 +1106,7 @@ function drawAccListElev(list,side,fox,foy,fgy,fsc,fdw){
   }
   return{svg:h,totalW:totalSideW};
 }
+
 
 // ══ MAIN CAD ══════════════════════════════════════════════════
 function drawCAD(){
@@ -1322,6 +1329,7 @@ function drawCAD(){
   document.getElementById('cv').innerHTML=h;
 }
 
+
 // ══ WIRING ════════════════════════════════════════════════════
 function drawWiring(){
   const sp=MODELS[M];if(!sp)return;
@@ -1534,6 +1542,7 @@ function drawWiring(){
   wsvg.innerHTML=h;
 }
 
+
 // ══ CANAL ═════════════════════════════════════════════════════
 function drawCanal(){
   const sp=MODELS[M];if(!sp)return;
@@ -1639,6 +1648,7 @@ function drawCanal(){
   el.setAttribute('viewBox',`0 0 ${SVG_W} ${vH}`);
   el.innerHTML=h;
 }
+
 
 // ══ FICHA ═════════════════════════════════════════════════════
 function accSideHtml(list,sideLabel){
@@ -1771,6 +1781,7 @@ function drawFichaSVG(){
   document.getElementById('ficha-svg').setAttribute('viewBox',`0 0 ${W} ${tot}`);document.getElementById('ficha-svg').innerHTML=h;
 }
 
+
 // ══ COVER ═════════════════════════════════════════════════════
 function drawCover(){
   const sp=MODELS[M],TWg=TWgate(),state=getAlertState(),aC=state==='over'?'#cc1111':state==='near'?'#c08800':null;
@@ -1803,6 +1814,7 @@ function drawCover(){
   document.getElementById('covsvg').innerHTML=h;
   autoSave();
 }
+
 
 // ══ UI ════════════════════════════════════════════════════════
 function ui(){
@@ -1839,6 +1851,7 @@ document.getElementById('f-date').value=new Date().toISOString().slice(0,10);
 
 // ══ MIS PROYECTOS ═════════════════════════════════════════════
 const PJ_KEY='zkteco-projects-v1';
+
 function getProjects(){try{return JSON.parse(localStorage.getItem(PJ_KEY)||'[]');}catch(e){return[];}}
 function _savePJStore(arr){try{localStorage.setItem(PJ_KEY,JSON.stringify(arr));}catch(e){console.error('Projects save error:',e);}}
 function showSaveInput(){
@@ -1890,6 +1903,7 @@ function renderProjectsModal(){
       <button class="pj-del" onclick="if(confirm('${T('projDel')}?'))deleteProject('${p.id}')">${T('projDel')}</button>
     </div></div>`).join('')+'</div>';
 }
+
 
 // ══ VISTA 3D ISOMÉTRICA ═══════════════════════════════════════
 function drawISO(){
@@ -2043,6 +2057,7 @@ function drawISO(){
   document.getElementById('isosvg').innerHTML=svg;
 }
 
+
 // ══ VISTA CAD WIREFRAME ════════════════════════════════════════
 function drawISOWF(){
   const sp=MODELS[M];if(!sp)return;
@@ -2160,6 +2175,7 @@ function drawISOWF(){
   document.getElementById('isowfsvg').innerHTML=svg;
 }
 
+
 // ══ COMPARADOR DE MODELOS ═════════════════════════════════════
 function drawComparator(){
   const W=720,colX=140,rH=34,rStart=88;
@@ -2225,6 +2241,7 @@ function drawComparator(){
   });
   document.getElementById('cmpsvg').innerHTML=svg;
 }
+
 
 // ══ TOAST ═════════════════════════════════════════════════════
 function showToast(msg,dur){
@@ -2314,6 +2331,7 @@ const PRESETS={
   mix3: {m:'sbtl8000',l:[{pgIdx:0,lfIdx:0},{pgIdx:1,lfIdx:0},{pgIdx:0,lfIdx:0}]},
   xl2:  {m:'sbtl8000',l:[{pgIdx:2,lfIdx:0},{pgIdx:2,lfIdx:0}]},
   acc4: {m:'sbtl8000',l:[{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0},{pgIdx:0,lfIdx:0}]},
+
 };
 function applyPreset(key){
   const p=PRESETS[key];if(!p)return;
@@ -2446,6 +2464,7 @@ function exportBOMxls(){
   showToast('XLS exportado ✓');
 }
 
+
 // ══ SITE LENGTH + CABLE ESTIMATE ══════════════════════════════
 function onSiteLenChange(){
   const val=parseFloat(document.getElementById('site-len').value)||0;
@@ -2494,6 +2513,7 @@ function initTabDrag(){
 }
 
 loadFromHash()||autoLoad();ui();drawCAD();_updateCableEst();initTabDrag();
+
 </script>
 </body>
 </html>

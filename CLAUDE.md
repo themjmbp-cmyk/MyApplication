@@ -7,7 +7,7 @@ Repositorio mixto con dos componentes:
 2. **Ejemplos de Agentes Claude** (`agent_api.py`, `agent_sdk.py`) — Demostraciones de la API de Anthropic y el Claude Agent SDK: herramientas, subagentes, hooks, sesiones.
 
 **Stack:** HTML/CSS/JS vanilla, Python 3.11+, `anthropic`, `claude-agent-sdk`, `anyio`.
-**Rama activa:** `claude/check-agent-status-ab8E3`
+**Rama activa:** `claude/add-context-docs-pUJKb`
 
 ---
 
@@ -25,15 +25,41 @@ Repositorio mixto con dos componentes:
 ## Convenciones del Proyecto
 
 ### Git
-- Rama de desarrollo: `claude/check-agent-status-ab8E3`
+- Rama de desarrollo: `claude/add-context-docs-pUJKb`
 - Commits descriptivos (ES o EN) con lista de cambios en el body
 - Nunca push a `main`/`master` sin confirmación del usuario
 
-### HTML (`zkteco_v35_optimized.html`)
-- **Archivo único self-contained** — no crear archivos JS/CSS separados
-- CSS minificado en `<style>` (líneas 3–135)
-- Todo texto visible usa `T('clave')` del objeto `I18N`; los tres idiomas deben tener todas las claves
-- `updateI18nDOM()` gestiona elementos `data-t` y mapa de IDs (línea 409)
+### Código fuente (`src/`)
+- Editar archivos en `src/` → ejecutar `python build.py` para regenerar `zkteco_v35_optimized.html`
+- `src/template.html` — shell HTML con placeholders `/*%%CSS%%*/` y `//%%JS%%`
+- `src/css/main.css` — CSS de la aplicación (200 líneas)
+- `src/js/NN-name.js` — módulos JS en orden numérico, concatenados en ese orden
+
+| Archivo JS | Contenido |
+|------------|-----------|
+| `01-catalog.js` | GAP_MM, MAX_ACC_PER_SIDE, ACC_CAT, helpers |
+| `02-i18n.js` | I18N (5 idiomas), T(), setLang(), updateI18nDOM() |
+| `03-models.js` | pvcSize, MODELS, MK, state vars, model helpers |
+| `04-acc-ui.js` | renderAccBar, renderAccSide, addAcc, removeAcc |
+| `05-app-core.js` | alerts, setPage, autoSave, save/load, export |
+| `06-svg-helpers.js` | tickDim, DV, gnd, makeDefs, drawUG, drawAccPlan/Elev |
+| `07-draw-cad.js` | drawCAD() |
+| `08-draw-wiring.js` | drawWiring() |
+| `09-draw-canal.js` | drawCanal() |
+| `10-draw-ficha.js` | accSideHtml, drawFicha(), drawFichaSVG() |
+| `11-draw-cover.js` | drawCover() |
+| `12-ui.js` | ui() |
+| `13-projects.js` | getProjects, openProjects, modal functions |
+| `14-draw-iso.js` | drawISO() |
+| `15-draw-isowf.js` | drawISOWF() |
+| `16-draw-comp.js` | drawComparator() |
+| `17-utils.js` | showToast, toggleTheme, undo/redo, shareURL |
+| `18-dxf-bom.js` | applyPreset, mirrorConfig, DXF, drawBOM, exportBOM |
+| `19-init.js` | cable est, proj thumbnail, PWA, tab drag-drop, init |
+
+- El HTML final (`zkteco_v35_optimized.html`) sigue siendo self-contained (single-file deployable)
+- Todo texto visible usa `T('clave')` del objeto `I18N`; los 5 idiomas (ES/EN/PT/FR/DE) deben tener todas las claves
+- `updateI18nDOM()` gestiona elementos `data-t` y mapa de IDs (`02-i18n.js`)
 - Espaciado: múltiplos de 4px. Tipografía mínima: 9px etiquetas, 10px contenido
 
 ### Python (`agent_api.py`, `agent_sdk.py`)
@@ -46,7 +72,11 @@ Repositorio mixto con dos componentes:
 
 | Archivo | Descripción | Líneas clave |
 |---------|-------------|--------------|
-| `zkteco_v35_optimized.html` | App CAD completa (single-file) | CSS: 3–135, I18N: 296–405, UI JS: 1218–1245 |
+| `zkteco_v35_optimized.html` | App CAD completa — generada por `build.py` | Editar en `src/` |
+| `src/js/02-i18n.js` | I18N (5 idiomas) + T() + setLang() | 282 líneas |
+| `src/js/03-models.js` | MODELS (4 modelos) + state vars | 26 líneas |
+| `src/js/16-draw-comp.js` | drawComparator() con sección FEATURES | 66 líneas |
+| `build.py` | Ensambla src/ → HTML | ejecutar tras editar src/ |
 | `agent_sdk.py` | Ejemplos Claude Agent SDK | `run_subagent_example()`: línea 35 |
 | `agent_api.py` | Ejemplos Anthropic API directa | — |
 | `/root/.claude/settings.json` | Config global de Claude Code | Permisos y hooks |
@@ -62,7 +92,8 @@ Para tareas >1 archivo o >10 líneas:
 2. SINTETIZAR → consolidar hallazgos, identificar riesgos y dependencias
 3. IMPLEMENTAR → Edit/Write, cambios mínimos sin gold-plating
 4. VERIFICAR → strings traducidos, CSS en 4px, git diff
-5. COMMIT+PUSH → mensaje descriptivo → claude/check-agent-status-ab8E3
+5. BUILD → `python build.py` para regenerar el HTML deployable
+6. COMMIT+PUSH → mensaje descriptivo → claude/add-context-docs-pUJKb
 ```
 
 ---

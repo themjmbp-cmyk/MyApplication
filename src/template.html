@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="lt"><head><meta charset="utf-8"><meta name="theme-color" content="#14304f"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="SpeedGate CAD"><link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22ZKTeco+SpeedGate+CAD%22%2C%22short_name%22%3A%22SpeedGate%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22theme_color%22%3A%22%2314304f%22%2C%22background_color%22%3A%22%231a2a3a%22%7D"><title>ZKTeco SpeedGate CAD v35</title>
+/*%%CSS%%*/
+</style>
+</head>
+<body>
+<div id="w">
+<div class="tb">
+  <span class="logo"><em>ZK</em>Teco</span><span class="vtag">SpeedGate CAD v35</span>
+  <div id="session-banner" style="display:none;align-items:center;gap:5px;padding:3px 10px;background:rgba(42,122,42,.12);border:1px solid rgba(42,122,42,.35);border-radius:6px;margin-left:10px;font-family:monospace;font-size:9px;color:#2a7a2a;white-space:nowrap"></div>
+  <div class="lp">
+    <span style="font-size:10px;font-family:monospace;font-weight:600;opacity:.75;margin-right:5px;padding:2px 7px;border:1px solid var(--br);border-radius:5px;white-space:nowrap;cursor:default" data-t="langLabel">Idioma</span>
+    <button class="lb on" data-lang="es" onclick="setLang('es')">ES</button>
+    <button class="lb" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lb" data-lang="pt" onclick="setLang('pt')">PT</button>
+    <button class="lb" data-lang="fr" onclick="setLang('fr')">FR</button>
+    <button class="lb" data-lang="de" onclick="setLang('de')">DE</button>
+  </div>
+  <button class="theme-btn" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Modo claro/oscuro"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="2.9" y1="2.9" x2="4" y2="4"/><line x1="12" y1="12" x2="13.1" y2="13.1"/><line x1="13.1" y1="2.9" x2="12" y2="4"/><line x1="4" y1="12" x2="2.9" y2="13.1"/></svg></button>
+</div>
+<div class="pt">
+  <button class="ptb on" id="tab-cover" draggable="true" onclick="setPage('cover')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M3 1h7l3 3v11H3z"/><path d="M10 1v3h3"/></svg> <span data-t="tabCover">Portada</span></button>
+  <button class="ptb" id="tab-cad" draggable="true" onclick="setPage('cad')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg> <span data-t="tabCad">Plano CAD</span></button>
+  <button class="ptb" id="tab-ficha" draggable="true" onclick="setPage('ficha')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="2" y="1" width="12" height="14" rx="1"/><line x1="5" y1="5" x2="11" y2="5"/><line x1="5" y1="8" x2="11" y2="8"/><line x1="5" y1="11" x2="9" y2="11"/></svg> <span data-t="tabFicha">Ficha técnica</span></button>
+  <button class="ptb" id="tab-isowf" draggable="true" onclick="setPage('isowf')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M2 10l4-4 3 3 3-4 2 2"/></svg> <span data-t="tabIsoWF">Vista CAD</span></button>
+  <button class="ptb" id="tab-comp" draggable="true" onclick="setPage('comp')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><rect x="1" y="3" width="6" height="10" rx="1"/><rect x="9" y="3" width="6" height="10" rx="1"/><line x1="4" y1="6" x2="4" y2="10"/><line x1="12" y1="6" x2="12" y2="10"/></svg> <span data-t="tabComp">Comparar</span></button>
+  <!-- <button class="ptb" id="tab-wiring" draggable="true" onclick="setPage('wiring')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><circle cx="3" cy="8" r="2"/><circle cx="13" cy="8" r="2"/><path d="M5 8h1.5l1-3h1l1 3H11"/></svg> <span data-t="tabWiring">Cableado</span></button> -->
+  <!-- <button class="ptb" id="tab-canal" draggable="true" onclick="setPage('canal')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><rect x="1" y="10" width="14" height="4" rx="1"/><line x1="4" y1="10" x2="4" y2="6"/><line x1="8" y1="10" x2="8" y2="6"/><line x1="12" y1="10" x2="12" y2="6"/><circle cx="4" cy="5" r="1.5"/><circle cx="8" cy="5" r="1.5"/><circle cx="12" cy="5" r="1.5"/></svg> <span data-t="tabCanal">Canalización</span></button> -->
+  <!-- <button class="ptb" id="tab-iso" draggable="true" onclick="setPage('iso')"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M8 2l6 3.5v5L8 14 2 10.5v-5z"/><path d="M2 5.5l6 3.5 6-3.5M8 9v5"/></svg> <span data-t="tabIso">Vista 3D</span></button> -->
+  <div id="pt-tabs-end" style="flex:1;min-width:8px"></div>
+  <div style="display:flex;align-items:center;gap:4px;padding:0 8px;border-left:1px solid var(--br)">
+    <button class="bf bsv" style="padding:4px 10px;font-size:9.5px" onclick="saveProject()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="btnSave">Guardar</span></button>
+    <button class="bf bld" style="padding:4px 10px;font-size:9.5px" onclick="document.getElementById('fi-load').click()"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="btnLoad">Cargar</span></button>
+    <input type="file" id="fi-load" accept=".json" style="display:none" onchange="loadProject(event)">
+  </div>
+  <button class="ptb" style="border-left:1px solid var(--br);border-radius:0" onclick="openProjects()"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M1 4a1 1 0 011-1h4l2 2h6a1 1 0 011 1v7a1 1 0 01-1 1H2a1 1 0 01-1-1z"/></svg> <span data-t="tabProj">Proyectos</span></button>
+</div>
+<div class="xb">
+  <div class="eg">
+    <button class="be" onclick="exportProject('png')" id="btn-all-png">⬇ PNG</button>
+    <button class="be" onclick="exportProject('svg')" id="btn-all-svg">⬇ SVG</button>
+    <button class="be bdxf" onclick="exportDXF()" id="btn-dxf">⬇ DXF</button>
+    <button class="be bpdf" onclick="exportPDF()" id="btn-pdf">⬇ PDF A3</button>
+  </div>
+</div>
+<div class="pb" id="pbar"><span id="pbar-txt">…</span><div class="pbf"><div class="pbi" id="pbar-inner" style="width:0%"></div></div><span id="pbar-pct" style="font-family:monospace;font-size:9px;color:#7dd87a">0%</span></div>
+<div class="ab" id="alert-bar"><span style="font-size:16px;flex-shrink:0">⚠</span><span class="abody" id="alert-body"></span><span class="abadge" id="alert-badge"></span></div>
+
+<div id="page-cad" style="display:none">
+  <div class="preb" id="preset-bar"><span class="pre-lbl" data-t="presetLbl">Quick:</span><button class="pre-btn" onclick="applyPreset('std2')" data-t="preset_std2">2×660mm</button><button class="pre-btn" onclick="applyPreset('wide1')" data-t="preset_wide1">1×900mm</button><button class="pre-btn" onclick="applyPreset('mix3')" data-t="preset_mix3">660+900+660</button><button class="pre-btn" onclick="applyPreset('xl2')" data-t="preset_xl2">2×1200mm</button><button class="pre-btn" onclick="applyPreset('acc4')" data-t="preset_acc4">4×660mm</button></div>
+  <div class="mb" id="mtabs"></div>
+  <div class="cb">
+    <div class="cg"><div class="cl" id="lbl-lanes">Nº Pasillos</div>
+      <div class="cr"><button class="nb" id="dm" aria-label="Reducir pasillos">−</button><div class="nv" id="nv">2</div><button class="nb" id="ip" aria-label="Añadir pasillo">+</button></div></div>
+    <div class="cg"><div class="cl" id="lbl-limit">Hueco disponible obra</div>
+      <div class="cr"><input class="lf" id="limit-input" type="number" min="0" step="10" placeholder="∞" oninput="onLimitChange()"><span class="lu">mm</span></div></div>
+    <div class="cg"><div class="cl" data-t="siteLenLbl">Long. corredor</div>
+      <div class="cr" style="gap:4px"><input class="lf" id="site-len" type="number" min="0" step="0.5" style="width:56px" placeholder="—" oninput="onSiteLenChange()"><span class="lu">m</span><span id="cable-est"></span></div></div>
+    <div class="cg"><div class="cl" id="lbl-page">Esta página</div>
+      <div class="cr" style="gap:6px"><button class="bpe" onclick="exportPage('cv','svg')">SVG</button><button class="bpe" onclick="exportPage('cv','png')">PNG</button></div></div>
+    <div class="cg"><div class="cl" id="lbl-mirror" data-t="uiMirror">Espejo</div>
+      <div class="cr"><button class="bpe" id="btn-mirror" onclick="mirrorConfig()" title="Intercambiar accesorios izquierda/derecha"><span data-t="btnMirror">↔ Invertir</span></button></div></div>
+    <div class="cg str"><div class="sr" id="sk"></div></div>
+    <div id="undo-panel"></div>
+  </div>
+  <div class="lr" id="lr"></div>
+  <!-- Accessories side configurator -->
+  <div class="acbar">
+    <div class="acbar-inner">
+      <div class="ac-side" id="acc-left-panel">
+        <div class="ac-side-hdr">
+          <span class="ac-dir">◀</span>
+          <span class="ac-side-lbl" data-t="accLeftSide">Lado izquierdo</span>
+        </div>
+        <div class="ac-items" id="acc-left-items"></div>
+        <div class="ac-add-row" id="acc-left-add"></div>
+      </div>
+      <div class="ac-side" id="acc-right-panel">
+        <div class="ac-side-hdr">
+          <span class="ac-side-lbl" data-t="accRightSide">Lado derecho</span>
+          <span class="ac-dir">▶</span>
+        </div>
+        <div class="ac-items" id="acc-right-items"></div>
+        <div class="ac-add-row" id="acc-right-add"></div>
+      </div>
+    </div>
+  </div>
+  <div class="dw"><svg id="cv" viewBox="0 0 720 700" role="img" data-ta="tabCad"></svg></div>
+</div>
+
+<div id="page-wiring" style="display:none">
+  <div class="whb"><div style="font-size:11px;font-weight:600;color:#fff;font-family:monospace" id="w-title">—</div><div id="pvc-badge"></div><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('wsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('wsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="wsvg" viewBox="0 0 720 400" role="img" data-ta="tabWiring"></svg></div>
+</div>
+
+<div id="page-canal" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="canalTitle">Canalización</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('canalsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('canalsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="canalsvg" viewBox="0 0 720 400" role="img" data-ta="tabCanal"></svg></div>
+</div>
+
+<div id="page-ficha" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabFicha">Ficha técnica</span><div style="margin-left:auto;display:flex;gap:6px;align-items:center"><button class="bpe" onclick="exportFicha('svg')">SVG</button><button class="bpe" onclick="exportFicha('png')">PNG</button><span style="width:1px;height:14px;background:rgba(255,255,255,.25);margin:0 2px"></span><button class="bpe" onclick="exportBOM('csv')" id="btn-bom-csv">⬇ CSV</button><button class="bpe" onclick="exportBOMxls()" id="btn-bom-xls" data-t="exportXls">⬇ XLS</button></div></div>
+  <div id="pf"><div class="fo" id="ficha-outer"></div><div id="bom-inline" style="padding:0 12px 16px"></div></div>
+  <div style="position:absolute;left:-9999px"><svg id="ficha-svg" viewBox="0 0 680 800"></svg></div>
+</div>
+
+<div id="page-cover">
+  <div class="cvw">
+    <div class="cvc">
+      <div class="fr"><label id="lbl-client" for="f-client">Cliente</label><input id="f-client" value="Cliente S.A." maxlength="80" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-project" for="f-project">Obra / Proyecto</label><input id="f-project" value="Acceso Principal — Torre Norte" maxlength="80" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-addr" for="f-addr">Dirección</label><input id="f-addr" value="Calle Gran Vía 28, Madrid" maxlength="80" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-ref" for="f-ref">Referencia</label><input id="f-ref" value="ZK-2025-001" maxlength="40" oninput="drawCover()"></div>
+    </div>
+    <div class="cvc">
+      <div class="fr"><label id="lbl-author" for="f-author">Elaborado por</label><input id="f-author" value="Ingeniería ZKTeco España" maxlength="60" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-revby" for="f-rev">Revisado por</label><input id="f-rev" value="" maxlength="60" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-date" for="f-date">Fecha</label><input id="f-date" type="date" oninput="drawCover()"></div>
+      <div class="fr"><label id="lbl-version" for="f-version">Revisión</label><input id="f-version" value="Rev. A" maxlength="20" oninput="drawCover()"></div>
+    </div>
+  </div>
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabCover">Portada</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('covsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('covsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="covsvg" viewBox="0 0 720 560" role="img" data-ta="tabCover"></svg></div>
+</div>
+
+<div id="page-iso" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabIso">Vista 3D</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('isosvg','svg')">SVG</button><button class="bpe" onclick="exportPage('isosvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="isosvg" viewBox="0 0 720 480" role="img" data-ta="tabIso"></svg></div>
+</div>
+
+<div id="page-isowf" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabIsoWF">Vista CAD</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('isowfsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('isowfsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="isowfsvg" viewBox="0 0 720 480" role="img" data-ta="tabIsoWF"></svg></div>
+</div>
+
+<div id="page-comp" style="display:none">
+  <div class="whb"><span style="font-size:10px;font-weight:600;color:#fff;font-family:monospace" data-t="tabComp">Comparar</span><div style="margin-left:auto;display:flex;gap:6px"><button class="bpe" onclick="exportPage('cmpsvg','svg')">SVG</button><button class="bpe" onclick="exportPage('cmpsvg','png')">PNG</button></div></div>
+  <div class="dw"><svg id="cmpsvg" viewBox="0 0 720 800" role="img" data-ta="tabComp"></svg></div>
+</div>
+
+
+<!-- Modal Mis Proyectos -->
+<div id="proj-modal" class="modal-ov" style="display:none" onclick="if(event.target===this)closeProjects()">
+  <div class="modal-box">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+      <h2 data-t="projTitle">Mis Proyectos</h2>
+      <button onclick="closeProjects()" style="background:none;border:none;color:var(--t2);font-size:22px;cursor:pointer;line-height:1;padding:0 4px;transition:color .1s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color=''">×</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;align-items:center" id="pj-save-row">
+      <button class="bf bsv" style="font-size:10px;padding:5px 14px" onclick="showSaveInput()"><svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0" aria-hidden="true" focusable="false"><path d="M13 13H3a1 1 0 01-1-1V4l3-3h8a1 1 0 011 1v10a1 1 0 01-1 1z"/><rect x="5" y="9" width="6" height="4"/><rect x="5" y="1" width="5" height="3"/></svg> <span data-t="projSave">Guardar proyecto actual</span></button>
+      <div id="pj-name-row" style="display:none;align-items:center;gap:6px;flex:1;min-width:220px">
+        <input id="pj-name-inp" type="text" placeholder="Nombre del proyecto" style="flex:1;padding:5px 10px;border:1.5px solid rgba(125,216,122,.5);border-radius:6px;background:rgba(0,0,0,.3);color:#fff;font-family:monospace;font-size:11px;min-width:120px" onkeydown="if(event.key==='Enter')confirmSaveToProjects();if(event.key==='Escape')hideSaveInput()">
+        <button class="bf bsv" style="font-size:10px;padding:4px 12px" onclick="confirmSaveToProjects()">✓</button>
+        <button style="background:none;border:none;color:var(--t2);font-size:18px;cursor:pointer;padding:0 4px;line-height:1" onclick="hideSaveInput()">×</button>
+      </div>
+    </div>
+    <div id="proj-list"></div>
+  </div>
+</div>
+</div>
+
+<script>
+//%%JS%%
+</script>
+</body>
+</html>
